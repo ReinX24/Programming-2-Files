@@ -4,6 +4,7 @@ public class HelloWorld {
       // Ctrl + B to compile
       // Ctrl + R to run
       System.out.println("Hello, World!");
+      System.out.println("Programming in Java using jGRASP!");
    }
 
 }
