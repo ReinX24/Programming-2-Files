@@ -13,6 +13,8 @@ public class AskNameAndAge {
       int userAge = userInput.nextInt();
       // Printing userName & userAge
       System.out.printf("[Name\t:\t%s]\n[Age\t:\t%d]\n", userName, userAge);
+      // Closing our Scanner object (userInput)
+      userInput.close();
       
    }
 
