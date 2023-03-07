@@ -5,3 +5,6 @@
 
 #### 02/21/23 🔧
 - Testing & Configuring jGRASP
+
+#### 03/07/23 📝
+- Practicing User Input (Scanner Class)
