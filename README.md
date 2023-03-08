@@ -8,3 +8,8 @@
 
 #### 03/07/23 📝
 - Practicing User Input (Scanner Class)
+
+#### 03/08/23 💯
+- GradeCalculator Lab Activity (Main Activity)
+- AskUserInfo Activity (Added Activity)
+- Hello, World! (Testing Purposes)
