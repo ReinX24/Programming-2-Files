@@ -51,7 +51,7 @@ public class LabExamLoopArray {
       }
       
       // Finding the second highest value
-      int secondMaxNum = Integer.MIN_VALUE; // start from the highest Integer value
+      int secondMaxNum = Integer.MIN_VALUE; // start from the smallest Integer value
       for (int i = 0; i < numArr.length; i++) {
          if (numArr[i] < maxNum && numArr[i] > secondMaxNum) {
             secondMaxNum = numArr[i];
@@ -68,7 +68,7 @@ public class LabExamLoopArray {
          averageNum += numArr[i];
       }
       
-      // Printing the average
+      // Calculating and printing the average
       averageNum /= numArr.length;
       System.out.println("The average of the 10 values is: " + averageNum);
       
@@ -80,10 +80,10 @@ public class LabExamLoopArray {
          }
       }
       
-      // Printing the lowest value
+      // Printing the lowest value in the array
       System.out.println("The lowest value is: " + lowestValue);
       
-      // Printing the highest value
+      // Printing the highest value in the array
       System.out.println("The highest value is: " + maxNum);
       
       // Finding the quotient of the highest and lowest value
