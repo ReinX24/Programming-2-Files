@@ -17,3 +17,8 @@
 #### 03/29/23 🔢
 - 10 Numbers Lab Activity
 - Reverse String Activity
+
+#### 04/04/23 1F382
+- JOptionPane Hello, World!
+- JOptionPane AskNameAndCake
+- JOptionPane AskAgeAndMoney
