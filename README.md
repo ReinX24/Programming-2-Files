@@ -23,6 +23,6 @@
 - JOptionPane AskNameAndCake
 - JOptionPane AskAgeAndMoney
 
-#### 04/08/23
+#### 04/08/23 📝
 - JOptionPane AskNameAndAge (Personal Practice)
 - JOptionPane GradeCalculator (Personal Practice)
