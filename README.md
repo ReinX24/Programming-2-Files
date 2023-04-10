@@ -26,7 +26,5 @@
 #### 04/08/23 📝
 - JOptionPane AskNameAndAge (Personal Practice)
 - JOptionPane GradeCalculator (Personal Practice)
-<<<<<<< HEAD
 - JOptionPane AskTenNumbers (Personal Practice)
-=======
->>>>>>> 182d7db9ca7db240ebccdbc31790f93154d8f0c6
+
