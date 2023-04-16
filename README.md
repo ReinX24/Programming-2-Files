@@ -28,3 +28,9 @@
 - JOptionPane GradeCalculator (Personal Practice)
 - JOptionPane AskTenNumbers (Personal Practice)
 
+#### 04/11/23 📋
+- JTextField and JButton Activity
+
+#### 4/12/23 🍕
+- 13 Components Lab Activity
+- Button Clicked Program
