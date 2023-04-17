@@ -41,3 +41,4 @@
 - AskNameAgePractice (Personal Practice)
 - AskNameAndLike (Personal Practice)
 - AskNamePractice (Personal Practice)
+- BMICalculator (Personal Practice)
