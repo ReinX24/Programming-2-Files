@@ -8,7 +8,7 @@ public class BMICalculator {
    
       JOptionPane.showMessageDialog(null, "[BMI Calculator]");
    
-      while (userChoice == JOptionPane.YES_OPTION || userChoice != JOptionPane.CANCEL_OPTION) {
+      while (userChoice != JOptionPane.CANCEL_OPTION) {
       
          String userName = JOptionPane.showInputDialog(null, "Enter your name");
       
@@ -36,13 +36,24 @@ public class BMICalculator {
                
                userBMI = (double) Math.round(userBMI * 100) / 100;
                
+               String userStatus = "";
+               
+               if (userBMI < 18.5) {
+                  userStatus = "Underweight";
+               } else if (userBMI >= 18.5 && userBMI <= 24.9) {
+                  userStatus = "Healthy";
+               } else if (userBMI >= 25.0 && userBMI <= 29.9) {
+                  userStatus = "Overweight";
+               } else if (userBMI >= 30.0) {
+                  userStatus = "Obese";
+               }
+               
                JOptionPane.showMessageDialog(null, "[User Information]" 
                + "\nName: " + userName 
                + "\nHeight: " + heightStr + " m" 
                + "\nWeight: " + weightStr + " kg"
-               + "\n\n BMI: " + userBMI);
-               
-               // TODO: Add different BMI categories
+               + "\n\n BMI: " + userBMI 
+               + "\nStatus: " + userStatus);
                
             break;
             
