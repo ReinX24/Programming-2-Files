@@ -19,9 +19,21 @@ public class FormFrame extends JFrame implements ActionListener {
    JRadioButton femaleButton;
 
    JLabel birthLabel;
-   JComboBox monthBox;
-   JComboBox dayBox;
-   JComboBox yearBox;
+   JComboBox<String> monthBox;
+   JComboBox<Integer> dayBox;
+   JComboBox<Integer> yearBox;
+
+   JLabel addressLabel;
+   JTextArea addressArea;
+
+   JCheckBox termsAndConditionsBox;
+
+   JButton submitButton;
+   JButton resetButton;
+
+   JLabel statusLabel;
+
+   JTextArea infoArea;
 
    FormFrame() {
 
@@ -58,7 +70,7 @@ public class FormFrame extends JFrame implements ActionListener {
       mainPanel.add(nameLabel);
 
       nameField = new JTextField();
-      nameField.setBounds(125, 100, 250, 30);
+      nameField.setBounds(125, 100, 275, 30);
 
       mainPanel.add(nameField);
 
@@ -70,7 +82,7 @@ public class FormFrame extends JFrame implements ActionListener {
       mainPanel.add(mobileLabel);
 
       mobileField = new JTextField();
-      mobileField.setBounds(125, 150, 250, 30);
+      mobileField.setBounds(125, 150, 275, 30);
 
       mainPanel.add(mobileField);
 
@@ -90,6 +102,7 @@ public class FormFrame extends JFrame implements ActionListener {
       maleButton.setForeground(Color.WHITE);
       maleButton.setBounds(150, 200, 100, 30);
       maleButton.setFocusable(false);
+      maleButton.setSelected(true); // male by default
 
       genderButtonGroup.add(maleButton);
 
@@ -128,11 +141,84 @@ public class FormFrame extends JFrame implements ActionListener {
       }
 
       dayBox = new JComboBox<Integer>(dayArr);
-      dayBox.setBounds(290, 250, 50, 30);
-
-      // TODO: finish other components
+      dayBox.setBounds(280, 250, 50, 30);
 
       mainPanel.add(dayBox);
+
+      Integer[] yearArr = new Integer[100];
+      Integer yearNum = 1923;
+      for (int i = 0; i < 100; i++) {
+         yearArr[i] = yearNum;
+         yearNum++;
+      }
+
+      yearBox = new JComboBox<Integer>(yearArr);
+      yearBox.setBounds(330, 250, 70, 30);
+
+      mainPanel.add(yearBox);
+
+      // Adding address label and jtextarea
+      addressLabel = new JLabel("Address");
+      addressLabel.setBounds(50, 300, 80, 30);
+      addressLabel.setForeground(Color.WHITE);
+      addressLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+      mainPanel.add(addressLabel);
+
+      addressArea = new JTextArea();
+      addressArea.setLineWrap(true);
+      addressArea.setBounds(150, 300, 250, 100);
+
+      mainPanel.add(addressArea);
+
+      termsAndConditionsBox = new JCheckBox("Accept Terms and Conditions");
+      termsAndConditionsBox.setBounds(100, 410, 300, 50);
+      termsAndConditionsBox.setFont(new Font("Arial", Font.BOLD, 16));
+      termsAndConditionsBox.setOpaque(true);
+      termsAndConditionsBox.setBackground(new Color(0, 128, 128));
+      termsAndConditionsBox.setForeground(Color.WHITE);
+      termsAndConditionsBox.setFocusable(false);
+
+      mainPanel.add(termsAndConditionsBox);
+
+      // Submit and Reset buttons
+      submitButton = new JButton("Submit");
+      submitButton.setHorizontalAlignment(JButton.CENTER);
+      submitButton.setFocusable(false);
+      submitButton.setBounds(50, 460, 160, 50);
+      submitButton.addActionListener(this);
+
+      mainPanel.add(submitButton);
+
+      resetButton = new JButton("Reset");
+      resetButton.setHorizontalAlignment(JButton.CENTER);
+      resetButton.setFocusable(false);
+      resetButton.setBounds(240, 460, 160, 50);
+      resetButton.addActionListener(this);
+
+      mainPanel.add(resetButton);
+
+      // Adding a registration status label
+      statusLabel = new JLabel("");
+      statusLabel.setVisible(true);
+      statusLabel.setOpaque(true);
+      statusLabel.setBackground(Color.WHITE);
+      statusLabel.setForeground(Color.BLACK);
+      statusLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      statusLabel.setBounds(50, 520, 350, 40);
+      statusLabel.setHorizontalAlignment(JLabel.CENTER);
+
+      mainPanel.add(statusLabel);
+
+      // infoArea, where all of the user's info will be stored
+      infoArea = new JTextArea();
+      infoArea.setLineWrap(true);
+      infoArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      infoArea.setFont(new Font("Arial", Font.PLAIN, 12));
+      infoArea.setBounds(500, 100, 350, 460);
+      infoArea.setEditable(false);
+
+      mainPanel.add(infoArea);
 
       this.add(mainPanel);
       this.pack(); // we pack our JFrame before setting it to visible
@@ -142,6 +228,67 @@ public class FormFrame extends JFrame implements ActionListener {
    }
 
    public void actionPerformed(ActionEvent arg0) {
+
+      if (arg0.getSource() == submitButton) {
+
+         if (checkInfo()) {
+            JOptionPane.showMessageDialog(null, "Information Verified!", "[Regisration Success Message]",
+                  JOptionPane.INFORMATION_MESSAGE);
+
+            statusLabel.setText("Registration Successful!");
+
+            // Adding the user's info in the userInfo JTextArea
+            String userGender = maleButton.isSelected() ? "Male" : "Female";
+            String userInfo = "";
+
+            userInfo += "\nName: " + nameField.getText();
+            userInfo += "\nMobile Number: " + mobileField.getText();
+            userInfo += "\nGender: " + userGender;
+            userInfo += "\nDate Of Birth: " + monthBox.getSelectedItem() + " / " + dayBox.getSelectedItem() + " / "
+                  + yearBox.getSelectedItem();
+            userInfo += "\nAddress: " + addressArea.getText();
+
+            infoArea.setText(userInfo);
+
+         } else {
+            // TODO: debug message, should show when terms and conditions not selected
+            JOptionPane.showMessageDialog(null, "Please Check Terms and Conditions!",
+                  "[Terms And Conditions Not Selected]",
+                  JOptionPane.WARNING_MESSAGE);
+         }
+
+      } else if (arg0.getSource() == resetButton) {
+            // TODO: implement confirmation dialog, userChoice
+         int userChoice = JOptionPane.showConfirmDialog(null, "Reset Registration Form?",
+               "[Reset Confirmation Message]", JOptionPane.QUESTION_MESSAGE);
+         clearAll();
+
+      }
+
+   }
+
+   public boolean checkInfo() {
+
+      if (termsAndConditionsBox.isSelected()) {
+         return true;
+      }
+      return false;
+   }
+
+   public void clearAll() {
+
+      // Clears all fields and resets to defaults
+      nameField.setText("");
+      mobileField.setText("");
+      maleButton.setSelected(true);
+      femaleButton.setSelected(false);
+      monthBox.setSelectedIndex(0);
+      dayBox.setSelectedIndex(0);
+      yearBox.setSelectedIndex(0);
+      addressArea.setText("");
+      termsAndConditionsBox.setSelected(false);
+      statusLabel.setText("");
+      infoArea.setText("");
 
    }
 
