@@ -232,6 +232,7 @@ public class FormFrame extends JFrame implements ActionListener {
       if (arg0.getSource() == submitButton) {
 
          if (checkInfo()) {
+
             JOptionPane.showMessageDialog(null, "Information Verified!", "[Regisration Success Message]",
                   JOptionPane.INFORMATION_MESSAGE);
 
@@ -251,17 +252,21 @@ public class FormFrame extends JFrame implements ActionListener {
             infoArea.setText(userInfo);
 
          } else {
-            // TODO: debug message, should show when terms and conditions not selected
+
             JOptionPane.showMessageDialog(null, "Please Check Terms and Conditions!",
                   "[Terms And Conditions Not Selected]",
                   JOptionPane.WARNING_MESSAGE);
+
          }
 
       } else if (arg0.getSource() == resetButton) {
-            // TODO: implement confirmation dialog, userChoice
-         int userChoice = JOptionPane.showConfirmDialog(null, "Reset Registration Form?",
-               "[Reset Confirmation Message]", JOptionPane.QUESTION_MESSAGE);
-         clearAll();
+
+         int userChoice = JOptionPane.showConfirmDialog(null, "Reset Information?", "[Reset Message]",
+               JOptionPane.YES_NO_CANCEL_OPTION);
+
+         if (userChoice == JOptionPane.YES_OPTION) {
+            clearAll();
+         }
 
       }
 

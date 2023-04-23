@@ -42,3 +42,6 @@
 - AskNameAndLike (Personal Practice)
 - AskNamePractice (Personal Practice)
 - BMICalculator (Personal Practice)
+
+#### 4/21/23 📝
+- Simple User Registration Form (Java Swing - Personal Exercise)
