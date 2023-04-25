@@ -45,3 +45,5 @@
 
 #### 4/21/23 📝
 - Simple User Registration Form (Java Swing - Personal Exercise)
+- Login Form (Java Swing - Personal Exercise)
+- Ask Name and Welcome Message (Java Swing - Midterm Quiz)
