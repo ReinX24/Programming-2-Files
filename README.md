@@ -31,11 +31,11 @@
 #### 04/11/23 📋
 - JTextField and JButton Activity
 
-#### 4/12/23 🍕
+#### 04/12/23 🍕
 - 13 Components Lab Activity
 - Button Clicked Program
 
-#### 4/16/23 📚
+#### 04/16/23 📚
 - AskAgeLegal (Personal Practice)
 - AskHeightAndWeight (Personal Practice)
 - AskNameAgePractice (Personal Practice)
@@ -43,14 +43,17 @@
 - AskNamePractice (Personal Practice)
 - BMICalculator (Personal Practice)
 
-#### 4/21/23 📝
+#### 04/21/23 📝
 - Simple User Registration Form (Java Swing - Personal Exercise)
 - Login Form (Java Swing - Personal Exercise)
 - Ask Name and Welcome Message (Java Swing - Midterm Quiz)
 
-#### 4/26/23 📝
+#### 04/26/23 📝
 - AskUserDetails Program (Java Swing, JOptionPane - Lab Exam)
 - AskBirthdayAge (Java Swing, Lab Handout)
 - AskNamePrint (Java Swing, Lab Handout)
 - HelloWorldButton (Java Swing, Lab Handout)
 - AskNameAge (Java Swing, Lab Handout)
+
+#### 05/02/23 🧮
+- CalculatorApp (Personal Practice)
