@@ -28,20 +28,22 @@ public class CalculatorApp implements ActionListener {
    // Constructor of our class
    public CalculatorApp() {
 
-      mainFrame = new JFrame("[Calculator App Practice]");
-      mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      mainFrame.setSize(500, 600);
-      mainFrame.setLayout(null);
+      // Creating the JFrame for our class
+      mainFrame = new JFrame("[Calculator App Practice]"); // creating JFrame with title
+      mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // makes sure program terminates when JFrame is closed
+      mainFrame.setSize(500, 600); // size of our JFrame
+      mainFrame.setLayout(null); // null layout manager
 
+      // Creating our JTextField, where our numbers will show
       mainField = new JTextField();
-      mainField.setEditable(false);
-      mainField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      mainField.setFont(customFont);
-      mainField.setBounds(50, 25, 400, 100);
+      mainField.setEditable(false); // cannot be edited by the user directly
+      mainField.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // border color
+      mainField.setFont(customFont); // setting font of our JTextField
+      mainField.setBounds(50, 25, 400, 100); // setting location and size of our JTextField
 
-      mainFrame.add(mainField);
+      mainFrame.add(mainField); // adding our JTextField to our mainFrame
 
-      // Creating our JButtons
+      // Creating our JButtons with text within the JButtons
       addButton = new JButton("+");
       subButton = new JButton("-");
       mulButton = new JButton("*");
@@ -66,11 +68,11 @@ public class CalculatorApp implements ActionListener {
       // Adding ActionListeners & more to each of our JButtons
       for (int i = 0; i < functionButtons.length; i++) {
          functionButtons[i].addActionListener(this);
-         functionButtons[i].setFocusable(false);
+         functionButtons[i].setFocusable(false); // setFocusable to make JButton look cleaner
          functionButtons[i].setFont(customFont);
       }
 
-      // Filling in our numberButtons
+      // Filling in our numberButtons, adding numbers from 0 to 9
       for (int i = 0; i < numberButtons.length; i++) {
          numberButtons[i] = new JButton(String.valueOf(i));
          numberButtons[i].addActionListener(this);
@@ -79,9 +81,9 @@ public class CalculatorApp implements ActionListener {
       }
 
       // Adding negButton, delButton, and clrButton at the bottom of our mainFrame
-      negButton.setBounds(50, 500, 100, 50);
-      delButton.setBounds(160, 500, 100, 50);
-      clrButton.setBounds(270, 500, 100, 50);
+      negButton.setBounds(50, 480, 100, 50);
+      delButton.setBounds(160, 480, 100, 50);
+      clrButton.setBounds(270, 480, 100, 50);
 
       mainFrame.add(negButton);
       mainFrame.add(delButton);
@@ -89,7 +91,7 @@ public class CalculatorApp implements ActionListener {
 
       // Creating our buttonsPanel
       buttonsPanel = new JPanel();
-      buttonsPanel.setLayout(new GridLayout(4, 4, 10, 10));
+      buttonsPanel.setLayout(new GridLayout(4, 4, 10, 10)); // 4 rows, 4 columns, 10 column gap, 10 row gap
       buttonsPanel.setBounds(50, 150, 400, 300);
 
       // Adding buttons to our buttonsPanel
@@ -112,26 +114,27 @@ public class CalculatorApp implements ActionListener {
 
       mainFrame.add(buttonsPanel);
 
-      mainFrame.setLocationRelativeTo(null);
-      mainFrame.setVisible(true);
+      mainFrame.setLocationRelativeTo(null); // so our JFrame will appear at the center
+      mainFrame.setVisible(true); // make our JFrame visible
 
    }
 
-   @Override // For our buttons
+   @Override // For when our buttons are pressed
    public void actionPerformed(ActionEvent arg0) {
 
       // Checking if the user pressed any of our numberButtons
       for (int i = 0; i < numberButtons.length; i++) {
          if (arg0.getSource() == numberButtons[i]) {
-            mainField.setText(mainField.getText().concat(String.valueOf(i)));
+            // adds the pressed button to our mainField
+            mainField.setText(mainField.getText().concat(String.valueOf(i))); 
          }
       }
 
       // Checking if the user presses +, -, *, or /
       if (arg0.getSource() == addButton) {
-         num1 = Double.parseDouble(mainField.getText());
-         userOperator = '+';
-         mainField.setText("");
+         num1 = Double.parseDouble(mainField.getText()); // store current number in mainField to num1
+         userOperator = '+'; // change our corresponding operator
+         mainField.setText(""); // set mainField text to ""
       }
 
       if (arg0.getSource() == subButton) {
@@ -152,11 +155,13 @@ public class CalculatorApp implements ActionListener {
          mainField.setText("");
       }
 
-      // If the user presses the = operator
+      // If the user presses the = JButton
       if (arg0.getSource() == equButton) {
 
+         // Store the number in our mainField to num2
          num2 = Double.parseDouble(mainField.getText());
 
+         // Check which operator the user has chosen
          switch (userOperator) {
 
             case '+':
@@ -177,8 +182,9 @@ public class CalculatorApp implements ActionListener {
 
          }
 
+         // Set the text in mainField to numResult
          mainField.setText(String.valueOf(numResult));
-         num1 = numResult;
+         num1 = numResult; // store numResult in numOne for future use
 
       }
 
