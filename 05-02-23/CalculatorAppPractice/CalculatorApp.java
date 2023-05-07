@@ -4,6 +4,14 @@ import java.awt.event.*;
 
 public class CalculatorApp implements ActionListener {
 
+   /*
+    * Presentation Flow
+    * Introduction : Rein
+    * Imports, Variables, and main Method : Jhuvan
+    * CalculatorApp Constructor : Wayne, Breand, Raduel
+    * Q&A : Rein
+    */
+
    // Variables that we will be using in our program
    JFrame mainFrame; // for holding our program's components
    JTextField mainField; // where we will show our numbers and results
@@ -126,7 +134,7 @@ public class CalculatorApp implements ActionListener {
       for (int i = 0; i < numberButtons.length; i++) {
          if (arg0.getSource() == numberButtons[i]) {
             // adds the pressed button to our mainField
-            mainField.setText(mainField.getText().concat(String.valueOf(i))); 
+            mainField.setText(mainField.getText().concat(String.valueOf(i)));
          }
       }
 
