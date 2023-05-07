@@ -22,7 +22,10 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton buyButton;
 	JButton exitButton;
 
+	JLabel totalLabel;
 	Double userTotal = 0.0;
+	String userGun;
+	Double userGunPrice;
 
 	final Font customFont = new Font("Arial", Font.BOLD, 18);
 
@@ -36,9 +39,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		weaponPanel = new JPanel();
 		weaponPanel.setPreferredSize(new Dimension(500, 700));
-		weaponPanel.setLayout(new GridLayout(10, 1, 0, 25));
+		weaponPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
 		weaponPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
-		weaponPanel.setOpaque(true);
 		weaponPanel.setBackground(new Color(129, 133, 137, 128)); // r, g, b, alpha value
 
 		exitButton = new JButton("0. CANCEL");
@@ -64,6 +66,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponButtons[9] = exitButton;
 
 		for (int i = 0; i < weaponButtons.length; i++) {
+			weaponButtons[i].setPreferredSize(new Dimension(400, 40));
+
 			weaponButtons[i].addActionListener(this);
 			weaponButtons[i].setHorizontalAlignment(JButton.LEFT);
 			weaponButtons[i].setFocusable(false);
@@ -75,11 +79,22 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		this.add(weaponPanel);
 
-		// TODO: add components to pricePanel, JTextArea?
 		pricePanel = new JPanel();
 		pricePanel.setPreferredSize(new Dimension(500, 700));
 		pricePanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+		pricePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 45));
+		pricePanel.setBackground(new Color(129, 133, 137, 128));
 
+		// TODO : figure out how to add text in JLabel properly
+		totalLabel = new JLabel("TOTAL:");
+		totalLabel.setPreferredSize(new Dimension(450, 600));
+		totalLabel.setVerticalAlignment(JLabel.TOP);
+		totalLabel.setOpaque(true);
+		totalLabel.setFont(customFont);
+		totalLabel.setBackground(new Color(129, 133, 137, 255));
+		totalLabel.setForeground(new Color(255, 195, 0));
+
+		pricePanel.add(totalLabel);
 		this.add(pricePanel);
 
 		this.pack();
@@ -93,9 +108,16 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		// TODO: add each weapon menus' JFrames
 		if (arg0.getSource() == pistolButton) {
+
 			System.out.println("PISTOL!");
-			PistolMenu pMenu = new PistolMenu();
-			userTotal = pMenu.returnResult();
+			// PistolMenu pMenu = new PistolMenu();
+			// userTotal += pMenu.returnResult();
+			// userGun = pMenu.returnPistolModel();
+			// userGunPrice = pMenu.returnResult();
+			// totalArea.setText(totalArea.getText().concat(userGun + " : " + userGunPrice +
+			// "\n"));
+
+
 		} else if (arg0.getSource() == shotgunButton) {
 			System.out.println("SHOTGUN!");
 		} else if (arg0.getSource() == smgButton) {
