@@ -9,7 +9,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JPanel weaponPanel;
 	JPanel pricePanel;
 
-	JButton[] weaponButtons = new JButton[8];
+	JButton[] weaponButtons = new JButton[10];
 
 	JButton pistolButton;
 	JButton shotgunButton;
@@ -18,7 +18,11 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton lmgButton;
 	JButton ammoButton;
 	JButton equipmentButton;
+	JButton aboutButton;
+	JButton buyButton;
 	JButton exitButton;
+
+	Double userTotal = 0.0;
 
 	final Font customFont = new Font("Arial", Font.BOLD, 18);
 
@@ -32,12 +36,13 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		weaponPanel = new JPanel();
 		weaponPanel.setPreferredSize(new Dimension(500, 700));
-		weaponPanel.setLayout(new GridLayout(8, 1, 0, 25));
+		weaponPanel.setLayout(new GridLayout(10, 1, 0, 25));
 		weaponPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
 		weaponPanel.setOpaque(true);
 		weaponPanel.setBackground(new Color(129, 133, 137, 128)); // r, g, b, alpha value
 
 		exitButton = new JButton("0. CANCEL");
+		buyButton = new JButton("9. BUY");
 		pistolButton = new JButton("1. PISTOLS");
 		shotgunButton = new JButton("2. SHOTGUNS");
 		smgButton = new JButton("3. SMGS");
@@ -45,6 +50,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		lmgButton = new JButton("5. LMGS");
 		ammoButton = new JButton("6. AMMO");
 		equipmentButton = new JButton("7. EQUIPMENTS");
+		aboutButton = new JButton("8. ABOUT");
 
 		weaponButtons[0] = pistolButton;
 		weaponButtons[1] = shotgunButton;
@@ -53,7 +59,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponButtons[4] = lmgButton;
 		weaponButtons[5] = ammoButton;
 		weaponButtons[6] = equipmentButton;
-		weaponButtons[7] = exitButton;
+		weaponButtons[7] = aboutButton;
+		weaponButtons[8] = buyButton;
+		weaponButtons[9] = exitButton;
 
 		for (int i = 0; i < weaponButtons.length; i++) {
 			weaponButtons[i].addActionListener(this);
@@ -86,6 +94,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		// TODO: add each weapon menus' JFrames
 		if (arg0.getSource() == pistolButton) {
 			System.out.println("PISTOL!");
+			PistolMenu pMenu = new PistolMenu();
+			userTotal = pMenu.returnResult();
 		} else if (arg0.getSource() == shotgunButton) {
 			System.out.println("SHOTGUN!");
 		} else if (arg0.getSource() == smgButton) {
@@ -98,6 +108,10 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			System.out.println("AMMO!");
 		} else if (arg0.getSource() == equipmentButton) {
 			System.out.println("EQUPMENT!");
+		} else if (arg0.getSource() == aboutButton) {
+			System.out.println("ABOUT!");
+		} else if (arg0.getSource() == buyButton) {
+			System.out.println("BUY!");
 		} else if (arg0.getSource() == exitButton) {
 			this.dispose();
 		}
@@ -112,16 +126,42 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	@Override
 	public void keyReleased(KeyEvent e) {
 
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-
 		switch (e.getKeyChar()) {
 
-			// TODO: add shortcuts for other buttons
 			case '1':
 				pistolButton.doClick();
+				break;
+
+			case '2':
+				shotgunButton.doClick();
+				break;
+
+			case '3':
+				smgButton.doClick();
+				break;
+
+			case '4':
+				rifleButton.doClick();
+				break;
+
+			case '5':
+				lmgButton.doClick();
+				break;
+
+			case '6':
+				ammoButton.doClick();
+				break;
+
+			case '7':
+				equipmentButton.doClick();
+				break;
+
+			case '8':
+				aboutButton.doClick();
+				break;
+
+			case '9':
+				buyButton.doClick();
 				break;
 
 			case '0':
@@ -129,6 +169,12 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				break;
 
 		}
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
 	}
 
 }
