@@ -24,7 +24,6 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener {
     String pistolModel;
     double pistolPrice;
 
-    // TODO: test PistolMenu
     PistolMenu() {
         this.setTitle("Pistol Menu");
         this.setLayout(new GridLayout(1, 2));
@@ -90,6 +89,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener {
         if (e.getSource() == glockButton) {
             pistolModel = "GLOCK 18";
             pistolPrice = 400;
+            this.dispose();
         } else if (e.getSource() == uspButton) {
 
         } else if (e.getSource() == p228Button) {
