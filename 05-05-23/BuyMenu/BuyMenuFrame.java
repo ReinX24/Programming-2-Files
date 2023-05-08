@@ -8,7 +8,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	JPanel weaponPanel;
 	JPanel pricePanel;
-	JPanel weaponOrderPanel;
+	static JPanel weaponOrderPanel;
 	JPanel totalPanel;
 
 	JButton[] weaponButtons = new JButton[10];
@@ -29,7 +29,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	String userGun;
 	Double userGunPrice;
 
-	final Font customFont = new Font("Arial", Font.BOLD, 18);
+	final static Font customFont = new Font("Arial", Font.BOLD, 14);
 
 	public BuyMenuFrame() {
 
@@ -89,6 +89,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponOrderPanel = new JPanel();
 		weaponOrderPanel.setPreferredSize(new Dimension(400, 450));
 		weaponOrderPanel.setBackground(new Color(129, 133, 137, 255));
+		weaponOrderPanel.setBorder(new EmptyBorder(25, 25, 25, 25));
+		weaponOrderPanel.setLayout(new GridLayout(10, 1));
 
 		pricePanel.add(weaponOrderPanel);
 
@@ -97,7 +99,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		totalPanel.setPreferredSize(new Dimension(400, 85));
 		totalPanel.setLayout(new BorderLayout());
 
-		totalLabel = new JLabel("TOTAL: ");
+		totalLabel = new JLabel("TOTAL: $");
 		totalLabel.setFont(customFont);
 		totalLabel.setForeground(new Color(255, 195, 0));
 		totalLabel.setBorder(new EmptyBorder(0, 25, 0, 0));
@@ -121,10 +123,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		if (arg0.getSource() == pistolButton) {
 
-			// TODO: debug and check for any errors
 			System.out.println("PISTOL!");
-			PistolMenuTest testOne = new PistolMenuTest();
-			testOne.PistolMenu();
+			new PistolMenu();
 
 		} else if (arg0.getSource() == shotgunButton) {
 			System.out.println("SHOTGUN!");
@@ -209,7 +209,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 }
 
-class PistolMenuTest extends JFrame implements ActionListener, KeyListener {
+class PistolMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
 	JPanel pistolPanel;
 	JPanel descPanel;
@@ -224,13 +224,13 @@ class PistolMenuTest extends JFrame implements ActionListener, KeyListener {
 
 	JButton[] pistolArray = new JButton[7];
 
-	final Font customFont = new Font("Arial", Font.BOLD, 18);
+	JLabel pistolOrderLabel;
 
-	String pistolModel;
-	double pistolPrice;
+	ImageIcon pistolIcon;
+	JLabel pistolIconLabel;
 
 	// TODO: test PistolMenu
-	void PistolMenu() {
+	PistolMenu() {
 		this.setTitle("Pistol Menu");
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
@@ -266,7 +266,9 @@ class PistolMenuTest extends JFrame implements ActionListener, KeyListener {
 			pistolArray[i].setFocusable(false);
 			pistolArray[i].setBackground(new Color(129, 133, 137, 255));
 			pistolArray[i].setForeground(new Color(255, 195, 0));
-			pistolArray[i].setFont(customFont);
+			pistolArray[i].setFont(BuyMenuFrame.customFont);
+			pistolArray[i].addMouseListener(this);
+
 			pistolPanel.add(pistolArray[i]);
 		}
 
@@ -274,6 +276,12 @@ class PistolMenuTest extends JFrame implements ActionListener, KeyListener {
 
 		descPanel = new JPanel();
 		descPanel.setPreferredSize(new Dimension(500, 700));
+		descPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+
+		pistolIcon = new ImageIcon();
+		pistolIconLabel = new JLabel(pistolIcon);
+		pistolIconLabel.setBorder(BorderFactory.createLineBorder(Color.RED));
+		descPanel.add(pistolIconLabel);
 
 		this.add(descPanel);
 
@@ -282,37 +290,34 @@ class PistolMenuTest extends JFrame implements ActionListener, KeyListener {
 		this.setVisible(true);
 	}
 
-	public Double returnResult() {
-		return pistolPrice;
-	}
-
-	public String returnPistolModel() {
-		return pistolModel;
-	}
-
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == glockButton) {
-			// TODO : look more into how to implement this
-			pistolModel = "GLOCK 18";
-			pistolPrice = 400;
-			BuyMenuFrame.userTotal += 400;
-			BuyMenuFrame.totalLabel.setText("Total: " + BuyMenuFrame.userTotal);
-			this.dispose();
+			pistolOrder("GLOCK", 400.0);
 		} else if (e.getSource() == uspButton) {
-
+			pistolOrder("USP TACTICAL", 500.0);
 		} else if (e.getSource() == p228Button) {
-
+			pistolOrder("P228", 600.0);
 		} else if (e.getSource() == deagleButton) {
-
+			pistolOrder("DESERT EAGLE", 650.0);
 		} else if (e.getSource() == fiveSevenButton) {
-
+			pistolOrder("FN FIVE-SEVEN", 750.0);
 		} else if (e.getSource() == dualEliteButton) {
-
+			pistolOrder("DUAL 96G ELITE BERETTAS", 800.0);
 		} else if (e.getSource() == exitButton) {
 			this.dispose();
 		}
 
+	}
+
+	public void pistolOrder(String gunModel, Double gunPrice) {
+		BuyMenuFrame.userTotal += gunPrice;
+		pistolOrderLabel = new JLabel(gunModel + " : $" + gunPrice);
+		pistolOrderLabel.setFont(BuyMenuFrame.customFont);
+		pistolOrderLabel.setForeground(new Color(255, 195, 0));
+		BuyMenuFrame.weaponOrderPanel.add(pistolOrderLabel);
+		BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
+		this.dispose();
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -357,6 +362,41 @@ class PistolMenuTest extends JFrame implements ActionListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	// TODO: add each photo for each image in PistolMenu
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (e.getComponent() == glockButton) {
+			System.out.println("Test");
+			pistolIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
+			pistolIconLabel.setIcon(pistolIcon);
+
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (e.getComponent() == glockButton) {
+			pistolIcon = new ImageIcon();
+			pistolIconLabel.setIcon(pistolIcon);
+		}
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 
 	}
 
