@@ -377,7 +377,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			if (e.getComponent() == glockButton) {
-				// TODO: create a method for this to be used universally	
+				// TODO: create a method for this to be used by other buttons
 				pistolIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
 				pistolIconLabel.setIcon(pistolIcon);
 				pistolIconLabel.setText("GLOCK : $400");
