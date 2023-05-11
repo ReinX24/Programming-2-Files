@@ -57,3 +57,10 @@
 
 #### 05/02/23 🧮
 - CalculatorApp (Personal Practice)
+
+#### 05/05/23 🌡️
+- Temperature Converter (Peronal Project)
+- BuyMenu (In Production)
+
+#### 05/10/23 🏓
+- Pong Game (In Production)
