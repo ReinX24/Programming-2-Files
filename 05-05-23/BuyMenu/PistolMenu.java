@@ -27,6 +27,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     // TODO: test PistolMenu
     PistolMenu() {
         this.setTitle("Pistol Menu");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
@@ -72,11 +73,11 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         descPanel = new JPanel();
         descPanel.setPreferredSize(new Dimension(500, 700));
         descPanel.setBackground(new Color(129, 133, 137, 128));
-        descPanel.setBorder(new EmptyBorder(250, 0, 0, 0));
+        descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
         pistolIcon = new ImageIcon();
         pistolIconLabel = new JLabel(pistolIcon);
-        pistolIconLabel.setPreferredSize(new Dimension(400, 200));
+        pistolIconLabel.setPreferredSize(new Dimension(400, 400));
         pistolIconLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
         pistolIconLabel.setOpaque(true);
         pistolIconLabel.setBackground(new Color(129, 133, 137, 255));
@@ -112,6 +113,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     }
 
     public void pistolOrder(String gunModel, Double gunPrice) {
+        // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
         pistolOrderLabel = new JLabel(gunModel + " : $" + gunPrice);
         pistolOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
         pistolOrderLabel.setForeground(new Color(255, 195, 0));
@@ -120,6 +122,10 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
         this.dispose();
         new BuyMenuFrame();
+    }
+
+    public void updateMenuLabel() {
+        
     }
 
     public void keyPressed(KeyEvent e) {
