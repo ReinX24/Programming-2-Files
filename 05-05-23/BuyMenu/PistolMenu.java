@@ -24,7 +24,6 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     ImageIcon pistolIcon;
     JLabel pistolIconLabel;
 
-    // TODO: test PistolMenu
     PistolMenu() {
         this.setTitle("Pistol Menu");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -125,7 +124,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     }
 
     public void updateMenuLabel() {
-        
+
     }
 
     public void keyPressed(KeyEvent e) {
@@ -179,25 +178,43 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     }
 
     // TODO: add each photo for each image in PistolMenu
+    // TODO: change pistolIconLabel to a JPanel containing 2 JLabels (1 for
+    // pistolIcon and its price)
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == glockButton) {
-            // TODO: create a method for this to be used by other buttons
             pistolIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
-            pistolIconLabel.setIcon(pistolIcon);
             pistolIconLabel.setText("GLOCK : $400");
-            pistolIconLabel.setVerticalTextPosition(JLabel.BOTTOM);
-            pistolIconLabel.setHorizontalTextPosition(JLabel.CENTER);
-
+            changeIconLabel();
         }
+
+        if (e.getComponent() == uspButton) {
+            pistolIcon = new ImageIcon("PistolMenuPhotos/usp45Photo.png");
+            pistolIconLabel.setText("USP TACTICAL : $500");
+            changeIconLabel();
+        }
+    }
+
+    public void changeIconLabel() {
+        pistolIconLabel.setIcon(pistolIcon);
+        pistolIconLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        pistolIconLabel.setHorizontalTextPosition(JLabel.CENTER);
+    }
+
+    public void resetIconLabel() {
+        pistolIcon = new ImageIcon();
+        pistolIconLabel.setIcon(pistolIcon);
+        pistolIconLabel.setText("");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getComponent() == glockButton) {
-            pistolIcon = new ImageIcon();
-            pistolIconLabel.setIcon(pistolIcon);
-            pistolIconLabel.setText("");
+            resetIconLabel();
+        }
+
+        if (e.getComponent() == uspButton) {
+            resetIconLabel();
         }
 
     }
