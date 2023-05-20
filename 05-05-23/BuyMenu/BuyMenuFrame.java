@@ -31,22 +31,29 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	String userGun;
 	Double userGunPrice;
 
+	// TODO: Implement limit where user can only order a maximum of 10 items
+	int maxBuyItems = 10;
+	int itemsBoughtTracker = 0;
+
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
 
 	public BuyMenuFrame() {
 
+		// Setting up our JFrame
 		this.setTitle("Buy Menu : Counter Strike");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
 		this.addKeyListener(this);
 
+		// Creating our JPanel that will contain our Gun Menu Buttons
 		weaponPanel = new JPanel();
 		weaponPanel.setPreferredSize(new Dimension(500, 700));
-		weaponPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
+		weaponPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		weaponPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
 		weaponPanel.setBackground(new Color(129, 133, 137, 128)); // r, g, b, alpha value
 
+		// Instantiating our JButtons
 		exitButton = new JButton("0. CANCEL");
 		buyButton = new JButton("9. BUY");
 		pistolButton = new JButton("1. PISTOLS");
@@ -58,6 +65,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		equipmentButton = new JButton("7. EQUIPMENTS");
 		aboutButton = new JButton("8. ABOUT");
 
+		// Adding our weapon buttons to our weaponButtons array
 		weaponButtons[0] = pistolButton;
 		weaponButtons[1] = shotgunButton;
 		weaponButtons[2] = smgButton;
@@ -69,9 +77,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponButtons[8] = buyButton;
 		weaponButtons[9] = exitButton;
 
+		// Adding different settings to our JButtons
 		for (int i = 0; i < weaponButtons.length; i++) {
 			weaponButtons[i].setPreferredSize(new Dimension(400, 40));
-
 			weaponButtons[i].addActionListener(this);
 			weaponButtons[i].setHorizontalAlignment(JButton.LEFT);
 			weaponButtons[i].setFocusable(false);
@@ -81,34 +89,43 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			weaponPanel.add(weaponButtons[i]);
 		}
 
+		// Adding our weaponPanel to our JFrame
 		this.add(weaponPanel);
 
+		// JPanel that will contain another JPanel of user guns and prices
 		pricePanel = new JPanel();
 		pricePanel.setPreferredSize(new Dimension(500, 700));
 		pricePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 45));
 		pricePanel.setBackground(new Color(129, 133, 137, 128));
 
+		// Creating a JLabel that contains user guns and prices
 		weaponOrderPanel.setPreferredSize(new Dimension(400, 450));
 		weaponOrderPanel.setBackground(new Color(129, 133, 137, 255));
 		weaponOrderPanel.setBorder(new EmptyBorder(25, 25, 25, 25));
 		weaponOrderPanel.setLayout(new GridLayout(10, 1));
 
+		// Adding our weaponOrderPanel to our pricePanel
 		pricePanel.add(weaponOrderPanel);
 
+		// JPanel that will contains the total of our user's gun orders
 		totalPanel = new JPanel();
 		totalPanel.setBackground(new Color(129, 133, 137, 255));
 		totalPanel.setPreferredSize(new Dimension(400, 85));
 		totalPanel.setLayout(new BorderLayout());
 
-		totalLabel = new JLabel("TOTAL: $");
+		// JLabel that will show user's total amount
+		totalLabel = new JLabel("TOTAL: $" + userTotal);
 		totalLabel.setFont(CUSTOM_FONT);
 		totalLabel.setForeground(new Color(255, 195, 0));
 		totalLabel.setBorder(new EmptyBorder(0, 25, 0, 0));
 
+		// Adding our JLabel containing user total to our JPanel
 		totalPanel.add(totalLabel);
 
+		// Adding our totalPanel to our pricePanel
 		pricePanel.add(totalPanel);
 
+		// Adding our pricePanel to our JFrame
 		this.add(pricePanel);
 
 		this.pack();
@@ -123,8 +140,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		// TODO: add each weapon menus' JFrames
 
 		if (arg0.getSource() == pistolButton) {
-			System.out.println("PISTOL!");
-			new PistolMenu();
+			new PistolMenu(); // PistolMenu constructor
 			this.dispose();
 
 		} else if (arg0.getSource() == shotgunButton) {

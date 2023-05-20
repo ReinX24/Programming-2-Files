@@ -21,8 +21,11 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     JLabel pistolOrderLabel;
 
+    JPanel pistolInfoPanel;
+
     ImageIcon pistolIcon;
     JLabel pistolIconLabel;
+    JLabel pistolNamePriceLabel;
 
     PistolMenu() {
         this.setTitle("Pistol Menu");
@@ -41,7 +44,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         uspButton = new JButton("2. USP TACTICAL");
         p228Button = new JButton("3. P228");
         deagleButton = new JButton("4. DESERT EAGLE");
-        fiveSevenButton = new JButton("5. FN FIVE SEVEN");
+        fiveSevenButton = new JButton("5. FN FIVE-SEVEN");
         dualEliteButton = new JButton("6. DUAL G96 ELITE BERETTAS");
         exitButton = new JButton("0. CANCEL");
 
@@ -55,7 +58,6 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
         for (int i = 0; i < pistolArray.length; i++) {
             pistolArray[i].setPreferredSize(new Dimension(400, 40));
-
             pistolArray[i].addActionListener(this);
             pistolArray[i].setHorizontalAlignment(JButton.LEFT);
             pistolArray[i].setFocusable(false);
@@ -63,7 +65,6 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
             pistolArray[i].setForeground(new Color(255, 195, 0));
             pistolArray[i].setFont(BuyMenuFrame.CUSTOM_FONT);
             pistolArray[i].addMouseListener(this);
-
             pistolPanel.add(pistolArray[i]);
         }
 
@@ -74,14 +75,26 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         descPanel.setBackground(new Color(129, 133, 137, 128));
         descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
+        pistolInfoPanel = new JPanel();
+        pistolInfoPanel.setLayout(new GridLayout(2, 1)); // 2 rows, 1 column
+        pistolInfoPanel.setPreferredSize(new Dimension(400, 400));
+        pistolInfoPanel.setBackground(new Color(129, 133, 137, 255));
+
+        // Adding ImageIcon that will hold our gun icons
         pistolIcon = new ImageIcon();
         pistolIconLabel = new JLabel(pistolIcon);
-        pistolIconLabel.setPreferredSize(new Dimension(400, 400));
-        pistolIconLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
-        pistolIconLabel.setOpaque(true);
-        pistolIconLabel.setBackground(new Color(129, 133, 137, 255));
-        pistolIconLabel.setForeground(new Color(255, 195, 0));
-        descPanel.add(pistolIconLabel);
+
+        pistolInfoPanel.add(pistolIconLabel);
+
+        // Adding JLabel that will contain name and price of gun
+        pistolNamePriceLabel = new JLabel("", JLabel.CENTER);
+        pistolNamePriceLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
+        pistolNamePriceLabel.setForeground(new Color(255, 195, 0));
+
+        pistolInfoPanel.add(pistolNamePriceLabel);
+
+        // Adding our JPanel that contains an ImageIcon and JLabel to our descPanel
+        descPanel.add(pistolInfoPanel);
 
         this.add(descPanel);
 
@@ -177,44 +190,83 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
+    // Changes the ImageIcon of our pistolIconLabel
+    public void changeIconLabel() {
+        pistolIconLabel.setIcon(pistolIcon);
+    }
+
+    // Resets our pistolIconLabel and pistolNamePriceLabel
+    public void resetIconLabel(JButton paraButton) {
+        pistolIcon = new ImageIcon();
+        pistolIconLabel.setIcon(pistolIcon);
+        pistolNamePriceLabel.setText("");
+    }
+
     // TODO: add each photo for each image in PistolMenu
-    // TODO: change pistolIconLabel to a JPanel containing 2 JLabels (1 for
-    // pistolIcon and its price)
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == glockButton) {
             pistolIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
-            pistolIconLabel.setText("GLOCK : $400");
+            pistolNamePriceLabel.setText("GLOCK : $400");
             changeIconLabel();
         }
 
         if (e.getComponent() == uspButton) {
             pistolIcon = new ImageIcon("PistolMenuPhotos/usp45Photo.png");
-            pistolIconLabel.setText("USP TACTICAL : $500");
+            pistolNamePriceLabel.setText("USP TACTICAL : $500");
             changeIconLabel();
         }
+
+        if (e.getComponent() == p228Button) {
+            pistolIcon = new ImageIcon("PistolMenuPhotos/p228Photo.png");
+            pistolNamePriceLabel.setText("P228 : $600");
+            changeIconLabel();
+        }
+
+        if (e.getComponent() == deagleButton) {
+            pistolIcon = new ImageIcon("PistolMenuPhotos/deserteaglePhoto.png");
+            pistolNamePriceLabel.setText("DESERT EAGLE : $650");
+            changeIconLabel();
+        }
+
+        if (e.getComponent() == fiveSevenButton) {
+            pistolIcon = new ImageIcon("PistolMenuPhotos/fivesevenPhoto.png");
+            pistolNamePriceLabel.setText("FN FIVE SEVEN : $750");
+            changeIconLabel();
+        }
+
+        if (e.getComponent() == dualEliteButton) {
+            pistolIcon = new ImageIcon("PistolMenuPhotos/elitesPhoto.png");
+            pistolNamePriceLabel.setText("DUAL 96G ELITE BERETTAS : $800");
+            changeIconLabel();
+        }
+
     }
 
-    public void changeIconLabel() {
-        pistolIconLabel.setIcon(pistolIcon);
-        pistolIconLabel.setVerticalTextPosition(JLabel.BOTTOM);
-        pistolIconLabel.setHorizontalTextPosition(JLabel.CENTER);
-    }
-
-    public void resetIconLabel() {
-        pistolIcon = new ImageIcon();
-        pistolIconLabel.setIcon(pistolIcon);
-        pistolIconLabel.setText("");
-    }
-
-    @Override
     public void mouseExited(MouseEvent e) {
+
         if (e.getComponent() == glockButton) {
-            resetIconLabel();
+            resetIconLabel(glockButton);
         }
 
         if (e.getComponent() == uspButton) {
-            resetIconLabel();
+            resetIconLabel(uspButton);
+        }
+
+        if (e.getComponent() == p228Button) {
+            resetIconLabel(p228Button);
+        }
+
+        if (e.getComponent() == deagleButton) {
+            resetIconLabel(deagleButton);
+        }
+
+        if (e.getComponent() == fiveSevenButton) {
+            resetIconLabel(fiveSevenButton);
+        }
+
+        if (e.getComponent() == dualEliteButton) {
+            resetIconLabel(dualEliteButton);
         }
 
     }
