@@ -156,11 +156,17 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		} else if (arg0.getSource() == equipmentButton) {
 			System.out.println("EQUPMENT!");
 		} else if (arg0.getSource() == aboutButton) {
-			System.out.println("ABOUT!");
+			JOptionPane.showMessageDialog(this, "Gun Buy Menu\nBy: Rein Solis", "About",
+					JOptionPane.INFORMATION_MESSAGE);
 		} else if (arg0.getSource() == buyButton) {
 			System.out.println("BUY!");
 		} else if (arg0.getSource() == exitButton) {
-			this.dispose();
+			int confirmExit = JOptionPane.showConfirmDialog(this, "Exit Buy Menu?", "Exit",
+					JOptionPane.YES_NO_OPTION);
+
+			if (confirmExit == JOptionPane.YES_OPTION) {
+				this.dispose();
+			}
 		}
 
 	}
