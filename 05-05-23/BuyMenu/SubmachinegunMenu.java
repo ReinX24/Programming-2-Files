@@ -1,24 +1,23 @@
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class PistolMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
+public class SubmachinegunMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     JPanel gunButtonsPanel;
     JPanel descPanel;
 
-    JButton glockButton;
-    JButton uspButton;
-    JButton p228Button;
-    JButton deagleButton;
-    JButton fiveSevenButton;
-    JButton dualEliteButton;
+    JButton mac10Button;
+    JButton tmpButton;
+    JButton mp5NavyButton;
+    JButton umpButton;
+    JButton p90Button;
+
     JButton exitButton;
 
-    JButton[] gunArray = new JButton[7];
+    JButton[] gunArray = new JButton[6];
 
     JLabel gunOrderLabel;
 
@@ -28,8 +27,8 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     JLabel gunIconLabel;
     JLabel gunNamePriceLabel;
 
-    PistolMenu() {
-        this.setTitle("PISTOL MENU");
+    SubmachinegunMenu() {
+        this.setTitle("SMG Menu");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
@@ -41,21 +40,19 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
 
-        glockButton = new JButton("1. GLOCK 18");
-        uspButton = new JButton("2. USP TACTICAL");
-        p228Button = new JButton("3. P228");
-        deagleButton = new JButton("4. DESERT EAGLE");
-        fiveSevenButton = new JButton("5. FN FIVE-SEVEN");
-        dualEliteButton = new JButton("6. DUAL G96 ELITE BERETTAS");
+        mac10Button = new JButton("1. MAC 10");
+        tmpButton = new JButton("2. TMP");
+        mp5NavyButton = new JButton("3. MP5 NAVY");
+        umpButton = new JButton("4. UMP");
+        p90Button = new JButton("5. P90");
         exitButton = new JButton("0. CANCEL");
 
-        gunArray[0] = glockButton;
-        gunArray[1] = uspButton;
-        gunArray[2] = p228Button;
-        gunArray[3] = deagleButton;
-        gunArray[4] = fiveSevenButton;
-        gunArray[5] = dualEliteButton;
-        gunArray[6] = exitButton;
+        gunArray[0] = mac10Button;
+        gunArray[1] = tmpButton;
+        gunArray[2] = mp5NavyButton;
+        gunArray[3] = umpButton;
+        gunArray[4] = p90Button;
+        gunArray[5] = exitButton;
 
         for (int i = 0; i < gunArray.length; i++) {
             gunArray[i].setPreferredSize(new Dimension(400, 40));
@@ -106,18 +103,16 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == glockButton) {
-            pistolOrder("GLOCK", 400.0);
-        } else if (e.getSource() == uspButton) {
-            pistolOrder("USP TACTICAL", 500.0);
-        } else if (e.getSource() == p228Button) {
-            pistolOrder("P228", 600.0);
-        } else if (e.getSource() == deagleButton) {
-            pistolOrder("DESERT EAGLE", 650.0);
-        } else if (e.getSource() == fiveSevenButton) {
-            pistolOrder("FN FIVE-SEVEN", 750.0);
-        } else if (e.getSource() == dualEliteButton) {
-            pistolOrder("DUAL 96G ELITE BERETTAS", 800.0);
+        if (e.getSource() == mac10Button) {
+            gunOrder("MAC 10", 1400.0);
+        } else if (e.getSource() == tmpButton) {
+            gunOrder("TMP", 1250.0);
+        } else if (e.getSource() == mp5NavyButton) {
+            gunOrder("MP5 NAVY", 1500.0);
+        } else if (e.getSource() == umpButton) {
+            gunOrder("UMP", 1700.0);
+        } else if (e.getSource() == p90Button) {
+            gunOrder("P90", 2350.0);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -125,7 +120,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
-    public void pistolOrder(String gunModel, Double gunPrice) {
+    public void gunOrder(String gunModel, Double gunPrice) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
@@ -157,27 +152,23 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         switch (e.getKeyChar()) {
 
             case '1':
-                glockButton.doClick();
+                mac10Button.doClick();
                 break;
 
             case '2':
-                uspButton.doClick();
+                tmpButton.doClick();
                 break;
 
             case '3':
-                p228Button.doClick();
+                mp5NavyButton.doClick();
                 break;
 
             case '4':
-                deagleButton.doClick();
+                umpButton.doClick();
                 break;
 
             case '5':
-                fiveSevenButton.doClick();
-                break;
-
-            case '6':
-                dualEliteButton.doClick();
+                p90Button.doClick();
                 break;
 
             case '0':
@@ -210,41 +201,36 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         gunNamePriceLabel.setText("");
     }
 
+    // TODO: Set icons to their corresponding SMG photos
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getComponent() == glockButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
-            gunNamePriceLabel.setText("GLOCK : $400");
+        if (e.getComponent() == mac10Button) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/m3Photo.png");
+            gunNamePriceLabel.setText("MAC10 : $1,400");
             changeIconLabel();
         }
 
-        if (e.getComponent() == uspButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/usp45Photo.png");
-            gunNamePriceLabel.setText("USP TACTICAL : $500");
+        if (e.getComponent() == tmpButton) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunNamePriceLabel.setText("TMP : $1,250");
             changeIconLabel();
         }
 
-        if (e.getComponent() == p228Button) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/p228Photo.png");
-            gunNamePriceLabel.setText("P228 : $600");
+        if (e.getComponent() == mp5NavyButton) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunNamePriceLabel.setText("MP5 NAVY : $1,500");
             changeIconLabel();
         }
 
-        if (e.getComponent() == deagleButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/deserteaglePhoto.png");
-            gunNamePriceLabel.setText("DESERT EAGLE : $650");
+        if (e.getComponent() == umpButton) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunNamePriceLabel.setText("UMP : $1,700");
             changeIconLabel();
         }
 
-        if (e.getComponent() == fiveSevenButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/fivesevenPhoto.png");
-            gunNamePriceLabel.setText("FN FIVE SEVEN : $750");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == dualEliteButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/elitesPhoto.png");
-            gunNamePriceLabel.setText("DUAL 96G ELITE BERETTAS : $800");
+        if (e.getComponent() == p90Button) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunNamePriceLabel.setText("P90 : $2,350");
             changeIconLabel();
         }
 
@@ -252,28 +238,24 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void mouseExited(MouseEvent e) {
 
-        if (e.getComponent() == glockButton) {
-            resetIconLabel(glockButton);
+        if (e.getComponent() == mac10Button) {
+            resetIconLabel(mac10Button);
         }
 
-        if (e.getComponent() == uspButton) {
-            resetIconLabel(uspButton);
+        if (e.getComponent() == tmpButton) {
+            resetIconLabel(tmpButton);
         }
 
-        if (e.getComponent() == p228Button) {
-            resetIconLabel(p228Button);
+        if (e.getComponent() == mp5NavyButton) {
+            resetIconLabel(mp5NavyButton);
         }
 
-        if (e.getComponent() == deagleButton) {
-            resetIconLabel(deagleButton);
+        if (e.getComponent() == umpButton) {
+            resetIconLabel(umpButton);
         }
 
-        if (e.getComponent() == fiveSevenButton) {
-            resetIconLabel(fiveSevenButton);
-        }
-
-        if (e.getComponent() == dualEliteButton) {
-            resetIconLabel(dualEliteButton);
+        if (e.getComponent() == p90Button) {
+            resetIconLabel(p90Button);
         }
 
     }

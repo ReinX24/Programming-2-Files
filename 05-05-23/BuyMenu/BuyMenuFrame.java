@@ -31,9 +31,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	String userGun;
 	Double userGunPrice;
 
-	// TODO: Implement limit where user can only order a maximum of 10 items
-	int maxBuyItems = 10;
-	int itemsBoughtTracker = 0;
+	static int maxBuyItems = 10;
+	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
 
@@ -142,11 +141,12 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		if (arg0.getSource() == pistolButton) {
 			new PistolMenu(); // PistolMenu constructor
 			this.dispose();
-
 		} else if (arg0.getSource() == shotgunButton) {
-			System.out.println("SHOTGUN!");
+			new ShotgunMenu();
+			this.dispose();
 		} else if (arg0.getSource() == smgButton) {
-			System.out.println("SMG!");
+			new SubmachinegunMenu();
+			this.dispose();
 		} else if (arg0.getSource() == rifleButton) {
 			System.out.println("RIFLE!");
 		} else if (arg0.getSource() == lmgButton) {

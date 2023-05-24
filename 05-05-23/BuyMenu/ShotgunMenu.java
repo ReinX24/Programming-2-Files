@@ -1,24 +1,20 @@
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class PistolMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
+public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     JPanel gunButtonsPanel;
     JPanel descPanel;
 
-    JButton glockButton;
-    JButton uspButton;
-    JButton p228Button;
-    JButton deagleButton;
-    JButton fiveSevenButton;
-    JButton dualEliteButton;
+    JButton super90Button;
+    JButton xm1014Button;
+
     JButton exitButton;
 
-    JButton[] gunArray = new JButton[7];
+    JButton[] gunArray = new JButton[3];
 
     JLabel gunOrderLabel;
 
@@ -28,8 +24,8 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     JLabel gunIconLabel;
     JLabel gunNamePriceLabel;
 
-    PistolMenu() {
-        this.setTitle("PISTOL MENU");
+    ShotgunMenu() {
+        this.setTitle("SHOTGUN MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
@@ -41,21 +37,13 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
 
-        glockButton = new JButton("1. GLOCK 18");
-        uspButton = new JButton("2. USP TACTICAL");
-        p228Button = new JButton("3. P228");
-        deagleButton = new JButton("4. DESERT EAGLE");
-        fiveSevenButton = new JButton("5. FN FIVE-SEVEN");
-        dualEliteButton = new JButton("6. DUAL G96 ELITE BERETTAS");
+        super90Button = new JButton("1. M3 Super 90");
+        xm1014Button = new JButton("2. XM1014");
         exitButton = new JButton("0. CANCEL");
 
-        gunArray[0] = glockButton;
-        gunArray[1] = uspButton;
-        gunArray[2] = p228Button;
-        gunArray[3] = deagleButton;
-        gunArray[4] = fiveSevenButton;
-        gunArray[5] = dualEliteButton;
-        gunArray[6] = exitButton;
+        gunArray[0] = super90Button;
+        gunArray[1] = xm1014Button;
+        gunArray[2] = exitButton;
 
         for (int i = 0; i < gunArray.length; i++) {
             gunArray[i].setPreferredSize(new Dimension(400, 40));
@@ -106,18 +94,10 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == glockButton) {
-            pistolOrder("GLOCK", 400.0);
-        } else if (e.getSource() == uspButton) {
-            pistolOrder("USP TACTICAL", 500.0);
-        } else if (e.getSource() == p228Button) {
-            pistolOrder("P228", 600.0);
-        } else if (e.getSource() == deagleButton) {
-            pistolOrder("DESERT EAGLE", 650.0);
-        } else if (e.getSource() == fiveSevenButton) {
-            pistolOrder("FN FIVE-SEVEN", 750.0);
-        } else if (e.getSource() == dualEliteButton) {
-            pistolOrder("DUAL 96G ELITE BERETTAS", 800.0);
+        if (e.getSource() == super90Button) {
+            gunOrder("M3 Super 90", 2350.0);
+        } else if (e.getSource() == xm1014Button) {
+            gunOrder("XM 1014", 3000.0);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -125,7 +105,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
-    public void pistolOrder(String gunModel, Double gunPrice) {
+    public void gunOrder(String gunModel, Double gunPrice) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
@@ -157,27 +137,11 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         switch (e.getKeyChar()) {
 
             case '1':
-                glockButton.doClick();
+                super90Button.doClick();
                 break;
 
             case '2':
-                uspButton.doClick();
-                break;
-
-            case '3':
-                p228Button.doClick();
-                break;
-
-            case '4':
-                deagleButton.doClick();
-                break;
-
-            case '5':
-                fiveSevenButton.doClick();
-                break;
-
-            case '6':
-                dualEliteButton.doClick();
+                xm1014Button.doClick();
                 break;
 
             case '0':
@@ -212,39 +176,15 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getComponent() == glockButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
-            gunNamePriceLabel.setText("GLOCK : $400");
+        if (e.getComponent() == super90Button) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/m3Photo.png");
+            gunNamePriceLabel.setText("M3 SUPER 90 : $2,350");
             changeIconLabel();
         }
 
-        if (e.getComponent() == uspButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/usp45Photo.png");
-            gunNamePriceLabel.setText("USP TACTICAL : $500");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == p228Button) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/p228Photo.png");
-            gunNamePriceLabel.setText("P228 : $600");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == deagleButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/deserteaglePhoto.png");
-            gunNamePriceLabel.setText("DESERT EAGLE : $650");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == fiveSevenButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/fivesevenPhoto.png");
-            gunNamePriceLabel.setText("FN FIVE SEVEN : $750");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == dualEliteButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/elitesPhoto.png");
-            gunNamePriceLabel.setText("DUAL 96G ELITE BERETTAS : $800");
+        if (e.getComponent() == xm1014Button) {
+            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunNamePriceLabel.setText("XM 1014 : $3,000");
             changeIconLabel();
         }
 
@@ -252,28 +192,12 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void mouseExited(MouseEvent e) {
 
-        if (e.getComponent() == glockButton) {
-            resetIconLabel(glockButton);
+        if (e.getComponent() == super90Button) {
+            resetIconLabel(super90Button);
         }
 
-        if (e.getComponent() == uspButton) {
-            resetIconLabel(uspButton);
-        }
-
-        if (e.getComponent() == p228Button) {
-            resetIconLabel(p228Button);
-        }
-
-        if (e.getComponent() == deagleButton) {
-            resetIconLabel(deagleButton);
-        }
-
-        if (e.getComponent() == fiveSevenButton) {
-            resetIconLabel(fiveSevenButton);
-        }
-
-        if (e.getComponent() == dualEliteButton) {
-            resetIconLabel(dualEliteButton);
+        if (e.getComponent() == xm1014Button) {
+            resetIconLabel(xm1014Button);
         }
 
     }
