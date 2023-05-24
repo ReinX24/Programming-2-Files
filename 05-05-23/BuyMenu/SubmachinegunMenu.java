@@ -75,7 +75,8 @@ public class SubmachinegunMenu extends JFrame implements ActionListener, KeyList
 
         gunPriceAndModelPanel = new JPanel();
         gunPriceAndModelPanel.setLayout(new GridLayout(2, 1)); // 2 rows, 1 column
-        gunPriceAndModelPanel.setPreferredSize(new Dimension(400, 400));
+        gunPriceAndModelPanel.setPreferredSize(new Dimension(400, 550)); 
+        // TODO: change the dimensions of all gunPriceAndModelPanels
         gunPriceAndModelPanel.setBackground(new Color(129, 133, 137, 255));
 
         // Adding ImageIcon that will hold our gun icons
@@ -205,31 +206,31 @@ public class SubmachinegunMenu extends JFrame implements ActionListener, KeyList
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == mac10Button) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/m3Photo.png");
+            gunIcon = new ImageIcon("SubmachinegunPhotos/mac10Photo.png");
             gunNamePriceLabel.setText("MAC10 : $1,400");
             changeIconLabel();
         }
 
         if (e.getComponent() == tmpButton) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunIcon = new ImageIcon("SubmachinegunPhotos/tmpPhoto.png");
             gunNamePriceLabel.setText("TMP : $1,250");
             changeIconLabel();
         }
 
         if (e.getComponent() == mp5NavyButton) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunIcon = new ImageIcon("SubmachinegunPhotos/mp5Photo.png");
             gunNamePriceLabel.setText("MP5 NAVY : $1,500");
             changeIconLabel();
         }
 
         if (e.getComponent() == umpButton) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunIcon = new ImageIcon("SubmachinegunPhotos/ump45Photo.png");
             gunNamePriceLabel.setText("UMP : $1,700");
             changeIconLabel();
         }
 
         if (e.getComponent() == p90Button) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunIcon = new ImageIcon("SubmachinegunPhotos/p90Photo.png");
             gunNamePriceLabel.setText("P90 : $2,350");
             changeIconLabel();
         }
