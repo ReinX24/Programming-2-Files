@@ -75,8 +75,7 @@ public class SubmachinegunMenu extends JFrame implements ActionListener, KeyList
 
         gunPriceAndModelPanel = new JPanel();
         gunPriceAndModelPanel.setLayout(new GridLayout(2, 1)); // 2 rows, 1 column
-        gunPriceAndModelPanel.setPreferredSize(new Dimension(400, 550)); 
-        // TODO: change the dimensions of all gunPriceAndModelPanels
+        gunPriceAndModelPanel.setPreferredSize(new Dimension(400, 580));
         gunPriceAndModelPanel.setBackground(new Color(129, 133, 137, 255));
 
         // Adding ImageIcon that will hold our gun icons
