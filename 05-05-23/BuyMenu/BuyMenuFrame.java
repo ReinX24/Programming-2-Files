@@ -39,7 +39,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	public BuyMenuFrame() {
 
 		// Setting up our JFrame
-		this.setTitle("Buy Menu : Counter Strike");
+		this.setTitle("BUY MENU : COUNTER STRIKE");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
@@ -148,7 +148,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new SubmachinegunMenu();
 			this.dispose();
 		} else if (arg0.getSource() == rifleButton) {
-			System.out.println("RIFLE!");
+			new RifleMenu();
+			this.dispose();
 		} else if (arg0.getSource() == lmgButton) {
 			System.out.println("LMG!");
 		} else if (arg0.getSource() == ammoButton) {

@@ -124,10 +124,6 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
 
     }
 
-    public void updateMenuLabel() {
-
-    }
-
     public void keyPressed(KeyEvent e) {
 
     }

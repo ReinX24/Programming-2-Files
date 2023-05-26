@@ -144,10 +144,6 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
-    public void updateMenuLabel() {
-
-    }
-
     public void keyPressed(KeyEvent e) {
 
     }

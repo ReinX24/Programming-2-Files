@@ -4,7 +4,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SubmachinegunMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
+// TODO: replace RifleMenu components with corresponding rifles
+public class RifleMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     JPanel gunButtonsPanel;
     JPanel descPanel;
@@ -27,8 +28,8 @@ public class SubmachinegunMenu extends JFrame implements ActionListener, KeyList
     JLabel gunIconLabel;
     JLabel gunNamePriceLabel;
 
-    SubmachinegunMenu() {
-        this.setTitle("SMG MENU");
+    RifleMenu() {
+        this.setTitle("RIFLE MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
