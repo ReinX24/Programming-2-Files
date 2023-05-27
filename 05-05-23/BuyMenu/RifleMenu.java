@@ -3,22 +3,23 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
-// TODO: replace RifleMenu components with corresponding rifles
 public class RifleMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     JPanel gunButtonsPanel;
     JPanel descPanel;
 
-    JButton mac10Button;
-    JButton tmpButton;
-    JButton mp5NavyButton;
-    JButton umpButton;
-    JButton p90Button;
+    JButton galilButton;
+    JButton famasButton;
+    JButton ak47Button;
+    JButton m4a1Button;
+    JButton sgButton;
+    JButton augButton;
 
     JButton exitButton;
 
-    JButton[] gunArray = new JButton[6];
+    JButton[] gunArray = new JButton[7];
 
     JLabel gunOrderLabel;
 
@@ -41,19 +42,23 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
 
-        mac10Button = new JButton("1. MAC 10");
-        tmpButton = new JButton("2. TMP");
-        mp5NavyButton = new JButton("3. MP5 NAVY");
-        umpButton = new JButton("4. UMP");
-        p90Button = new JButton("5. P90");
+        galilButton = new JButton("1. IMI GALIL");
+        famasButton = new JButton("2. FAMAS");
+        ak47Button = new JButton("3. AK47");
+        m4a1Button = new JButton("4. M4A1 CARBINE");
+        sgButton = new JButton("5. SG-552 COMMANDO");
+        augButton = new JButton("6. AUG");
+
         exitButton = new JButton("0. CANCEL");
 
-        gunArray[0] = mac10Button;
-        gunArray[1] = tmpButton;
-        gunArray[2] = mp5NavyButton;
-        gunArray[3] = umpButton;
-        gunArray[4] = p90Button;
-        gunArray[5] = exitButton;
+        gunArray[0] = galilButton;
+        gunArray[1] = famasButton;
+        gunArray[2] = ak47Button;
+        gunArray[3] = m4a1Button;
+        gunArray[4] = sgButton;
+        gunArray[5] = augButton;
+
+        gunArray[6] = exitButton;
 
         for (int i = 0; i < gunArray.length; i++) {
             gunArray[i].setPreferredSize(new Dimension(400, 40));
@@ -104,16 +109,18 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == mac10Button) {
-            gunOrder("MAC 10", 1400.0);
-        } else if (e.getSource() == tmpButton) {
-            gunOrder("TMP", 1250.0);
-        } else if (e.getSource() == mp5NavyButton) {
-            gunOrder("MP5 NAVY", 1500.0);
-        } else if (e.getSource() == umpButton) {
-            gunOrder("UMP", 1700.0);
-        } else if (e.getSource() == p90Button) {
-            gunOrder("P90", 2350.0);
+        if (e.getSource() == galilButton) {
+            gunOrder("IMI GALIL", 2000.0);
+        } else if (e.getSource() == famasButton) {
+            gunOrder("FAMAS", 2250.0);
+        } else if (e.getSource() == ak47Button) {
+            gunOrder("AK47", 2500.0);
+        } else if (e.getSource() == m4a1Button) {
+            gunOrder("M4A1", 3100.0);
+        } else if (e.getSource() == sgButton) {
+            gunOrder("SG-552", 3500.0);
+        } else if (e.getSource() == augButton) {
+            gunOrder("AUG", 3500.0);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -127,12 +134,18 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
             // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
-            gunOrderLabel = new JLabel(gunModel + " : $" + gunPrice);
+
+            // TODO: add commas to numbers when ordering a gun
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            decimalFormat.setGroupingUsed(true);
+            decimalFormat.setGroupingSize(3);
+
+            gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(new Color(255, 195, 0));
             BuyMenuFrame.userTotal += gunPrice;
             BuyMenuFrame.weaponOrderPanel.add(gunOrderLabel);
-            BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
+            BuyMenuFrame.totalLabel.setText("TOTAL: $" + decimalFormat.format(BuyMenuFrame.userTotal));
             BuyMenuFrame.itemsBoughtTracker += 1;
             this.dispose();
             new BuyMenuFrame();
@@ -149,23 +162,27 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         switch (e.getKeyChar()) {
 
             case '1':
-                mac10Button.doClick();
+                galilButton.doClick();
                 break;
 
             case '2':
-                tmpButton.doClick();
+                famasButton.doClick();
                 break;
 
             case '3':
-                mp5NavyButton.doClick();
+                ak47Button.doClick();
                 break;
 
             case '4':
-                umpButton.doClick();
+                m4a1Button.doClick();
                 break;
 
             case '5':
-                p90Button.doClick();
+                sgButton.doClick();
+                break;
+
+            case '6':
+                augButton.doClick();
                 break;
 
             case '0':
@@ -200,33 +217,39 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getComponent() == mac10Button) {
-            gunIcon = new ImageIcon("SubmachinegunPhotos/mac10Photo.png");
-            gunNamePriceLabel.setText("MAC10 : $1,400");
+        if (e.getComponent() == galilButton) {
+            gunIcon = new ImageIcon("RifleMenuPhotos/galilPhoto.png");
+            gunNamePriceLabel.setText("IMI GALIL : $2,000");
             changeIconLabel();
         }
 
-        if (e.getComponent() == tmpButton) {
-            gunIcon = new ImageIcon("SubmachinegunPhotos/tmpPhoto.png");
-            gunNamePriceLabel.setText("TMP : $1,250");
+        if (e.getComponent() == famasButton) {
+            gunIcon = new ImageIcon("RifleMenuPhotos/famasPhoto.png");
+            gunNamePriceLabel.setText("FAMAS : $2,250");
             changeIconLabel();
         }
 
-        if (e.getComponent() == mp5NavyButton) {
-            gunIcon = new ImageIcon("SubmachinegunPhotos/mp5Photo.png");
-            gunNamePriceLabel.setText("MP5 NAVY : $1,500");
+        if (e.getComponent() == ak47Button) {
+            gunIcon = new ImageIcon("RifleMenuPhotos/ak47Photo.png");
+            gunNamePriceLabel.setText("AK47 : $2,500");
             changeIconLabel();
         }
 
-        if (e.getComponent() == umpButton) {
-            gunIcon = new ImageIcon("SubmachinegunPhotos/ump45Photo.png");
-            gunNamePriceLabel.setText("UMP : $1,700");
+        if (e.getComponent() == m4a1Button) {
+            gunIcon = new ImageIcon("RifleMenuPhotos/m4a1Photo.png");
+            gunNamePriceLabel.setText("M4A1 : $3,100");
             changeIconLabel();
         }
 
-        if (e.getComponent() == p90Button) {
-            gunIcon = new ImageIcon("SubmachinegunPhotos/p90Photo.png");
-            gunNamePriceLabel.setText("P90 : $2,350");
+        if (e.getComponent() == sgButton) {
+            gunIcon = new ImageIcon("RifleMenuPhotos/sg552Photo.png");
+            gunNamePriceLabel.setText("SG-552 : $3,500");
+            changeIconLabel();
+        }
+
+        if (e.getComponent() == augButton) {
+            gunIcon = new ImageIcon("RifleMenuPhotos/augPhoto.png");
+            gunNamePriceLabel.setText("AUG : $3,500");
             changeIconLabel();
         }
 
@@ -234,24 +257,28 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     public void mouseExited(MouseEvent e) {
 
-        if (e.getComponent() == mac10Button) {
-            resetIconLabel(mac10Button);
+        if (e.getComponent() == galilButton) {
+            resetIconLabel(galilButton);
         }
 
-        if (e.getComponent() == tmpButton) {
-            resetIconLabel(tmpButton);
+        if (e.getComponent() == famasButton) {
+            resetIconLabel(famasButton);
         }
 
-        if (e.getComponent() == mp5NavyButton) {
-            resetIconLabel(mp5NavyButton);
+        if (e.getComponent() == ak47Button) {
+            resetIconLabel(ak47Button);
         }
 
-        if (e.getComponent() == umpButton) {
-            resetIconLabel(umpButton);
+        if (e.getComponent() == m4a1Button) {
+            resetIconLabel(m4a1Button);
         }
 
-        if (e.getComponent() == p90Button) {
-            resetIconLabel(p90Button);
+        if (e.getComponent() == sgButton) {
+            resetIconLabel(sgButton);
+        }
+
+        if (e.getComponent() == augButton) {
+            resetIconLabel(augButton);
         }
 
     }

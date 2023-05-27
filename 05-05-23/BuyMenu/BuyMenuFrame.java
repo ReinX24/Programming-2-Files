@@ -22,7 +22,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton lmgButton;
 	JButton ammoButton;
 	JButton equipmentButton;
-	JButton aboutButton;
+	JButton sniperButton;
 	JButton buyButton;
 	JButton exitButton;
 
@@ -59,20 +59,20 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		shotgunButton = new JButton("2. SHOTGUNS");
 		smgButton = new JButton("3. SMGS");
 		rifleButton = new JButton("4. RIFLES");
-		lmgButton = new JButton("5. LMGS");
-		ammoButton = new JButton("6. AMMO");
-		equipmentButton = new JButton("7. EQUIPMENTS");
-		aboutButton = new JButton("8. ABOUT");
+		sniperButton = new JButton("5. SNIPERS");
+		lmgButton = new JButton("6. LMGS");
+		ammoButton = new JButton("7. AMMO");
+		equipmentButton = new JButton("8. EQUIPMENTS");
 
 		// Adding our weapon buttons to our weaponButtons array
 		weaponButtons[0] = pistolButton;
 		weaponButtons[1] = shotgunButton;
 		weaponButtons[2] = smgButton;
 		weaponButtons[3] = rifleButton;
-		weaponButtons[4] = lmgButton;
-		weaponButtons[5] = ammoButton;
-		weaponButtons[6] = equipmentButton;
-		weaponButtons[7] = aboutButton;
+		weaponButtons[4] = sniperButton;
+		weaponButtons[5] = lmgButton;
+		weaponButtons[6] = ammoButton;
+		weaponButtons[7] = equipmentButton;
 		weaponButtons[8] = buyButton;
 		weaponButtons[9] = exitButton;
 
@@ -150,15 +150,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		} else if (arg0.getSource() == rifleButton) {
 			new RifleMenu();
 			this.dispose();
+		} else if (arg0.getSource() == sniperButton) {
+			System.out.println("SNIPER!");
 		} else if (arg0.getSource() == lmgButton) {
 			System.out.println("LMG!");
 		} else if (arg0.getSource() == ammoButton) {
 			System.out.println("AMMO!");
 		} else if (arg0.getSource() == equipmentButton) {
 			System.out.println("EQUPMENT!");
-		} else if (arg0.getSource() == aboutButton) {
-			JOptionPane.showMessageDialog(this, "Gun Buy Menu\nBy: Rein Solis", "About",
-					JOptionPane.INFORMATION_MESSAGE);
 		} else if (arg0.getSource() == buyButton) {
 			System.out.println("BUY!");
 		} else if (arg0.getSource() == exitButton) {
@@ -199,19 +198,19 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				break;
 
 			case '5':
-				lmgButton.doClick();
+				sniperButton.doClick();
 				break;
 
 			case '6':
-				ammoButton.doClick();
+				lmgButton.doClick();
 				break;
 
 			case '7':
-				equipmentButton.doClick();
+				ammoButton.doClick();
 				break;
 
 			case '8':
-				aboutButton.doClick();
+				equipmentButton.doClick();
 				break;
 
 			case '9':
