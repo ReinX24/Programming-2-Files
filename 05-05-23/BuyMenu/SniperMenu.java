@@ -5,21 +5,19 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
-public class RifleMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
+public class SniperMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     JPanel gunButtonsPanel;
     JPanel descPanel;
 
-    JButton galilButton;
-    JButton famasButton;
-    JButton ak47Button;
-    JButton m4a1Button;
-    JButton sgButton;
-    JButton augButton;
+    JButton scoutButton;
+    JButton g3sg1Button;
+    JButton sg550Button;
+    JButton awpButton;
 
     JButton exitButton;
 
-    JButton[] gunArray = new JButton[7];
+    JButton[] gunArray = new JButton[5];
 
     JLabel gunOrderLabel;
 
@@ -31,8 +29,8 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     DecimalFormat decimalFormat;
 
-    RifleMenu() {
-        this.setTitle("RIFLE MENU");
+    SniperMenu() {
+        this.setTitle("SNIPER MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
@@ -44,23 +42,19 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
 
-        galilButton = new JButton("1. IMI GALIL");
-        famasButton = new JButton("2. FAMAS");
-        ak47Button = new JButton("3. AK47");
-        m4a1Button = new JButton("4. M4A1 CARBINE");
-        sgButton = new JButton("5. SG-552 COMMANDO");
-        augButton = new JButton("6. AUG");
+        scoutButton = new JButton("1. SCOUT");
+        g3sg1Button = new JButton("2. G3/SG-1");
+        sg550Button = new JButton("3. SG-550");
+        awpButton = new JButton("4. AWP");
 
         exitButton = new JButton("0. CANCEL");
 
-        gunArray[0] = galilButton;
-        gunArray[1] = famasButton;
-        gunArray[2] = ak47Button;
-        gunArray[3] = m4a1Button;
-        gunArray[4] = sgButton;
-        gunArray[5] = augButton;
+        gunArray[0] = scoutButton;
+        gunArray[1] = g3sg1Button;
+        gunArray[2] = sg550Button;
+        gunArray[3] = awpButton;
 
-        gunArray[6] = exitButton;
+        gunArray[4] = exitButton;
 
         for (int i = 0; i < gunArray.length; i++) {
             gunArray[i].setPreferredSize(new Dimension(400, 40));
@@ -111,18 +105,14 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == galilButton) {
-            gunOrder("IMI GALIL", 2000.0);
-        } else if (e.getSource() == famasButton) {
-            gunOrder("FAMAS", 2250.0);
-        } else if (e.getSource() == ak47Button) {
-            gunOrder("AK47", 2500.0);
-        } else if (e.getSource() == m4a1Button) {
-            gunOrder("M4A1", 3100.0);
-        } else if (e.getSource() == sgButton) {
-            gunOrder("SG-552", 3500.0);
-        } else if (e.getSource() == augButton) {
-            gunOrder("AUG", 3500.0);
+        if (e.getSource() == scoutButton) {
+            gunOrder("SCOUT", 2750.0);
+        } else if (e.getSource() == g3sg1Button) {
+            gunOrder("G3/SG-1", 5000.0);
+        } else if (e.getSource() == sg550Button) {
+            gunOrder("SG-550", 4200.0);
+        } else if (e.getSource() == awpButton) {
+            gunOrder("AWP", 4750.0);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -137,7 +127,6 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         } else {
             // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
 
-            // TODO: add commas to numbers when ordering a gun
             decimalFormat = new DecimalFormat("#.##");
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
@@ -164,27 +153,19 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         switch (e.getKeyChar()) {
 
             case '1':
-                galilButton.doClick();
+                scoutButton.doClick();
                 break;
 
             case '2':
-                famasButton.doClick();
+                g3sg1Button.doClick();
                 break;
 
             case '3':
-                ak47Button.doClick();
+                sg550Button.doClick();
                 break;
 
             case '4':
-                m4a1Button.doClick();
-                break;
-
-            case '5':
-                sgButton.doClick();
-                break;
-
-            case '6':
-                augButton.doClick();
+                awpButton.doClick();
                 break;
 
             case '0':
@@ -219,39 +200,28 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getComponent() == galilButton) {
+        // TODO: add SniperMenu photos
+        if (e.getComponent() == scoutButton) {
             gunIcon = new ImageIcon("RifleMenuPhotos/galilPhoto.png");
-            gunNamePriceLabel.setText("IMI GALIL : $2,000");
+            gunNamePriceLabel.setText("SCOUT : $2,750");
             changeIconLabel();
         }
 
-        if (e.getComponent() == famasButton) {
+        if (e.getComponent() == g3sg1Button) {
             gunIcon = new ImageIcon("RifleMenuPhotos/famasPhoto.png");
-            gunNamePriceLabel.setText("FAMAS : $2,250");
+            gunNamePriceLabel.setText("G3/SG-1 : $5,000");
             changeIconLabel();
         }
 
-        if (e.getComponent() == ak47Button) {
+        if (e.getComponent() == sg550Button) {
             gunIcon = new ImageIcon("RifleMenuPhotos/ak47Photo.png");
-            gunNamePriceLabel.setText("AK47 : $2,500");
+            gunNamePriceLabel.setText("SG-550 : $4,200");
             changeIconLabel();
         }
 
-        if (e.getComponent() == m4a1Button) {
+        if (e.getComponent() == awpButton) {
             gunIcon = new ImageIcon("RifleMenuPhotos/m4a1Photo.png");
-            gunNamePriceLabel.setText("M4A1 : $3,100");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == sgButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/sg552Photo.png");
-            gunNamePriceLabel.setText("SG-552 : $3,500");
-            changeIconLabel();
-        }
-
-        if (e.getComponent() == augButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/augPhoto.png");
-            gunNamePriceLabel.setText("AUG : $3,500");
+            gunNamePriceLabel.setText("AWP : $4,750");
             changeIconLabel();
         }
 
@@ -259,28 +229,20 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     public void mouseExited(MouseEvent e) {
 
-        if (e.getComponent() == galilButton) {
-            resetIconLabel(galilButton);
+        if (e.getComponent() == scoutButton) {
+            resetIconLabel(scoutButton);
         }
 
-        if (e.getComponent() == famasButton) {
-            resetIconLabel(famasButton);
+        if (e.getComponent() == g3sg1Button) {
+            resetIconLabel(g3sg1Button);
         }
 
-        if (e.getComponent() == ak47Button) {
-            resetIconLabel(ak47Button);
+        if (e.getComponent() == sg550Button) {
+            resetIconLabel(sg550Button);
         }
 
-        if (e.getComponent() == m4a1Button) {
-            resetIconLabel(m4a1Button);
-        }
-
-        if (e.getComponent() == sgButton) {
-            resetIconLabel(sgButton);
-        }
-
-        if (e.getComponent() == augButton) {
-            resetIconLabel(augButton);
+        if (e.getComponent() == awpButton) {
+            resetIconLabel(awpButton);
         }
 
     }

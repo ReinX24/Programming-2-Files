@@ -151,7 +151,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new RifleMenu();
 			this.dispose();
 		} else if (arg0.getSource() == sniperButton) {
-			System.out.println("SNIPER!");
+			new SniperMenu();
+			this.dispose();
 		} else if (arg0.getSource() == lmgButton) {
 			System.out.println("LMG!");
 		} else if (arg0.getSource() == ammoButton) {
