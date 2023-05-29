@@ -9,7 +9,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JPanel weaponPanel;
 	JPanel pricePanel;
 	static JPanel weaponOrderPanel = new JPanel();
-	// ^ in order for components to be saves, must be static and instantiated
+	// ^ in order for components to be saved, must be static and instantiated
 	// immediately
 	JPanel totalPanel;
 
@@ -24,14 +24,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton equipmentButton;
 	JButton sniperButton;
 	JButton buyButton;
-	JButton exitButton;
+	JButton exitClearButton;
 
 	static JLabel totalLabel;
-	static Double userTotal = 0.0;
+	static int userTotal = 0;
 	String userGun;
 	Double userGunPrice;
 
-	static int maxBuyItems = 10;
+	static int maxBuyItems = 202334;
 	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
@@ -53,7 +53,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponPanel.setBackground(new Color(129, 133, 137, 128)); // r, g, b, alpha value
 
 		// Instantiating our JButtons
-		exitButton = new JButton("0. CANCEL");
+		exitClearButton = new JButton("0. EXIT / CLEAR");
 		buyButton = new JButton("9. BUY");
 		pistolButton = new JButton("1. PISTOLS");
 		shotgunButton = new JButton("2. SHOTGUNS");
@@ -74,7 +74,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponButtons[6] = ammoButton;
 		weaponButtons[7] = equipmentButton;
 		weaponButtons[8] = buyButton;
-		weaponButtons[9] = exitButton;
+		weaponButtons[9] = exitClearButton;
 
 		// Adding different settings to our JButtons
 		for (int i = 0; i < weaponButtons.length; i++) {
@@ -101,7 +101,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponOrderPanel.setPreferredSize(new Dimension(400, 450));
 		weaponOrderPanel.setBackground(new Color(129, 133, 137, 255));
 		weaponOrderPanel.setBorder(new EmptyBorder(25, 25, 25, 25));
-		weaponOrderPanel.setLayout(new GridLayout(10, 1));
+		weaponOrderPanel.setLayout(new GridLayout(20, 1));
 
 		// Adding our weaponOrderPanel to our pricePanel
 		pricePanel.add(weaponOrderPanel);
@@ -136,8 +136,6 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		// TODO: add each weapon menus' JFrames
-
 		if (arg0.getSource() == pistolButton) {
 			new PistolMenu(); // PistolMenu constructor
 			this.dispose();
@@ -145,7 +143,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new ShotgunMenu();
 			this.dispose();
 		} else if (arg0.getSource() == smgButton) {
-			new SubmachinegunMenu();
+			new SubMachinegunMenu();
 			this.dispose();
 		} else if (arg0.getSource() == rifleButton) {
 			new RifleMenu();
@@ -154,19 +152,31 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new SniperMenu();
 			this.dispose();
 		} else if (arg0.getSource() == lmgButton) {
-			System.out.println("LMG!");
+			new LargeMachineGunMenu();
+			this.dispose();
 		} else if (arg0.getSource() == ammoButton) {
-			System.out.println("AMMO!");
+			// TODO: add Ammo, Equipment, and Buy button functionalities
+			System.out.println("AMMO!"); 
 		} else if (arg0.getSource() == equipmentButton) {
 			System.out.println("EQUPMENT!");
 		} else if (arg0.getSource() == buyButton) {
 			System.out.println("BUY!");
-		} else if (arg0.getSource() == exitButton) {
-			int confirmExit = JOptionPane.showConfirmDialog(this, "Exit Buy Menu?", "Exit",
-					JOptionPane.YES_NO_OPTION);
+		} else if (arg0.getSource() == exitClearButton) {
 
-			if (confirmExit == JOptionPane.YES_OPTION) {
+			String[] exitClearChoices = { "Exit", "Clear", "Cancel" };
+			int confirmClearExit = JOptionPane.showOptionDialog(this, "Exit Buy Menu / Clear Buy Menu", "Exit / Clear",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, exitClearChoices, null);
+
+			if (confirmClearExit == 0) {
+				// Closes our BuyMenuFrame
 				this.dispose();
+			} else if (confirmClearExit == 1) {
+				// Resets items bought, total, and removes all weapon order labels
+				itemsBoughtTracker = 0;
+				userTotal = 0;
+				totalLabel.setText("TOTAL: $" + userTotal);
+				weaponOrderPanel.removeAll();
+				this.repaint();
 			}
 		}
 
@@ -219,7 +229,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				break;
 
 			case '0':
-				exitButton.doClick();
+				exitClearButton.doClick();
 				break;
 
 		}

@@ -3,6 +3,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
@@ -23,6 +24,8 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
     ImageIcon gunIcon;
     JLabel gunIconLabel;
     JLabel gunNamePriceLabel;
+
+    DecimalFormat decimalFormat;
 
     ShotgunMenu() {
         this.setTitle("SHOTGUN MENU");
@@ -95,9 +98,9 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == super90Button) {
-            gunOrder("M3 Super 90", 2350.0);
+            gunOrder("M3 Super 90", 2350);
         } else if (e.getSource() == xm1014Button) {
-            gunOrder("XM 1014", 3000.0);
+            gunOrder("XM 1014", 3000);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -105,13 +108,18 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
 
     }
 
-    public void gunOrder(String gunModel, Double gunPrice) {
+    public void gunOrder(String gunModel, int gunPrice) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
             // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
-            gunOrderLabel = new JLabel(gunModel + " : $" + gunPrice);
+
+            decimalFormat = new DecimalFormat("#.##");
+            decimalFormat.setGroupingUsed(true);
+            decimalFormat.setGroupingSize(3);
+
+            gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(new Color(255, 195, 0));
             BuyMenuFrame.userTotal += gunPrice;

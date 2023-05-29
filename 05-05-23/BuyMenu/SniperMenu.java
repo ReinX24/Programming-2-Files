@@ -106,13 +106,13 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == scoutButton) {
-            gunOrder("SCOUT", 2750.0);
+            gunOrder("SCOUT", 2750);
         } else if (e.getSource() == g3sg1Button) {
-            gunOrder("G3/SG-1", 5000.0);
+            gunOrder("G3/SG-1", 5000);
         } else if (e.getSource() == sg550Button) {
-            gunOrder("SG-550", 4200.0);
+            gunOrder("SG-550", 4200);
         } else if (e.getSource() == awpButton) {
-            gunOrder("AWP", 4750.0);
+            gunOrder("AWP", 4750);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -120,7 +120,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
-    public void gunOrder(String gunModel, Double gunPrice) {
+    public void gunOrder(String gunModel, int gunPrice) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
@@ -202,25 +202,25 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
     public void mouseEntered(MouseEvent e) {
         // TODO: add SniperMenu photos
         if (e.getComponent() == scoutButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/galilPhoto.png");
+            gunIcon = new ImageIcon("SniperMenuPhotos/scoutPhoto.png");
             gunNamePriceLabel.setText("SCOUT : $2,750");
             changeIconLabel();
         }
 
         if (e.getComponent() == g3sg1Button) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/famasPhoto.png");
+            gunIcon = new ImageIcon("SniperMenuPhotos/g3sg1Photo.png");
             gunNamePriceLabel.setText("G3/SG-1 : $5,000");
             changeIconLabel();
         }
 
         if (e.getComponent() == sg550Button) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/ak47Photo.png");
+            gunIcon = new ImageIcon("SniperMenuPhotos/sg550Photo.png");
             gunNamePriceLabel.setText("SG-550 : $4,200");
             changeIconLabel();
         }
 
         if (e.getComponent() == awpButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/m4a1Photo.png");
+            gunIcon = new ImageIcon("SniperMenuPhotos/awpPhoto.png");
             gunNamePriceLabel.setText("AWP : $4,750");
             changeIconLabel();
         }

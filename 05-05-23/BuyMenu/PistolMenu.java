@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class PistolMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
@@ -27,6 +28,8 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     ImageIcon gunIcon;
     JLabel gunIconLabel;
     JLabel gunNamePriceLabel;
+
+    DecimalFormat decimalFormat;
 
     PistolMenu() {
         this.setTitle("PISTOL MENU");
@@ -107,17 +110,17 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == glockButton) {
-            pistolOrder("GLOCK", 400.0);
+            pistolOrder("GLOCK", 400);
         } else if (e.getSource() == uspButton) {
-            pistolOrder("USP TACTICAL", 500.0);
+            pistolOrder("USP TACTICAL", 500);
         } else if (e.getSource() == p228Button) {
-            pistolOrder("P228", 600.0);
+            pistolOrder("P228", 600);
         } else if (e.getSource() == deagleButton) {
-            pistolOrder("DESERT EAGLE", 650.0);
+            pistolOrder("DESERT EAGLE", 650);
         } else if (e.getSource() == fiveSevenButton) {
-            pistolOrder("FN FIVE-SEVEN", 750.0);
+            pistolOrder("FN FIVE-SEVEN", 750);
         } else if (e.getSource() == dualEliteButton) {
-            pistolOrder("DUAL 96G ELITE BERETTAS", 800.0);
+            pistolOrder("DUAL 96G ELITE BERETTAS", 800);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -125,13 +128,18 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
-    public void pistolOrder(String gunModel, Double gunPrice) {
+    public void pistolOrder(String gunModel, int gunPrice) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
             // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
-            gunOrderLabel = new JLabel(gunModel + " : $" + gunPrice);
+
+            decimalFormat = new DecimalFormat("#.##");
+            decimalFormat.setGroupingUsed(true);
+            decimalFormat.setGroupingSize(3);
+
+            gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(new Color(255, 195, 0));
             BuyMenuFrame.userTotal += gunPrice;

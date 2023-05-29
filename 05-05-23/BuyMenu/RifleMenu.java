@@ -112,17 +112,17 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == galilButton) {
-            gunOrder("IMI GALIL", 2000.0);
+            gunOrder("IMI GALIL", 2000);
         } else if (e.getSource() == famasButton) {
-            gunOrder("FAMAS", 2250.0);
+            gunOrder("FAMAS", 2250);
         } else if (e.getSource() == ak47Button) {
-            gunOrder("AK47", 2500.0);
+            gunOrder("AK47", 2500);
         } else if (e.getSource() == m4a1Button) {
-            gunOrder("M4A1", 3100.0);
+            gunOrder("M4A1", 3100);
         } else if (e.getSource() == sgButton) {
-            gunOrder("SG-552", 3500.0);
+            gunOrder("SG-552", 3500);
         } else if (e.getSource() == augButton) {
-            gunOrder("AUG", 3500.0);
+            gunOrder("AUG", 3500);
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -130,14 +130,13 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     }
 
-    public void gunOrder(String gunModel, Double gunPrice) {
+    public void gunOrder(String gunModel, int gunPrice) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
             // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
 
-            // TODO: add commas to numbers when ordering a gun
             decimalFormat = new DecimalFormat("#.##");
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
