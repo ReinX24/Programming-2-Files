@@ -5,19 +5,20 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
-public class SniperMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
+public class AmmoMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     JPanel gunButtonsPanel;
     JPanel descPanel;
 
-    JButton scoutButton;
-    JButton g3sg1Button;
-    JButton sg550Button;
-    JButton awpButton;
+    JButton pistolAmmoButton;
+    JButton smgAmmoButton;
+    JButton rifleAmmoButton;
+    JButton lmgAmmoButton;
+    JButton sniperAmmoButton;
 
     JButton exitButton;
 
-    JButton[] gunArray = new JButton[5];
+    JButton[] gunArray = new JButton[6];
 
     JLabel gunOrderLabel;
 
@@ -29,8 +30,10 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     DecimalFormat decimalFormat;
 
-    SniperMenu() {
-        this.setTitle("SNIPER MENU");
+    int gunAmmoAmount;
+
+    AmmoMenu() {
+        this.setTitle("AMMO MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
@@ -42,19 +45,21 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
 
-        scoutButton = new JButton("1. SCOUT");
-        g3sg1Button = new JButton("2. G3/SG-1");
-        sg550Button = new JButton("3. SG-550");
-        awpButton = new JButton("4. AWP");
+        pistolAmmoButton = new JButton("1. PISTOL AMMO");
+        smgAmmoButton = new JButton("2. SMG AMMO");
+        rifleAmmoButton = new JButton("3. RIFLE AMMO");
+        lmgAmmoButton = new JButton("4. LMG AMMO");
+        sniperAmmoButton = new JButton("5. SNIPER AMMO BUTTON");
 
         exitButton = new JButton("0. CANCEL");
 
-        gunArray[0] = scoutButton;
-        gunArray[1] = g3sg1Button;
-        gunArray[2] = sg550Button;
-        gunArray[3] = awpButton;
+        gunArray[0] = pistolAmmoButton;
+        gunArray[1] = smgAmmoButton;
+        gunArray[2] = rifleAmmoButton;
+        gunArray[3] = lmgAmmoButton;
+        gunArray[4] = sniperAmmoButton;
 
-        gunArray[4] = exitButton;
+        gunArray[5] = exitButton;
 
         for (int i = 0; i < gunArray.length; i++) {
             gunArray[i].setPreferredSize(new Dimension(400, 40));
@@ -105,14 +110,51 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == scoutButton) {
-            gunOrder("SCOUT", 2750);
-        } else if (e.getSource() == g3sg1Button) {
-            gunOrder("G3/SG-1", 5000);
-        } else if (e.getSource() == sg550Button) {
-            gunOrder("SG-550", 4200);
-        } else if (e.getSource() == awpButton) {
-            gunOrder("AWP", 4750);
+        if (e.getSource() == pistolAmmoButton) {
+            try {
+                gunAmmoAmount = Integer
+                        .parseInt(JOptionPane.showInputDialog("Enter PISTOL Ammo Amount (1 Dollar per bullet)"));
+                ammoOrder("PISTOL AMMO", gunAmmoAmount * 1, gunAmmoAmount); // 1 dollar per bullet
+            } catch (Exception arg0) {
+                JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (e.getSource() == smgAmmoButton) {
+            try {
+                gunAmmoAmount = Integer
+                        .parseInt(JOptionPane.showInputDialog("Enter SMG Ammo Amount (2 Dollars per bullet)"));
+                ammoOrder("SMG AMMO", gunAmmoAmount * 2, gunAmmoAmount); // 2 dollars per bullet
+            } catch (Exception arg0) {
+                JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (e.getSource() == rifleAmmoButton) {
+            try {
+                gunAmmoAmount = Integer
+                        .parseInt(JOptionPane.showInputDialog("Enter RIFLE Ammo Amount (3 Dollars per bullet)"));
+                ammoOrder("RIFLE AMMO", gunAmmoAmount * 3, gunAmmoAmount); // 3 dollars per bullet
+            } catch (Exception arg0) {
+                JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (e.getSource() == lmgAmmoButton) {
+            try {
+                gunAmmoAmount = Integer
+                        .parseInt(JOptionPane.showInputDialog("Enter LMG Ammo Amount (4 Dollars per bullet)"));
+                ammoOrder("LMG AMMO", gunAmmoAmount * 4, gunAmmoAmount); // 4 dollars per bullet
+            } catch (Exception arg0) {
+                JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (e.getSource() == sniperAmmoButton) {
+            try {
+                gunAmmoAmount = Integer
+                        .parseInt(JOptionPane.showInputDialog("Enter SNIPER Ammo Amount (5 Dollars per bullet)"));
+                ammoOrder("SNIPER AMMO", gunAmmoAmount * 5, gunAmmoAmount); // 5 dollars per bullet
+            } catch (Exception arg0) {
+                JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -120,7 +162,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     }
 
-    public void gunOrder(String gunModel, int gunPrice) {
+    public void ammoOrder(String ammoType, int gunPrice, int ammoAmount) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
@@ -131,7 +173,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
 
-            gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
+            gunOrderLabel = new JLabel(ammoType + " (" + ammoAmount + ") : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(new Color(255, 195, 0));
             BuyMenuFrame.userTotal += gunPrice;
@@ -153,19 +195,23 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
         switch (e.getKeyChar()) {
 
             case '1':
-                scoutButton.doClick();
+                pistolAmmoButton.doClick();
                 break;
 
             case '2':
-                g3sg1Button.doClick();
+                smgAmmoButton.doClick();
                 break;
 
             case '3':
-                sg550Button.doClick();
+                rifleAmmoButton.doClick();
                 break;
 
             case '4':
-                awpButton.doClick();
+                lmgAmmoButton.doClick();
+                break;
+
+            case '5':
+                sniperAmmoButton.doClick();
                 break;
 
             case '0':
@@ -200,26 +246,33 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getComponent() == scoutButton) {
+        // TODO: add photos for each ammo type
+        if (e.getComponent() == pistolAmmoButton) {
             gunIcon = new ImageIcon("SniperMenuPhotos/scoutPhoto.png");
             gunNamePriceLabel.setText("SCOUT : $2,750");
             changeIconLabel();
         }
 
-        if (e.getComponent() == g3sg1Button) {
+        if (e.getComponent() == smgAmmoButton) {
             gunIcon = new ImageIcon("SniperMenuPhotos/g3sg1Photo.png");
             gunNamePriceLabel.setText("G3/SG-1 : $5,000");
             changeIconLabel();
         }
 
-        if (e.getComponent() == sg550Button) {
+        if (e.getComponent() == rifleAmmoButton) {
             gunIcon = new ImageIcon("SniperMenuPhotos/sg550Photo.png");
             gunNamePriceLabel.setText("SG-550 : $4,200");
             changeIconLabel();
         }
 
-        if (e.getComponent() == awpButton) {
+        if (e.getComponent() == lmgAmmoButton) {
             gunIcon = new ImageIcon("SniperMenuPhotos/awpPhoto.png");
+            gunNamePriceLabel.setText("AWP : $4,750");
+            changeIconLabel();
+        }
+
+        if (e.getComponent() == sniperAmmoButton) {
+            gunIcon = new ImageIcon("SniperMenuPhotos/scoutPhoto.png");
             gunNamePriceLabel.setText("AWP : $4,750");
             changeIconLabel();
         }
@@ -228,20 +281,24 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void mouseExited(MouseEvent e) {
 
-        if (e.getComponent() == scoutButton) {
-            resetIconLabel(scoutButton);
+        if (e.getComponent() == pistolAmmoButton) {
+            resetIconLabel(pistolAmmoButton);
         }
 
-        if (e.getComponent() == g3sg1Button) {
-            resetIconLabel(g3sg1Button);
+        if (e.getComponent() == smgAmmoButton) {
+            resetIconLabel(smgAmmoButton);
         }
 
-        if (e.getComponent() == sg550Button) {
-            resetIconLabel(sg550Button);
+        if (e.getComponent() == rifleAmmoButton) {
+            resetIconLabel(rifleAmmoButton);
         }
 
-        if (e.getComponent() == awpButton) {
-            resetIconLabel(awpButton);
+        if (e.getComponent() == lmgAmmoButton) {
+            resetIconLabel(lmgAmmoButton);
+        }
+
+        if (e.getComponent() == sniperAmmoButton) {
+            resetIconLabel(sniperAmmoButton);
         }
 
     }
