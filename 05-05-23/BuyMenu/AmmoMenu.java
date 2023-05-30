@@ -11,6 +11,7 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     JPanel descPanel;
 
     JButton pistolAmmoButton;
+    JButton shotgunAmmoButton; // TODO: add shotgun ammo button and components
     JButton smgAmmoButton;
     JButton rifleAmmoButton;
     JButton lmgAmmoButton;
@@ -248,32 +249,32 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     public void mouseEntered(MouseEvent e) {
         // TODO: add photos for each ammo type
         if (e.getComponent() == pistolAmmoButton) {
-            gunIcon = new ImageIcon("SniperMenuPhotos/scoutPhoto.png");
-            gunNamePriceLabel.setText("SCOUT : $2,750");
+            gunIcon = new ImageIcon("AmmoMenuPhotos/pistolAmmoPhoto.png");
+            gunNamePriceLabel.setText("PISTOL AMMO : $1 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == smgAmmoButton) {
-            gunIcon = new ImageIcon("SniperMenuPhotos/g3sg1Photo.png");
-            gunNamePriceLabel.setText("G3/SG-1 : $5,000");
+            gunIcon = new ImageIcon("AmmoMenuPhotos/smgAmmoPhoto.png");
+            gunNamePriceLabel.setText("SMG AMMO : $2 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == rifleAmmoButton) {
-            gunIcon = new ImageIcon("SniperMenuPhotos/sg550Photo.png");
-            gunNamePriceLabel.setText("SG-550 : $4,200");
+            gunIcon = new ImageIcon("AmmoMenuPhotos/rifleAmmoPhoto.png");
+            gunNamePriceLabel.setText("RIFLE AMMO : $3 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == lmgAmmoButton) {
-            gunIcon = new ImageIcon("SniperMenuPhotos/awpPhoto.png");
-            gunNamePriceLabel.setText("AWP : $4,750");
+            gunIcon = new ImageIcon("AmmoMenuPhotos/lmgAmmoPhoto.png");
+            gunNamePriceLabel.setText("LMG AMMO : $4 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == sniperAmmoButton) {
-            gunIcon = new ImageIcon("SniperMenuPhotos/scoutPhoto.png");
-            gunNamePriceLabel.setText("AWP : $4,750");
+            gunIcon = new ImageIcon("AmmoMenuPhotos/sniperAmmoPhoto.png");
+            gunNamePriceLabel.setText("SNIPER AMMO : $5 per bullet");
             changeIconLabel();
         }
 
