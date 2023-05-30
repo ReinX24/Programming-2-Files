@@ -11,4 +11,8 @@
 - Feature that declares a winner when a score is reached
 - Feature that sets custom colors for left and right playing fields
 - Main Menu and Settings Menu Music
-- (Add More Here)
+- Added Paddle hit sound effect, Wall hit sound effect, and Score sound effect
+- Victory Song when a player wins
+- Match Point Sound Effect when one of the players is one point away from winning
+- Change Player One and Two names in Settings Menu
+- Added a "Reset All to Defaults" button in Settings Menu
