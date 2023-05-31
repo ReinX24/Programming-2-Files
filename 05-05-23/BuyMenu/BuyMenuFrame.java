@@ -3,6 +3,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener {
 
@@ -35,6 +36,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
+
+	DecimalFormat decimalFormat;
 
 	public BuyMenuFrame() {
 
@@ -175,7 +178,12 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				// Resets items bought, total, and removes all weapon order labels
 				itemsBoughtTracker = 0;
 				userTotal = 0;
-				totalLabel.setText("TOTAL: $" + userTotal);
+
+				decimalFormat = new DecimalFormat("#.##");
+				decimalFormat.setGroupingUsed(true);
+				decimalFormat.setGroupingSize(3);
+
+				totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
 				weaponOrderPanel.removeAll();
 				this.repaint();
 			}
