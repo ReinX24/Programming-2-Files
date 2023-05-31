@@ -116,7 +116,12 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		totalPanel.setLayout(new BorderLayout());
 
 		// JLabel that will show user's total amount
-		totalLabel = new JLabel("TOTAL: $" + userTotal);
+
+		decimalFormat = new DecimalFormat("#.##");
+		decimalFormat.setGroupingUsed(true);
+		decimalFormat.setGroupingSize(3);
+
+		totalLabel = new JLabel("TOTAL: $" + decimalFormat.format(userTotal));
 		totalLabel.setFont(CUSTOM_FONT);
 		totalLabel.setForeground(new Color(255, 195, 0));
 		totalLabel.setBorder(new EmptyBorder(0, 25, 0, 0));
@@ -158,11 +163,11 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new LargeMachineGunMenu();
 			this.dispose();
 		} else if (arg0.getSource() == ammoButton) {
-			// TODO: add Ammo, Equipment, and Buy button functionalities
 			new AmmoMenu();
 			this.dispose();
 		} else if (arg0.getSource() == equipmentButton) {
-			System.out.println("EQUPMENT!");
+			new EquipmentMenu();
+			this.dispose();
 		} else if (arg0.getSource() == buyButton) {
 			System.out.println("BUY!");
 		} else if (arg0.getSource() == exitClearButton) {
