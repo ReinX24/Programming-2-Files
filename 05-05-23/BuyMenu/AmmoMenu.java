@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 
 public class AmmoMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
@@ -115,50 +116,48 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
 
         if (e.getSource() == pistolAmmoButton) {
             try {
-                gunAmmoAmount = Integer
-                        .parseInt(JOptionPane.showInputDialog("Enter PISTOL Ammo Amount ($1 per bullet)"));
-                ammoOrder("PISTOL AMMO", gunAmmoAmount * 1, gunAmmoAmount); // 1 dollar per bullet
-            } catch (Exception arg0) {
-                invalidInputMessage();
+                askAmmoAmount("PISOL", 1, "bullet"); // 1 dollar per bullet
+            } catch (NumberFormatException arg0) {
+                invalidInputMessage(); // TODO: Implement for other try catch blocks
             }
         } else if (e.getSource() == shotgunAmmoButton) {
             try {
-                gunAmmoAmount = Integer.parseInt(JOptionPane.showInputDialog("Enter SHOTGUN Ammo Amount ($3 per shell)"));
-                ammoOrder("SHOTGUN AMMO", gunAmmoAmount * 3, gunAmmoAmount);
-            } catch (Exception arg0) {
+
+                askAmmoAmount("SHOTGUN", 3, "shell"); // 3 dollars per shell
+            } catch (InputMismatchException arg0) {
                 invalidInputMessage();
+            } catch (NumberFormatException arg0) {
+                // Do nothing
             }
         } else if (e.getSource() == smgAmmoButton) {
             try {
-                gunAmmoAmount = Integer
-                        .parseInt(JOptionPane.showInputDialog("Enter SMG Ammo Amount ($2 per bullet)"));
-                ammoOrder("SMG AMMO", gunAmmoAmount * 2, gunAmmoAmount); // 2 dollars per bullet
-            } catch (Exception arg0) {
+                askAmmoAmount("SMG", 2, "bullet"); // 2 dollars per bullet
+            } catch (InputMismatchException arg0) {
                 invalidInputMessage();
+            } catch (NumberFormatException arg0) {
+                // Do nothing
             }
         } else if (e.getSource() == rifleAmmoButton) {
             try {
-                gunAmmoAmount = Integer
-                        .parseInt(JOptionPane.showInputDialog("Enter RIFLE Ammo Amount (3 Dollars per bullet)"));
-                ammoOrder("RIFLE AMMO", gunAmmoAmount * 3, gunAmmoAmount); // 3 dollars per bullet
-            } catch (Exception arg0) {
+                askAmmoAmount("RIFLE", 3, "bullet"); // 3 dollars per bullet
+            } catch (InputMismatchException arg0) {
                 invalidInputMessage();
+            } catch (NumberFormatException arg0) {
+                // Do nothing
             }
         } else if (e.getSource() == lmgAmmoButton) {
             try {
-                gunAmmoAmount = Integer
-                        .parseInt(JOptionPane.showInputDialog("Enter LMG Ammo Amount (4 Dollars per bullet)"));
-                ammoOrder("LMG AMMO", gunAmmoAmount * 4, gunAmmoAmount); // 4 dollars per bullet
+                askAmmoAmount("LMG", 4, "bullet");// 4 dollars per bullet
             } catch (Exception arg0) {
                 invalidInputMessage();
             }
         } else if (e.getSource() == sniperAmmoButton) {
             try {
-                gunAmmoAmount = Integer
-                        .parseInt(JOptionPane.showInputDialog("Enter SNIPER Ammo Amount (5 Dollars per bullet)"));
-                ammoOrder("SNIPER AMMO", gunAmmoAmount * 5, gunAmmoAmount); // 5 dollars per bullet
-            } catch (Exception arg0) {
+                askAmmoAmount("SNIPER", 5, "bullet"); // 5 dollars per bullet
+            } catch (InputMismatchException arg0) {
                 invalidInputMessage();
+            } catch (NumberFormatException arg0) {
+                // Do nothing
             }
         } else if (e.getSource() == exitButton) {
             this.dispose();
@@ -167,12 +166,17 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
 
     }
 
-    public void invalidInputMessage() {
-        JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
-                JOptionPane.INFORMATION_MESSAGE);
+    public void askAmmoAmount(String ammoType, int perBulletPrice, String ammoModel) {
+
+        gunAmmoAmount = Integer
+                .parseInt(JOptionPane
+                        .showInputDialog(
+                                "Enter" + ammoType + "Ammo Amount ($" + perBulletPrice + " per " + ammoModel + ")"));
+
+        ammoOrder(ammoType + " AMMO", gunAmmoAmount * perBulletPrice, gunAmmoAmount);
     }
 
-    public void ammoOrder(String ammoType, int gunPrice, int ammoAmount) {
+    public void ammoOrder(String ammoType, int ammoPrice, int ammoAmount) {
 
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
@@ -183,10 +187,10 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
 
-            gunOrderLabel = new JLabel(ammoType + " (" + ammoAmount + ") : $" + decimalFormat.format(gunPrice));
+            gunOrderLabel = new JLabel(ammoType + " (" + ammoAmount + ") : $" + decimalFormat.format(ammoPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(new Color(255, 195, 0));
-            BuyMenuFrame.userTotal += gunPrice;
+            BuyMenuFrame.userTotal += ammoPrice;
             BuyMenuFrame.weaponOrderPanel.add(gunOrderLabel);
             BuyMenuFrame.totalLabel.setText("TOTAL: $" + decimalFormat.format(BuyMenuFrame.userTotal));
             BuyMenuFrame.itemsBoughtTracker += 1;
@@ -194,6 +198,11 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
             new BuyMenuFrame();
         }
 
+    }
+
+    public void invalidInputMessage() {
+        JOptionPane.showMessageDialog(this, "Invalid Ammo Input!", "Invalid Message",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void keyPressed(KeyEvent e) {
