@@ -4,7 +4,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
-import java.util.InputMismatchException;
 
 public class AmmoMenu extends JFrame implements ActionListener, KeyListener, MouseListener {
 
@@ -115,50 +114,17 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == pistolAmmoButton) {
-            try {
-                askAmmoAmount("PISOL", 1, "bullet"); // 1 dollar per bullet
-            } catch (NumberFormatException arg0) {
-                invalidInputMessage(); // TODO: Implement for other try catch blocks
-            }
+            askAmmoAmount("PISOL", 1, "bullet"); // 1 dollar per bullet
         } else if (e.getSource() == shotgunAmmoButton) {
-            try {
-
-                askAmmoAmount("SHOTGUN", 3, "shell"); // 3 dollars per shell
-            } catch (InputMismatchException arg0) {
-                invalidInputMessage();
-            } catch (NumberFormatException arg0) {
-                // Do nothing
-            }
+            askAmmoAmount("SHOTGUN", 3, "shell"); // 3 dollars per shell
         } else if (e.getSource() == smgAmmoButton) {
-            try {
-                askAmmoAmount("SMG", 2, "bullet"); // 2 dollars per bullet
-            } catch (InputMismatchException arg0) {
-                invalidInputMessage();
-            } catch (NumberFormatException arg0) {
-                // Do nothing
-            }
+            askAmmoAmount("SMG", 2, "bullet"); // 2 dollars per bullet
         } else if (e.getSource() == rifleAmmoButton) {
-            try {
-                askAmmoAmount("RIFLE", 3, "bullet"); // 3 dollars per bullet
-            } catch (InputMismatchException arg0) {
-                invalidInputMessage();
-            } catch (NumberFormatException arg0) {
-                // Do nothing
-            }
+            askAmmoAmount("RIFLE", 3, "bullet"); // 3 dollars per bullet
         } else if (e.getSource() == lmgAmmoButton) {
-            try {
-                askAmmoAmount("LMG", 4, "bullet");// 4 dollars per bullet
-            } catch (Exception arg0) {
-                invalidInputMessage();
-            }
+            askAmmoAmount("LMG", 4, "bullet");// 4 dollars per bullet
         } else if (e.getSource() == sniperAmmoButton) {
-            try {
-                askAmmoAmount("SNIPER", 5, "bullet"); // 5 dollars per bullet
-            } catch (InputMismatchException arg0) {
-                invalidInputMessage();
-            } catch (NumberFormatException arg0) {
-                // Do nothing
-            }
+            askAmmoAmount("SNIPER", 5, "bullet"); // 5 dollars per bullet
         } else if (e.getSource() == exitButton) {
             this.dispose();
             new BuyMenuFrame();
@@ -168,12 +134,19 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
 
     public void askAmmoAmount(String ammoType, int perBulletPrice, String ammoModel) {
 
-        gunAmmoAmount = Integer
-                .parseInt(JOptionPane
-                        .showInputDialog(
-                                "Enter" + ammoType + "Ammo Amount ($" + perBulletPrice + " per " + ammoModel + ")"));
+        // TODO: debug and make JSpinner code cleaner
+        SpinnerModel ammoSpinnerValues = new SpinnerNumberModel(1, 1, 1000, 1);
+        JSpinner ammoSpinner = new JSpinner(ammoSpinnerValues);
 
-        ammoOrder(ammoType + " AMMO", gunAmmoAmount * perBulletPrice, gunAmmoAmount);
+        String[] ammoSpinnerChoices = { "Comfirm", "Cancel" };
+        int ammoAmountChoice = JOptionPane.showOptionDialog(this, ammoSpinner, "Ammo Amount",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, ammoSpinnerChoices, null);
+
+        gunAmmoAmount = (int) ammoSpinner.getValue();
+
+        if (ammoAmountChoice == JOptionPane.YES_OPTION) {
+            ammoOrder(ammoType + " AMMO", gunAmmoAmount * perBulletPrice, gunAmmoAmount);
+        }
     }
 
     public void ammoOrder(String ammoType, int ammoPrice, int ammoAmount) {
