@@ -27,6 +27,10 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton buyButton;
 	JButton exitClearButton;
 
+	JButton clearButton;
+	JButton undoButton;
+	JButton discountButton;
+
 	static JLabel totalLabel;
 	static int userTotal = 0;
 	String userGun;
@@ -39,6 +43,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	DecimalFormat decimalFormat;
 
+	JPanel extraButtonsPanel;
+
 	public BuyMenuFrame() {
 
 		// Setting up our JFrame
@@ -47,10 +53,11 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
 		this.addKeyListener(this);
+		this.setIconImage(new ImageIcon("buyMenuIcon.png").getImage());
 
 		// Creating our JPanel that will contain our Gun Menu Buttons
 		weaponPanel = new JPanel();
-		weaponPanel.setPreferredSize(new Dimension(500, 700));
+		weaponPanel.setPreferredSize(new Dimension(500, 750));
 		weaponPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		weaponPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
 		weaponPanel.setBackground(new Color(129, 133, 137, 128)); // r, g, b, alpha value
@@ -90,6 +97,24 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			weaponButtons[i].setFont(CUSTOM_FONT);
 			weaponPanel.add(weaponButtons[i]);
 		}
+
+		// For Clear, Undo, and Discount functionalities
+		extraButtonsPanel = new JPanel();
+		extraButtonsPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+		extraButtonsPanel.setPreferredSize(new Dimension(400, 80));
+		
+		// TODO: put Clear, Undo, and Discount buttons here
+		extraButtonsPanel.add(new JButton("Clear"));
+		extraButtonsPanel.add(new JButton("Undo"));
+		extraButtonsPanel.add(new JButton("Discount"));
+
+		//* Ideas for implementing Undo function:
+
+		// Set JButton attributes here using a for loop
+
+		// ? Installemnt Plans functionality
+
+		weaponPanel.add(extraButtonsPanel);
 
 		// Adding our weaponPanel to our JFrame
 		this.add(weaponPanel);
@@ -171,27 +196,22 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		} else if (arg0.getSource() == buyButton) {
 			confirmBuy();
 		} else if (arg0.getSource() == exitClearButton) {
-
-			String[] exitClearChoices = { "Exit", "Clear", "Cancel" };
-			int confirmClearExit = JOptionPane.showOptionDialog(this, "Exit Buy Menu / Clear Buy Menu", "Exit / Clear",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, exitClearChoices, null);
-
-			if (confirmClearExit == 0) {
-				// Closes our BuyMenuFrame
-				confirmClose();
-			} else if (confirmClearExit == 1) {
-				// Resets items bought, total, and removes all weapon order labels
-				confirmClear();
-			}
+			exitClearConfirm();
 		}
 
 	}
 
 	public void confirmBuy() {
-		// TODO: make userTotal have commas's for prices
-		int confirmBuyChoice = JOptionPane.showConfirmDialog(this, "Buy Orders for $" + userTotal, "Buy Confirmation", JOptionPane.YES_NO_OPTION);
+
+		decimalFormat = new DecimalFormat("#.##");
+		decimalFormat.setGroupingUsed(true);
+		decimalFormat.setGroupingSize(3);
+
+		int confirmBuyChoice = JOptionPane.showConfirmDialog(this, "Buy Orders for $" + decimalFormat.format(userTotal),
+				"Buy Confirmation", JOptionPane.YES_NO_OPTION);
 		if (confirmBuyChoice == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(this, "Paid $" + userTotal, "Paid Message", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Paid $" + decimalFormat.format(userTotal), "Paid Message",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -219,6 +239,20 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			this.repaint();
 		}
 
+	}
+
+	public void exitClearConfirm() {
+		String[] exitClearChoices = { "Exit", "Clear", "Cancel" };
+		int confirmClearExit = JOptionPane.showOptionDialog(this, "Exit Buy Menu / Clear Buy Menu", "Exit / Clear",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, exitClearChoices, null);
+
+		if (confirmClearExit == 0) {
+			// Closes our BuyMenuFrame
+			confirmClose();
+		} else if (confirmClearExit == 1) {
+			// Resets items bought, total, and removes all weapon order labels
+			confirmClear();
+		}
 	}
 
 	@Override
