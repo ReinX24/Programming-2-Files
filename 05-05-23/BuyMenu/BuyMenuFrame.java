@@ -169,7 +169,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new EquipmentMenu();
 			this.dispose();
 		} else if (arg0.getSource() == buyButton) {
-			System.out.println("BUY!");
+			confirmBuy();
 		} else if (arg0.getSource() == exitClearButton) {
 
 			String[] exitClearChoices = { "Exit", "Clear", "Cancel" };
@@ -178,26 +178,67 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 			if (confirmClearExit == 0) {
 				// Closes our BuyMenuFrame
-				this.dispose();
+				confirmClose();
 			} else if (confirmClearExit == 1) {
 				// Resets items bought, total, and removes all weapon order labels
-				itemsBoughtTracker = 0;
-				userTotal = 0;
-
-				decimalFormat = new DecimalFormat("#.##");
-				decimalFormat.setGroupingUsed(true);
-				decimalFormat.setGroupingSize(3);
-
-				totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
-				weaponOrderPanel.removeAll();
-				this.repaint();
+				confirmClear();
 			}
+		}
+
+	}
+
+	public void confirmBuy() {
+		// TODO: make userTotal have commas's for prices
+		int confirmBuyChoice = JOptionPane.showConfirmDialog(this, "Buy Orders for $" + userTotal, "Buy Confirmation", JOptionPane.YES_NO_OPTION);
+		if (confirmBuyChoice == JOptionPane.YES_OPTION) {
+			JOptionPane.showMessageDialog(this, "Paid $" + userTotal, "Paid Message", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
+	public void confirmClose() {
+		int confirmCloseChoice = JOptionPane.showConfirmDialog(this, "Exit Buy Menu?", "Exit Confirmation",
+				JOptionPane.YES_NO_OPTION);
+		if (confirmCloseChoice == JOptionPane.YES_OPTION) {
+			this.dispose();
+		}
+	}
+
+	public void confirmClear() {
+		int confirmClearChoice = JOptionPane.showConfirmDialog(this, "Clear Weapon Order/s?", "Clear Confirmation",
+				JOptionPane.YES_NO_OPTION);
+		if (confirmClearChoice == JOptionPane.YES_OPTION) {
+			itemsBoughtTracker = 0;
+			userTotal = 0;
+
+			decimalFormat = new DecimalFormat("#.##");
+			decimalFormat.setGroupingUsed(true);
+			decimalFormat.setGroupingSize(3);
+
+			totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
+			weaponOrderPanel.removeAll();
+			this.repaint();
 		}
 
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
+		switch (e.getKeyChar()) {
+
+			case 'b': // Buy button
+				buyButton.doClick();
+				break;
+
+			case 'c': // Clear weapon orders
+				confirmClear();
+				break;
+
+			case 'e': // Exit BuyMenyu
+				confirmClose();
+				break;
+
+		}
 
 	}
 

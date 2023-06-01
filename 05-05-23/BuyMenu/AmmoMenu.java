@@ -32,6 +32,8 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     DecimalFormat decimalFormat;
 
     int gunAmmoAmount;
+    SpinnerModel ammoSpinnerValues;
+    JSpinner ammoSpinner;
 
     AmmoMenu() {
         this.setTitle("AMMO MENU");
@@ -134,11 +136,10 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
 
     public void askAmmoAmount(String ammoType, int perBulletPrice, String ammoModel) {
 
-        // TODO: debug and make JSpinner code cleaner
-        SpinnerModel ammoSpinnerValues = new SpinnerNumberModel(1, 1, 1000, 1);
-        JSpinner ammoSpinner = new JSpinner(ammoSpinnerValues);
+        ammoSpinnerValues = new SpinnerNumberModel(1, 1, 1000, 1);
+        ammoSpinner = new JSpinner(ammoSpinnerValues);
 
-        String[] ammoSpinnerChoices = { "Comfirm", "Cancel" };
+        String[] ammoSpinnerChoices = { "Confirm", "Cancel" };
         int ammoAmountChoice = JOptionPane.showOptionDialog(this, ammoSpinner, "Ammo Amount",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, ammoSpinnerChoices, null);
 
