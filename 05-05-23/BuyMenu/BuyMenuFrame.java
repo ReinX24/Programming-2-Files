@@ -25,11 +25,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton equipmentButton;
 	JButton sniperButton;
 	JButton buyButton;
-	JButton exitClearButton;
-
-	JButton clearButton;
-	JButton undoButton;
-	JButton discountButton;
+	JButton exitButton;
 
 	static JLabel totalLabel;
 	static int userTotal = 0;
@@ -40,10 +36,19 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
+	final Color FONT_COLOR = new Color(255, 195, 0);
+	final Color BUTTON_BACKGROUND_COLOR = new Color(129, 133, 137, 255);
+	final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
 
 	DecimalFormat decimalFormat;
 
 	JPanel extraButtonsPanel;
+
+	JButton[] extraButtons = new JButton[3];
+
+	JButton clearButton;
+	JButton undoButton;
+	JButton discountButton;
 
 	public BuyMenuFrame() {
 
@@ -60,10 +65,10 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponPanel.setPreferredSize(new Dimension(500, 750));
 		weaponPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		weaponPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
-		weaponPanel.setBackground(new Color(129, 133, 137, 128)); // r, g, b, alpha value
+		weaponPanel.setBackground(BACKGROUND_COLOR); // r, g, b, alpha value
 
 		// Instantiating our JButtons
-		exitClearButton = new JButton("0. EXIT / CLEAR");
+		exitButton = new JButton("0. EXIT");
 		buyButton = new JButton("9. BUY");
 		pistolButton = new JButton("1. PISTOLS");
 		shotgunButton = new JButton("2. SHOTGUNS");
@@ -84,7 +89,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponButtons[6] = ammoButton;
 		weaponButtons[7] = equipmentButton;
 		weaponButtons[8] = buyButton;
-		weaponButtons[9] = exitClearButton;
+		weaponButtons[9] = exitButton;
 
 		// Adding different settings to our JButtons
 		for (int i = 0; i < weaponButtons.length; i++) {
@@ -92,8 +97,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			weaponButtons[i].addActionListener(this);
 			weaponButtons[i].setHorizontalAlignment(JButton.LEFT);
 			weaponButtons[i].setFocusable(false);
-			weaponButtons[i].setBackground(new Color(129, 133, 137, 255));
-			weaponButtons[i].setForeground(new Color(255, 195, 0));
+			weaponButtons[i].setBackground(BUTTON_BACKGROUND_COLOR);
+			weaponButtons[i].setForeground(FONT_COLOR);
 			weaponButtons[i].setFont(CUSTOM_FONT);
 			weaponPanel.add(weaponButtons[i]);
 		}
@@ -101,19 +106,37 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		// For Clear, Undo, and Discount functionalities
 		extraButtonsPanel = new JPanel();
 		extraButtonsPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+		extraButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		extraButtonsPanel.setPreferredSize(new Dimension(400, 80));
-		
-		// TODO: put Clear, Undo, and Discount buttons here
-		extraButtonsPanel.add(new JButton("Clear"));
-		extraButtonsPanel.add(new JButton("Undo"));
-		extraButtonsPanel.add(new JButton("Discount"));
+		extraButtonsPanel.setBackground(Color.LIGHT_GRAY);
 
-		//* Ideas for implementing Undo function:
+		clearButton = new JButton("<html><u>C</u>LEAR</html>");
+		undoButton = new JButton("<html><u>U</u>NDO</html>");
+		discountButton = new JButton("<html><u>D</u>ISCOUNT</html>");
 
-		// Set JButton attributes here using a for loop
+		// TODO: add another JButton? (Monthy installment w/ x amount of interest)
 
-		// ? Installemnt Plans functionality
+		extraButtons[0] = clearButton;
+		extraButtons[1] = undoButton;
+		extraButtons[2] = discountButton;
 
+		for (int i = 0; i < extraButtons.length; i++) {
+			extraButtons[i].addActionListener(this);
+			extraButtons[i].setFocusable(false);
+			extraButtons[i].setPreferredSize(new Dimension(100, 40));
+			extraButtons[i].setFont(CUSTOM_FONT);
+			extraButtons[i].setForeground(FONT_COLOR);
+			extraButtons[i].setBackground(BUTTON_BACKGROUND_COLOR);
+			extraButtonsPanel.add(extraButtons[i]);
+		}
+
+		/*
+		 * Ideas for implementing Undo function:
+		 * - weapon orders will be added to an array list and will be added to the
+		 * weaponOrderPanels
+		 */
+
+		// Adding extraButtonsPanel to oue weaponPanel, at bottom of weaponPanel
 		weaponPanel.add(extraButtonsPanel);
 
 		// Adding our weaponPanel to our JFrame
@@ -123,7 +146,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		pricePanel = new JPanel();
 		pricePanel.setPreferredSize(new Dimension(500, 700));
 		pricePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 45));
-		pricePanel.setBackground(new Color(129, 133, 137, 128));
+		pricePanel.setBackground(BACKGROUND_COLOR);
 
 		// Creating a JLabel that contains user guns and prices
 		weaponOrderPanel.setPreferredSize(new Dimension(400, 450));
@@ -148,7 +171,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		totalLabel = new JLabel("TOTAL: $" + decimalFormat.format(userTotal));
 		totalLabel.setFont(CUSTOM_FONT);
-		totalLabel.setForeground(new Color(255, 195, 0));
+		totalLabel.setForeground(FONT_COLOR);
 		totalLabel.setBorder(new EmptyBorder(0, 25, 0, 0));
 
 		// Adding our JLabel containing user total to our JPanel
@@ -195,8 +218,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			this.dispose();
 		} else if (arg0.getSource() == buyButton) {
 			confirmBuy();
-		} else if (arg0.getSource() == exitClearButton) {
-			exitClearConfirm();
+		} else if (arg0.getSource() == clearButton) {
+			confirmClear();
+		} else if (arg0.getSource() == undoButton) {
+			System.out.println("UNDO");
+		} else if (arg0.getSource() == discountButton) {
+			System.out.println("DISCOUNT");
+		} else if (arg0.getSource() == exitButton) {
+			confirmClose();
 		}
 
 	}
@@ -241,38 +270,23 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	}
 
-	public void exitClearConfirm() {
-		String[] exitClearChoices = { "Exit", "Clear", "Cancel" };
-		int confirmClearExit = JOptionPane.showOptionDialog(this, "Exit Buy Menu / Clear Buy Menu", "Exit / Clear",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, exitClearChoices, null);
+	// TODO: implement undo functionality
+	public void confirmUndo() {
 
-		if (confirmClearExit == 0) {
-			// Closes our BuyMenuFrame
-			confirmClose();
-		} else if (confirmClearExit == 1) {
-			// Resets items bought, total, and removes all weapon order labels
-			confirmClear();
-		}
+	}
+
+	// TODO: ask for a discount percentage using a JSpinner
+	public void askDiscount() {
+
+	}
+
+	// TODO: ask the user to confirm their added discount
+	public void confirmDiscount() {
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
-		switch (e.getKeyChar()) {
-
-			case 'b': // Buy button
-				buyButton.doClick();
-				break;
-
-			case 'c': // Clear weapon orders
-				confirmClear();
-				break;
-
-			case 'e': // Exit BuyMenyu
-				confirmClose();
-				break;
-
-		}
 
 	}
 
@@ -318,7 +332,23 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				break;
 
 			case '0':
-				exitClearButton.doClick();
+				exitButton.doClick();
+				break;
+
+			case 'b': // Buy button
+				buyButton.doClick();
+				break;
+
+			case 'c': // Clear weapon orders
+				clearButton.doClick();
+				break;
+
+			case 'u':
+				undoButton.doClick();
+				break;
+
+			case 'd':
+				discountButton.doClick();
 				break;
 
 		}
