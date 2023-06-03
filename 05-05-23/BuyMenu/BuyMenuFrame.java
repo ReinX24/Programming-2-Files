@@ -34,7 +34,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	Double userGunPrice;
 
 	static int maxBuyItems = 20;
-	static int itemsBoughtTracker = 0;
+	static int itemsBoughtTracker = 0; // TODO: use this variable
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
 	final static Color FONT_COLOR = new Color(255, 195, 0);
@@ -56,7 +56,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	double discountAmount;
 
 	// ArrayList that will contain the orders of users
-	static ArrayList<JLabel> orderModelAndPrices = new ArrayList<JLabel>();
+	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
+	static ArrayList<Integer> weaponOrderPrices = new ArrayList<Integer>();
 
 	public BuyMenuFrame() {
 
@@ -137,12 +138,6 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			extraButtons[i].setBackground(BUTTON_BACKGROUND_COLOR);
 			extraButtonsPanel.add(extraButtons[i]);
 		}
-
-		/*
-		 * Ideas for implementing Undo function:
-		 * - weapon orders will be added to an array list and will be added to the
-		 * weaponOrderPanels
-		 */
 
 		// Adding extraButtonsPanel to oue weaponPanel, at bottom of weaponPanel
 		weaponPanel.add(extraButtonsPanel);
@@ -228,7 +223,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		} else if (arg0.getSource() == clearButton) {
 			confirmClear();
 		} else if (arg0.getSource() == undoButton) {
-			System.out.println("UNDO");
+			confirmUndo();
 		} else if (arg0.getSource() == discountButton) {
 			askDiscount();
 		} else if (arg0.getSource() == exitButton) {
@@ -264,7 +259,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				JOptionPane.YES_NO_OPTION);
 		if (confirmClearChoice == JOptionPane.YES_OPTION) {
 
-			orderModelAndPrices.clear();
+			weaponOrderPrices.clear();
+			weaponOrderLabels.clear();
 			itemsBoughtTracker = 0;
 			userTotal = 0;
 
@@ -279,9 +275,26 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	}
 
-	// TODO: check if this is working as intended
+	// TODO: ask the user of they want to undo before removing last element
 	public void confirmUndo() {
 		undoLastAddedOrder();
+	}
+
+	// TODO: check if the user's orders are less than or equal to 0
+	public void undoLastAddedOrder() {
+		weaponOrderPanel.removeAll();
+		weaponOrderLabels.remove(weaponOrderLabels.size() - 1);
+
+		for (JLabel eachWeaponOrder : weaponOrderLabels) {
+			weaponOrderPanel.add(eachWeaponOrder);
+		}
+
+		// Subtracts last added order price from userTotal
+		userTotal = userTotal - weaponOrderPrices.get(weaponOrderPrices.size() - 1); // subtracts userTotal
+		totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
+		weaponOrderPrices.remove(weaponOrderPrices.size() - 1);
+
+		weaponOrderPanel.repaint();
 	}
 
 	public void askDiscount() {
@@ -306,22 +319,16 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				"Display Discount", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public static void addWeaponOrder(JLabel orderDetails) {
-		weaponOrderPanel.removeAll(); // removes all components
-		orderModelAndPrices.add(orderDetails); // adds newly added orderDetails to our ArrayList
-		// Add each element in our ArrayList to our weaponOrderPanel
-		for (JLabel eachWeaponOrder : orderModelAndPrices) {
-			weaponOrderPanel.add(eachWeaponOrder);
-		}
-		// Repaint weaponOrderPanel w/ ArrayList elements
-		weaponOrderPanel.repaint();
+	public static void addWeaponPrice(Integer orderPrice) {
+		userTotal += orderPrice;
+		weaponOrderPrices.add(orderPrice);
 	}
 
-	public void undoLastAddedOrder() {
+	public static void addWeaponOrder(JLabel orderDetails) {
 		weaponOrderPanel.removeAll(); // removes all components
-		orderModelAndPrices.remove(orderModelAndPrices.size() - 1);
+		weaponOrderLabels.add(orderDetails); // adds newly added orderDetails to our ArrayList
 		// Add each element in our ArrayList to our weaponOrderPanel
-		for (JLabel eachWeaponOrder : orderModelAndPrices) {
+		for (JLabel eachWeaponOrder : weaponOrderLabels) {
 			weaponOrderPanel.add(eachWeaponOrder);
 		}
 		// Repaint weaponOrderPanel w/ ArrayList elements

@@ -139,13 +139,14 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
 
-            // TODO: check if we can make this shorter
+            // TODO: implement pistolOrder method to other classes
             gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(BuyMenuFrame.FONT_COLOR);
-            BuyMenuFrame.userTotal += gunPrice;
-            BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
+
+            BuyMenuFrame.addWeaponPrice(gunPrice);
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
+            BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
             BuyMenuFrame.itemsBoughtTracker += 1;
 
             this.dispose();
