@@ -32,7 +32,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	String userGun;
 	Double userGunPrice;
 
-	static int maxBuyItems = 202334;
+	static int maxBuyItems = 20;
 	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
@@ -49,6 +49,10 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton clearButton;
 	JButton undoButton;
 	JButton discountButton;
+
+	SpinnerModel discountSpinnerValues;
+	JSpinner discountSpinner;
+	int discountAmount;
 
 	public BuyMenuFrame() {
 
@@ -223,7 +227,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		} else if (arg0.getSource() == undoButton) {
 			System.out.println("UNDO");
 		} else if (arg0.getSource() == discountButton) {
-			System.out.println("DISCOUNT");
+			askDiscount();
 		} else if (arg0.getSource() == exitButton) {
 			confirmClose();
 		}
@@ -277,6 +281,17 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	// TODO: ask for a discount percentage using a JSpinner
 	public void askDiscount() {
+		discountSpinnerValues = new SpinnerNumberModel(1, 1, 100, 1);
+		discountSpinner = new JSpinner(discountSpinnerValues);
+
+        String[] discountSpinnerChoices = { "Confirm", "Cancel" };
+        int ammoAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Discount",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
+
+		// TODO: check if this works correctly
+		if (ammoAmountChoice == 0) {
+			discountAmount = (int) discountSpinner.getValue();
+		}
 
 	}
 
