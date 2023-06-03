@@ -52,7 +52,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	SpinnerModel discountSpinnerValues;
 	JSpinner discountSpinner;
-	int discountAmount;
+	double discountAmount;
 
 	public BuyMenuFrame() {
 
@@ -281,23 +281,30 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	// TODO: ask for a discount percentage using a JSpinner
 	public void askDiscount() {
-		discountSpinnerValues = new SpinnerNumberModel(1, 1, 100, 1);
+		discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5);
 		discountSpinner = new JSpinner(discountSpinnerValues);
 
-        String[] discountSpinnerChoices = { "Confirm", "Cancel" };
-        int ammoAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Discount",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
+		String[] discountSpinnerChoices = { "Confirm", "Cancel" };
+		int ammoAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Discount",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
 
 		// TODO: check if this works correctly
 		if (ammoAmountChoice == 0) {
 			discountAmount = (int) discountSpinner.getValue();
+			confirmDiscount();
 		}
 
 	}
 
 	// TODO: ask the user to confirm their added discount
 	public void confirmDiscount() {
-
+		int confirmDiscount = JOptionPane.showConfirmDialog(this, "Apply " + (int) discountAmount + "% discount?",
+				"Discount Confirmation", JOptionPane.YES_NO_OPTION);
+		if (confirmDiscount == JOptionPane.YES_OPTION) {
+			JOptionPane.showMessageDialog(this,
+					"Discounted Total Price(" + (int) discountAmount + "%): $" + (userTotal - userTotal * (discountAmount / 100)),
+					"Display Discount", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 	@Override
