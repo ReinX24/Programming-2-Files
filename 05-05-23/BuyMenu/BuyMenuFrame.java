@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener {
 
@@ -36,7 +37,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
-	final Color FONT_COLOR = new Color(255, 195, 0);
+	final static Color FONT_COLOR = new Color(255, 195, 0);
 	final Color BUTTON_BACKGROUND_COLOR = new Color(129, 133, 137, 255);
 	final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
 
@@ -53,6 +54,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	SpinnerModel discountSpinnerValues;
 	JSpinner discountSpinner;
 	double discountAmount;
+
+	// ArrayList that will contain the orders of users
+	static ArrayList<JLabel> orderModelAndPrices = new ArrayList<JLabel>();
 
 	public BuyMenuFrame() {
 
@@ -158,7 +162,6 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		weaponOrderPanel.setBorder(new EmptyBorder(25, 25, 25, 25));
 		weaponOrderPanel.setLayout(new GridLayout(20, 1));
 
-		// Adding our weaponOrderPanel to our pricePanel
 		pricePanel.add(weaponOrderPanel);
 
 		// JPanel that will contains the total of our user's gun orders
@@ -260,6 +263,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		int confirmClearChoice = JOptionPane.showConfirmDialog(this, "Clear Weapon Order/s?", "Clear Confirmation",
 				JOptionPane.YES_NO_OPTION);
 		if (confirmClearChoice == JOptionPane.YES_OPTION) {
+
+			orderModelAndPrices.clear();
 			itemsBoughtTracker = 0;
 			userTotal = 0;
 
@@ -274,37 +279,53 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	}
 
-	// TODO: implement undo functionality
+	// TODO: check if this is working as intended
 	public void confirmUndo() {
-
+		undoLastAddedOrder();
 	}
 
-	// TODO: ask for a discount percentage using a JSpinner
 	public void askDiscount() {
-		discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5);
+		discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5); // increments of 5
 		discountSpinner = new JSpinner(discountSpinnerValues);
 
 		String[] discountSpinnerChoices = { "Confirm", "Cancel" };
-		int ammoAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Discount",
+		int ammoAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
 
-		// TODO: check if this works correctly
 		if (ammoAmountChoice == 0) {
 			discountAmount = (int) discountSpinner.getValue();
-			confirmDiscount();
+			showDiscount();
 		}
 
 	}
 
-	// TODO: ask the user to confirm their added discount
-	public void confirmDiscount() {
-		int confirmDiscount = JOptionPane.showConfirmDialog(this, "Apply " + (int) discountAmount + "% discount?",
-				"Discount Confirmation", JOptionPane.YES_NO_OPTION);
-		if (confirmDiscount == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(this,
-					"Discounted Total Price(" + (int) discountAmount + "%): $" + (userTotal - userTotal * (discountAmount / 100)),
-					"Display Discount", JOptionPane.INFORMATION_MESSAGE);
+	public void showDiscount() {
+		JOptionPane.showMessageDialog(this,
+				"Discounted Total Price (" + (int) discountAmount + "%): $"
+						+ (userTotal - userTotal * (discountAmount / 100)),
+				"Display Discount", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public static void addWeaponOrder(JLabel orderDetails) {
+		weaponOrderPanel.removeAll(); // removes all components
+		orderModelAndPrices.add(orderDetails); // adds newly added orderDetails to our ArrayList
+		// Add each element in our ArrayList to our weaponOrderPanel
+		for (JLabel eachWeaponOrder : orderModelAndPrices) {
+			weaponOrderPanel.add(eachWeaponOrder);
 		}
+		// Repaint weaponOrderPanel w/ ArrayList elements
+		weaponOrderPanel.repaint();
+	}
+
+	public void undoLastAddedOrder() {
+		weaponOrderPanel.removeAll(); // removes all components
+		orderModelAndPrices.remove(orderModelAndPrices.size() - 1);
+		// Add each element in our ArrayList to our weaponOrderPanel
+		for (JLabel eachWeaponOrder : orderModelAndPrices) {
+			weaponOrderPanel.add(eachWeaponOrder);
+		}
+		// Repaint weaponOrderPanel w/ ArrayList elements
+		weaponOrderPanel.repaint();
 	}
 
 	@Override
