@@ -146,8 +146,6 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
             BuyMenuFrame.addWeaponPrice(gunPrice);
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
-            BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
-            BuyMenuFrame.itemsBoughtTracker += 1;
 
             this.dispose();
             new BuyMenuFrame();

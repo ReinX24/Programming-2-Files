@@ -34,22 +34,23 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	Double userGunPrice;
 
 	static int maxBuyItems = 20;
-	static int itemsBoughtTracker = 0; // TODO: use this variable
+	static int itemsBoughtTracker = 0;
 
 	final static Font CUSTOM_FONT = new Font("Arial", Font.BOLD, 14);
 	final static Color FONT_COLOR = new Color(255, 195, 0);
 	final Color BUTTON_BACKGROUND_COLOR = new Color(129, 133, 137, 255);
 	final Color BACKGROUND_COLOR = Color.LIGHT_GRAY;
 
-	DecimalFormat decimalFormat;
+	static DecimalFormat decimalFormat;
 
 	JPanel extraButtonsPanel;
 
-	JButton[] extraButtons = new JButton[3];
+	JButton[] extraButtons = new JButton[4];
 
 	JButton clearButton;
 	JButton undoButton;
 	JButton discountButton;
+	JButton installmentButton;
 
 	SpinnerModel discountSpinnerValues;
 	JSpinner discountSpinner;
@@ -115,24 +116,24 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		// For Clear, Undo, and Discount functionalities
 		extraButtonsPanel = new JPanel();
 		extraButtonsPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-		extraButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-		extraButtonsPanel.setPreferredSize(new Dimension(400, 80));
+		extraButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
+		extraButtonsPanel.setPreferredSize(new Dimension(400, 100));
 		extraButtonsPanel.setBackground(Color.LIGHT_GRAY);
 
 		clearButton = new JButton("<html><u>C</u>LEAR</html>");
 		undoButton = new JButton("<html><u>U</u>NDO</html>");
 		discountButton = new JButton("<html><u>D</u>ISCOUNT</html>");
-
-		// TODO: add another JButton? (Monthy installment w/ x amount of interest)
+		installmentButton = new JButton("<html><u>I</u>NSTALLMENT</html>");
 
 		extraButtons[0] = clearButton;
 		extraButtons[1] = undoButton;
 		extraButtons[2] = discountButton;
+		extraButtons[3] = installmentButton;
 
 		for (int i = 0; i < extraButtons.length; i++) {
 			extraButtons[i].addActionListener(this);
 			extraButtons[i].setFocusable(false);
-			extraButtons[i].setPreferredSize(new Dimension(100, 40));
+			extraButtons[i].setPreferredSize(new Dimension(120, 40));
 			extraButtons[i].setFont(CUSTOM_FONT);
 			extraButtons[i].setForeground(FONT_COLOR);
 			extraButtons[i].setBackground(BUTTON_BACKGROUND_COLOR);
@@ -226,17 +227,24 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			confirmUndo();
 		} else if (arg0.getSource() == discountButton) {
 			askDiscount();
+		} else if (arg0.getSource() == installmentButton) {
+			askInstallmentPlan();
 		} else if (arg0.getSource() == exitButton) {
 			confirmClose();
 		}
 
 	}
 
-	public void confirmBuy() {
-
+	// Method that adds a comma after thousands place
+	public static void formatPriceNumbers() {
 		decimalFormat = new DecimalFormat("#.##");
 		decimalFormat.setGroupingUsed(true);
 		decimalFormat.setGroupingSize(3);
+	}
+
+	public void confirmBuy() {
+
+		formatPriceNumbers();
 
 		int confirmBuyChoice = JOptionPane.showConfirmDialog(this, "Buy Orders for $" + decimalFormat.format(userTotal),
 				"Buy Confirmation", JOptionPane.YES_NO_OPTION);
@@ -264,9 +272,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			itemsBoughtTracker = 0;
 			userTotal = 0;
 
-			decimalFormat = new DecimalFormat("#.##");
-			decimalFormat.setGroupingUsed(true);
-			decimalFormat.setGroupingSize(3);
+			formatPriceNumbers();
 
 			totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
 			weaponOrderPanel.removeAll();
@@ -275,26 +281,32 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	}
 
-	// TODO: ask the user of they want to undo before removing last element
 	public void confirmUndo() {
-		undoLastAddedOrder();
+		int confirmUndoChoice = JOptionPane.showConfirmDialog(this, "Undo Last Entered Order?", "Undo Confirmation",
+				JOptionPane.YES_NO_OPTION);
+		if (confirmUndoChoice == JOptionPane.YES_OPTION) {
+			undoLastAddedOrder();
+		}
 	}
 
-	// TODO: check if the user's orders are less than or equal to 0
 	public void undoLastAddedOrder() {
-		weaponOrderPanel.removeAll();
-		weaponOrderLabels.remove(weaponOrderLabels.size() - 1);
+		if (itemsBoughtTracker <= 0) {
+			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+		} else {
+			weaponOrderPanel.removeAll();
+			weaponOrderLabels.remove(weaponOrderLabels.size() - 1);
 
-		for (JLabel eachWeaponOrder : weaponOrderLabels) {
-			weaponOrderPanel.add(eachWeaponOrder);
+			for (JLabel eachWeaponOrder : weaponOrderLabels) {
+				weaponOrderPanel.add(eachWeaponOrder);
+			}
+
+			// Subtracts last added order price from userTotal
+			userTotal = userTotal - weaponOrderPrices.get(weaponOrderPrices.size() - 1); // subtracts userTotal
+			totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
+			weaponOrderPrices.remove(weaponOrderPrices.size() - 1);
+
+			weaponOrderPanel.repaint();
 		}
-
-		// Subtracts last added order price from userTotal
-		userTotal = userTotal - weaponOrderPrices.get(weaponOrderPrices.size() - 1); // subtracts userTotal
-		totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
-		weaponOrderPrices.remove(weaponOrderPrices.size() - 1);
-
-		weaponOrderPanel.repaint();
 	}
 
 	public void askDiscount() {
@@ -319,6 +331,16 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				"Display Discount", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	// TODO: finish this method, asks the users how many months (up to 24)
+	public void askInstallmentPlan() {
+
+	}
+
+	// TODO: calculate payments per month, more months = higher interest
+	public void calculateInstallmentPlan() {
+
+	}
+
 	public static void addWeaponPrice(Integer orderPrice) {
 		userTotal += orderPrice;
 		weaponOrderPrices.add(orderPrice);
@@ -327,6 +349,12 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	public static void addWeaponOrder(JLabel orderDetails) {
 		weaponOrderPanel.removeAll(); // removes all components
 		weaponOrderLabels.add(orderDetails); // adds newly added orderDetails to our ArrayList
+
+		formatPriceNumbers();
+
+		totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
+		itemsBoughtTracker += 1;
+
 		// Add each element in our ArrayList to our weaponOrderPanel
 		for (JLabel eachWeaponOrder : weaponOrderLabels) {
 			weaponOrderPanel.add(eachWeaponOrder);
@@ -399,6 +427,10 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 			case 'd':
 				discountButton.doClick();
+				break;
+
+			case 'i':
+				installmentButton.doClick();
 				break;
 
 		}
