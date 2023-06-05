@@ -29,7 +29,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	JButton exitButton;
 
 	static JLabel totalLabel;
-	static int userTotal = 0;
+	static double userTotal = 0;
 	String userGun;
 	Double userGunPrice;
 
@@ -55,6 +55,12 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	SpinnerModel discountSpinnerValues;
 	JSpinner discountSpinner;
 	double discountAmount;
+
+	SpinnerModel installmentSpinnerValues;
+	JSpinner installmentSpinner;
+	int installmentAmount;
+
+	double interestAmount = 0.0;
 
 	// ArrayList that will contain the orders of users
 	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
@@ -293,6 +299,8 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		if (itemsBoughtTracker <= 0) {
 			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
 		} else {
+			itemsBoughtTracker--;
+
 			weaponOrderPanel.removeAll();
 			weaponOrderLabels.remove(weaponOrderLabels.size() - 1);
 
@@ -312,12 +320,13 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	public void askDiscount() {
 		discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5); // increments of 5
 		discountSpinner = new JSpinner(discountSpinnerValues);
+		discountSpinner.setEditor(new JSpinner.DefaultEditor(discountSpinner));
 
 		String[] discountSpinnerChoices = { "Confirm", "Cancel" };
-		int ammoAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount",
+		int discountAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
 
-		if (ammoAmountChoice == 0) {
+		if (discountAmountChoice == 0) {
 			discountAmount = (int) discountSpinner.getValue();
 			showDiscount();
 		}
@@ -331,14 +340,33 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				"Display Discount", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	// TODO: finish this method, asks the users how many months (up to 24)
 	public void askInstallmentPlan() {
+		installmentSpinnerValues = new SpinnerNumberModel(6, 6, 24, 6); // increments of 6
+		installmentSpinner = new JSpinner(installmentSpinnerValues);
 
+		String[] installmentSpinnerChoices = { "Confirm", "Cancel" };
+		int installmentAmountChoice = JOptionPane.showOptionDialog(this, installmentSpinner,
+				"Enter Installment Plan Months",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, installmentSpinnerChoices, null);
+
+		if (installmentAmountChoice == 0) {
+			installmentAmount = (int) installmentSpinner.getValue();
+			calculateInstallmentPlan();
+		}
 	}
 
 	// TODO: calculate payments per month, more months = higher interest
 	public void calculateInstallmentPlan() {
 
+		interestAmount = installmentAmount / 6;
+
+		JOptionPane
+				.showMessageDialog(
+						this,
+						"Payment per month for " + installmentAmount + " months with " + interestAmount
+								+ "% interest: "
+								+ Math.ceil((userTotal / installmentAmount) + (userTotal * (interestAmount / 100))),
+						"Installment Monthly Payment", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public static void addWeaponPrice(Integer orderPrice) {

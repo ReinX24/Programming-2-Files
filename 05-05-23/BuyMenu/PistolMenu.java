@@ -134,12 +134,10 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
             // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
-
             decimalFormat = new DecimalFormat("#.##");
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
 
-            // TODO: implement pistolOrder method to other classes
             gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
             gunOrderLabel.setForeground(BuyMenuFrame.FONT_COLOR);

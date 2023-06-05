@@ -3,6 +3,7 @@ public class BuyMenuMain {
 
 		new BuyMenuFrame();
 
+
 	}
 
 }

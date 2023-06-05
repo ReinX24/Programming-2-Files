@@ -128,19 +128,17 @@ public class SubMachinegunMenu extends JFrame implements ActionListener, KeyList
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
-            // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
-
             decimalFormat = new DecimalFormat("#.##");
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
 
             gunOrderLabel = new JLabel(gunModel + " : $" + decimalFormat.format(gunPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
-            gunOrderLabel.setForeground(new Color(255, 195, 0));
-            BuyMenuFrame.userTotal += gunPrice;
-            BuyMenuFrame.weaponOrderPanel.add(gunOrderLabel);
-            BuyMenuFrame.totalLabel.setText("TOTAL: $" + BuyMenuFrame.userTotal);
-            BuyMenuFrame.itemsBoughtTracker += 1;
+            gunOrderLabel.setForeground(BuyMenuFrame.FONT_COLOR);
+
+            BuyMenuFrame.addWeaponPrice(gunPrice);
+            BuyMenuFrame.addWeaponOrder(gunOrderLabel);
+
             this.dispose();
             new BuyMenuFrame();
         }

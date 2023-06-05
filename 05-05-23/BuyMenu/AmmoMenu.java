@@ -155,19 +155,17 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
         if (BuyMenuFrame.itemsBoughtTracker == BuyMenuFrame.maxBuyItems) {
             JOptionPane.showMessageDialog(this, "Buy Limit Reached!", "Buy Limit Message", JOptionPane.WARNING_MESSAGE);
         } else {
-            // Adding gunModel and gunPrice to Main Menu pistolOrderLabel and userTotal
-
             decimalFormat = new DecimalFormat("#.##");
             decimalFormat.setGroupingUsed(true);
             decimalFormat.setGroupingSize(3);
 
             gunOrderLabel = new JLabel(ammoType + " (" + ammoAmount + ") : $" + decimalFormat.format(ammoPrice));
             gunOrderLabel.setFont(BuyMenuFrame.CUSTOM_FONT);
-            gunOrderLabel.setForeground(new Color(255, 195, 0));
-            BuyMenuFrame.userTotal += ammoPrice;
-            BuyMenuFrame.weaponOrderPanel.add(gunOrderLabel);
-            BuyMenuFrame.totalLabel.setText("TOTAL: $" + decimalFormat.format(BuyMenuFrame.userTotal));
-            BuyMenuFrame.itemsBoughtTracker += 1;
+            gunOrderLabel.setForeground(BuyMenuFrame.FONT_COLOR);
+
+            BuyMenuFrame.addWeaponPrice(ammoPrice);
+            BuyMenuFrame.addWeaponOrder(gunOrderLabel);
+
             this.dispose();
             new BuyMenuFrame();
         }
