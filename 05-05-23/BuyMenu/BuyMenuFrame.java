@@ -121,7 +121,6 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		// For Clear, Undo, and Discount functionalities
 		extraButtonsPanel = new JPanel();
-		extraButtonsPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
 		extraButtonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
 		extraButtonsPanel.setPreferredSize(new Dimension(400, 100));
 		extraButtonsPanel.setBackground(Color.LIGHT_GRAY);
@@ -269,66 +268,74 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	}
 
 	public void confirmClear() {
-		int confirmClearChoice = JOptionPane.showConfirmDialog(this, "Clear Weapon Order/s?", "Clear Confirmation",
-				JOptionPane.YES_NO_OPTION);
-		if (confirmClearChoice == JOptionPane.YES_OPTION) {
+		if (itemsBoughtTracker <= 0) {
+			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+		} else {
+			int confirmClearChoice = JOptionPane.showConfirmDialog(this, "Clear Weapon Order/s?", "Clear Confirmation",
+					JOptionPane.YES_NO_OPTION);
+			if (confirmClearChoice == JOptionPane.YES_OPTION) {
 
-			weaponOrderPrices.clear();
-			weaponOrderLabels.clear();
-			itemsBoughtTracker = 0;
-			userTotal = 0;
+				weaponOrderPrices.clear();
+				weaponOrderLabels.clear();
+				itemsBoughtTracker = 0;
+				userTotal = 0;
 
-			formatPriceNumbers();
+				formatPriceNumbers();
 
-			totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
-			weaponOrderPanel.removeAll();
-			this.repaint();
+				totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
+				weaponOrderPanel.removeAll();
+				this.repaint();
+			}
 		}
-
 	}
 
+	// TODO: fix message dialog titles of extra buttons are being cut off
 	public void confirmUndo() {
-		int confirmUndoChoice = JOptionPane.showConfirmDialog(this, "Undo Last Entered Order?", "Undo Confirmation",
-				JOptionPane.YES_NO_OPTION);
-		if (confirmUndoChoice == JOptionPane.YES_OPTION) {
-			undoLastAddedOrder();
+		if (itemsBoughtTracker <= 0) {
+			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+		} else {
+			int confirmUndoChoice = JOptionPane.showConfirmDialog(this, "Undo Last Entered Order?", "Undo Confirmation",
+					JOptionPane.YES_NO_OPTION);
+			if (confirmUndoChoice == JOptionPane.YES_OPTION) {
+				undoLastAddedOrder();
+			}
 		}
 	}
 
 	public void undoLastAddedOrder() {
-		if (itemsBoughtTracker <= 0) {
-			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
-		} else {
-			itemsBoughtTracker--;
+		itemsBoughtTracker--;
 
-			weaponOrderPanel.removeAll();
-			weaponOrderLabels.remove(weaponOrderLabels.size() - 1);
+		weaponOrderPanel.removeAll();
+		weaponOrderLabels.remove(weaponOrderLabels.size() - 1);
 
-			for (JLabel eachWeaponOrder : weaponOrderLabels) {
-				weaponOrderPanel.add(eachWeaponOrder);
-			}
-
-			// Subtracts last added order price from userTotal
-			userTotal = userTotal - weaponOrderPrices.get(weaponOrderPrices.size() - 1); // subtracts userTotal
-			totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
-			weaponOrderPrices.remove(weaponOrderPrices.size() - 1);
-
-			weaponOrderPanel.repaint();
+		for (JLabel eachWeaponOrder : weaponOrderLabels) {
+			weaponOrderPanel.add(eachWeaponOrder);
 		}
+
+		// Subtracts last added order price from userTotal
+		userTotal = userTotal - weaponOrderPrices.get(weaponOrderPrices.size() - 1); // subtracts userTotal
+		totalLabel.setText("TOTAL: $" + decimalFormat.format(userTotal));
+		weaponOrderPrices.remove(weaponOrderPrices.size() - 1);
+
+		weaponOrderPanel.repaint();
 	}
 
 	public void askDiscount() {
-		discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5); // increments of 5
-		discountSpinner = new JSpinner(discountSpinnerValues);
-		discountSpinner.setEditor(new JSpinner.DefaultEditor(discountSpinner));
+		if (itemsBoughtTracker <= 0) {
+			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+		} else {
+			discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5); // increments of 5
+			discountSpinner = new JSpinner(discountSpinnerValues);
+			discountSpinner.setEditor(new JSpinner.DefaultEditor(discountSpinner));
 
-		String[] discountSpinnerChoices = { "Confirm", "Cancel" };
-		int discountAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
+			String[] discountSpinnerChoices = { "Confirm", "Cancel" };
+			int discountAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
 
-		if (discountAmountChoice == 0) {
-			discountAmount = (int) discountSpinner.getValue();
-			showDiscount();
+			if (discountAmountChoice == 0) {
+				discountAmount = (int) discountSpinner.getValue();
+				showDiscount();
+			}
 		}
 
 	}
@@ -341,24 +348,29 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	}
 
 	public void askInstallmentPlan() {
-		installmentSpinnerValues = new SpinnerNumberModel(6, 6, 24, 6); // increments of 6
-		installmentSpinner = new JSpinner(installmentSpinnerValues);
+		if (itemsBoughtTracker <= 0) {
+			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+		} else {
+			installmentSpinnerValues = new SpinnerNumberModel(6, 6, 24, 6); // increments of 6
+			installmentSpinner = new JSpinner(installmentSpinnerValues);
+			installmentSpinner.setEditor(new JSpinner.DefaultEditor(installmentSpinner));
 
-		String[] installmentSpinnerChoices = { "Confirm", "Cancel" };
-		int installmentAmountChoice = JOptionPane.showOptionDialog(this, installmentSpinner,
-				"Enter Installment Plan Months",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, installmentSpinnerChoices, null);
+			String[] installmentSpinnerChoices = { "Confirm", "Cancel" };
+			int installmentAmountChoice = JOptionPane.showOptionDialog(this, installmentSpinner,
+					"Enter Installment Plan Months",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, installmentSpinnerChoices, null);
 
-		if (installmentAmountChoice == 0) {
-			installmentAmount = (int) installmentSpinner.getValue();
-			calculateInstallmentPlan();
+			if (installmentAmountChoice == 0) {
+				installmentAmount = (int) installmentSpinner.getValue();
+				calculateInstallmentPlan();
+			}
 		}
 	}
 
-	// TODO: calculate payments per month, more months = higher interest
 	public void calculateInstallmentPlan() {
 
 		interestAmount = installmentAmount / 6;
+		/* 1% (6 months), 2% (12 months), 3% (18 months), 4% (24 months) */
 
 		JOptionPane
 				.showMessageDialog(
@@ -441,11 +453,11 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 				exitButton.doClick();
 				break;
 
-			case 'b': // Buy button
+			case 'b':
 				buyButton.doClick();
 				break;
 
-			case 'c': // Clear weapon orders
+			case 'c':
 				clearButton.doClick();
 				break;
 
