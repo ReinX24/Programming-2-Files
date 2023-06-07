@@ -1,8 +1,14 @@
 public class OctalToDecimal {
 
     public static void main(String[] args) {
-        // TODO: fix this, should output 3596
+        //* FIXED: fix this, should output 3596
         System.out.println(convertOctalToDecimal("7014", 8)); // 3596
+
+        // 37 with a base of 8 = 31
+        System.out.println(convertOctalToDecimal("37", 8)); // 31
+
+        // 137 with a base of 10 = 137
+        System.out.println(convertOctalToDecimal("137", 10));
     }
 
     public static int convertOctalToDecimal(String octalString, int octalBaseNumber) {
@@ -10,7 +16,7 @@ public class OctalToDecimal {
         int resultOctal = 0;
 
         for (int i = octalString.length() - 1; i >= 0; i--) {
-            resultOctal += Math.pow(Character.getNumericValue(octalString.charAt(i)) * octalBaseNumber, powerNum);
+            resultOctal += Character.getNumericValue(octalString.charAt(i)) * Math.pow(octalBaseNumber, powerNum);
             powerNum++;
         }
 
