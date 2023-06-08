@@ -138,7 +138,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		for (int i = 0; i < extraButtons.length; i++) {
 			extraButtons[i].addActionListener(this);
 			extraButtons[i].setFocusable(false);
-			extraButtons[i].setPreferredSize(new Dimension(120, 40));
+			extraButtons[i].setPreferredSize(new Dimension(170, 40));
 			extraButtons[i].setFont(CUSTOM_FONT);
 			extraButtons[i].setForeground(FONT_COLOR);
 			extraButtons[i].setBackground(BUTTON_BACKGROUND_COLOR);
@@ -289,7 +289,6 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		}
 	}
 
-	// TODO: fix message dialog titles of extra buttons are being cut off
 	public void confirmUndo() {
 		if (itemsBoughtTracker <= 0) {
 			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);

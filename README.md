@@ -63,4 +63,10 @@
 - BuyMenu (In Production)
 
 #### 05/10/23 🏓
-- Pong Game (In Production)
+- Pong Game (Without Features)
+- Pong Game (With Features)
+
+#### 06/06/23 💻
+- Binary to Decimal Converter
+- Octal to Decimal Converter
+- Decimal to Binary Converter
