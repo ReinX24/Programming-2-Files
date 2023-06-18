@@ -38,6 +38,7 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
+        this.setIconImage(new ImageIcon("EquipmentMenuPhotos/kevlarVestPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 700));

@@ -33,6 +33,7 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
+        this.setIconImage(new ImageIcon("ShotgunMenuPhotos/m3Photo.png").getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
@@ -97,13 +98,17 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == super90Button) {
-            gunOrder("M3 Super 90", 2350);
-        } else if (e.getSource() == xm1014Button) {
-            gunOrder("XM 1014", 3000);
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            BuyMenuFrame.buyGunAudio(); // TODO: add to other gun menus
+            if (e.getSource() == super90Button) {
+                gunOrder("M3 Super 90", 2350);
+            } else if (e.getSource() == xm1014Button) {
+                gunOrder("XM 1014", 3000);
+            }
         }
 
     }

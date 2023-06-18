@@ -37,6 +37,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
+        this.setIconImage(new ImageIcon("PistolMenuPhotos/glockPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
@@ -109,21 +110,26 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == glockButton) {
-            pistolOrder("GLOCK", 400);
-        } else if (e.getSource() == uspButton) {
-            pistolOrder("USP TACTICAL", 500);
-        } else if (e.getSource() == p228Button) {
-            pistolOrder("P228", 600);
-        } else if (e.getSource() == deagleButton) {
-            pistolOrder("DESERT EAGLE", 650);
-        } else if (e.getSource() == fiveSevenButton) {
-            pistolOrder("FN FIVE-SEVEN", 750);
-        } else if (e.getSource() == dualEliteButton) {
-            pistolOrder("DUAL 96G ELITE BERETTAS", 800);
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            // TODO: add to other gun menus
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            BuyMenuFrame.buyGunAudio();
+            if (e.getSource() == glockButton) {
+                pistolOrder("GLOCK", 400);
+            } else if (e.getSource() == uspButton) {
+                pistolOrder("USP TACTICAL", 500);
+            } else if (e.getSource() == p228Button) {
+                pistolOrder("P228", 600);
+            } else if (e.getSource() == deagleButton) {
+                pistolOrder("DESERT EAGLE", 650);
+            } else if (e.getSource() == fiveSevenButton) {
+                pistolOrder("FN FIVE-SEVEN", 750);
+            } else if (e.getSource() == dualEliteButton) {
+                pistolOrder("DUAL 96G ELITE BERETTAS", 800);
+            }
         }
 
     }

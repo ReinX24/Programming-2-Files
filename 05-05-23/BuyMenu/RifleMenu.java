@@ -37,6 +37,7 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
+        this.setIconImage(new ImageIcon("RifleMenuPhotos/m4a1Photo.png").getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 700));

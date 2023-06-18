@@ -35,6 +35,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
+        this.setIconImage(new ImageIcon("SniperMenuPhotos/awpPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 700));

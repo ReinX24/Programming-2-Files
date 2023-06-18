@@ -1,8 +1,16 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -62,6 +70,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	double interestAmount = 0.0;
 
+	static AudioInputStream streamAudio;
+	static Clip audioClip;
+	static FloatControl gainControl;
+
+	final static File BUTTON_PRESSED_SOUND = new File("AudioFiles/Computer Boop - Sound Effect.wav");
+	final static File NO_ITEMS_SOUND = new File("AudioFiles/Error \uFF5C Sound Effects (No Copyright).wav");
+	final static File BUY_GUN_SOUND = new File("AudioFiles/Item Pick up (Counter Strike Source) - Sound Effect for editing.wav");
+
 	// ArrayList that will contain the orders of users
 	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
 	static ArrayList<Integer> weaponOrderPrices = new ArrayList<Integer>();
@@ -74,7 +90,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
 		this.addKeyListener(this);
-		this.setIconImage(new ImageIcon("buyMenuIcon.png").getImage());
+		this.setIconImage(new ImageIcon("BuyMenuPhotos/buyMenuIcon.png").getImage());
 
 		// Creating our JPanel that will contain our Gun Menu Buttons
 		weaponPanel = new JPanel();
@@ -197,8 +213,61 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	}
 
+	public static void buttonPressedAudio() {
+		try {
+			streamAudio = AudioSystem.getAudioInputStream(BUTTON_PRESSED_SOUND);
+			audioClip = AudioSystem.getClip();
+			audioClip.open(streamAudio);
+
+			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-6.0f);
+
+			audioClip.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void noItemsAudio() {
+		try {
+			streamAudio = AudioSystem.getAudioInputStream(NO_ITEMS_SOUND);
+			audioClip = AudioSystem.getClip();
+			audioClip.open(streamAudio);
+
+			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-6.0f);
+
+			audioClip.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void buyGunAudio() {
+		try {
+			streamAudio = AudioSystem.getAudioInputStream(BUY_GUN_SOUND);
+			audioClip = AudioSystem.getClip();
+			audioClip.open(streamAudio);
+
+			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-6.0f);
+
+			audioClip.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+
+		buttonPressedAudio();
 
 		if (arg0.getSource() == pistolButton) {
 			new PistolMenu(); // PistolMenu constructor
@@ -207,7 +276,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			new ShotgunMenu();
 			this.dispose();
 		} else if (arg0.getSource() == smgButton) {
-			new SubMachinegunMenu();
+			new SubMachineGunMenu();
 			this.dispose();
 		} else if (arg0.getSource() == rifleButton) {
 			new RifleMenu();
@@ -247,15 +316,25 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		decimalFormat.setGroupingSize(3);
 	}
 
+	public void noItemsMessage() {
+		noItemsAudio();
+		JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+	}
+
 	public void confirmBuy() {
 
-		formatPriceNumbers();
-
-		int confirmBuyChoice = JOptionPane.showConfirmDialog(this, "Buy Orders for $" + decimalFormat.format(userTotal),
-				"Buy Confirmation", JOptionPane.YES_NO_OPTION);
-		if (confirmBuyChoice == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(this, "Paid $" + decimalFormat.format(userTotal), "Paid Message",
-					JOptionPane.INFORMATION_MESSAGE);
+		if (itemsBoughtTracker <= 0) {
+			noItemsMessage();
+		} else {
+			formatPriceNumbers();
+			int confirmBuyChoice = JOptionPane.showConfirmDialog(this,
+					"Buy Orders for $" + decimalFormat.format(userTotal),
+					"Buy Confirmation", JOptionPane.YES_NO_OPTION);
+			if (confirmBuyChoice == JOptionPane.YES_OPTION) {
+				buyGunAudio();
+				JOptionPane.showMessageDialog(this, "Paid $" + decimalFormat.format(userTotal), "Paid Message",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 
@@ -269,7 +348,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	public void confirmClear() {
 		if (itemsBoughtTracker <= 0) {
-			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+			noItemsMessage();
 		} else {
 			int confirmClearChoice = JOptionPane.showConfirmDialog(this, "Clear Weapon Order/s?", "Clear Confirmation",
 					JOptionPane.YES_NO_OPTION);
@@ -291,7 +370,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	public void confirmUndo() {
 		if (itemsBoughtTracker <= 0) {
-			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+			noItemsMessage();
 		} else {
 			int confirmUndoChoice = JOptionPane.showConfirmDialog(this, "Undo Last Entered Order?", "Undo Confirmation",
 					JOptionPane.YES_NO_OPTION);
@@ -321,14 +400,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	public void askDiscount() {
 		if (itemsBoughtTracker <= 0) {
-			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+			noItemsMessage();
 		} else {
 			discountSpinnerValues = new SpinnerNumberModel(5, 5, 100, 5); // increments of 5
 			discountSpinner = new JSpinner(discountSpinnerValues);
 			discountSpinner.setEditor(new JSpinner.DefaultEditor(discountSpinner));
 
 			String[] discountSpinnerChoices = { "Confirm", "Cancel" };
-			int discountAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount",
+			int discountAmountChoice = JOptionPane.showOptionDialog(this, discountSpinner, "Enter Discount Percentage",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, discountSpinnerChoices, null);
 
 			if (discountAmountChoice == 0) {
@@ -348,7 +427,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	public void askInstallmentPlan() {
 		if (itemsBoughtTracker <= 0) {
-			JOptionPane.showMessageDialog(this, "No Items In Order!", "No Items", JOptionPane.WARNING_MESSAGE);
+			noItemsMessage();
 		} else {
 			installmentSpinnerValues = new SpinnerNumberModel(6, 6, 24, 6); // increments of 6
 			installmentSpinner = new JSpinner(installmentSpinnerValues);

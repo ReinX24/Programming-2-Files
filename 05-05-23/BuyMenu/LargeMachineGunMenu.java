@@ -32,6 +32,7 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
+        this.setIconImage(new ImageIcon("LargeMachineGunPhotos/m249Photo.png").getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
