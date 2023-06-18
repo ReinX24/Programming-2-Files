@@ -35,7 +35,7 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
         this.setIconImage(new ImageIcon("LargeMachineGunPhotos/m249Photo.png").getImage());
 
         gunButtonsPanel = new JPanel();
-        gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
+        gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
         gunButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
@@ -61,7 +61,7 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
         this.add(gunButtonsPanel);
 
         descPanel = new JPanel();
-        descPanel.setPreferredSize(new Dimension(500, 700));
+        descPanel.setPreferredSize(new Dimension(500, 775));
         descPanel.setBackground(new Color(129, 133, 137, 128));
         descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
@@ -95,11 +95,15 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == m249Button) {
-            pistolOrder("M249-SAW", 5750);
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            BuyMenuFrame.buyGunAudio();
+            if (e.getSource() == m249Button) {
+                pistolOrder("M249-SAW", 5750);
+            }
         }
 
     }

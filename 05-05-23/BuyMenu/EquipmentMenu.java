@@ -41,7 +41,7 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
         this.setIconImage(new ImageIcon("EquipmentMenuPhotos/kevlarVestPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
-        gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
+        gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
         gunButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
@@ -77,7 +77,7 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
         this.add(gunButtonsPanel);
 
         descPanel = new JPanel();
-        descPanel.setPreferredSize(new Dimension(500, 700));
+        descPanel.setPreferredSize(new Dimension(500, 775));
         descPanel.setBackground(new Color(129, 133, 137, 128));
         descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
@@ -111,21 +111,25 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == kevlarVestButton) {
-            pistolOrder("KEVLAR VEST", 650);
-        } else if (e.getSource() == kevlarVestAndHelmetButton) {
-            pistolOrder("KEVLAR VEST AND HELMET", 1000);
-        } else if (e.getSource() == grenadeButton) {
-            pistolOrder("H.E. GRENADE", 300);
-        } else if (e.getSource() == smokeButton) {
-            pistolOrder("SMOKE GRENADE", 200);
-        } else if (e.getSource() == flashbangButon) {
-            pistolOrder("FLASHBANG", 200);
-        } else if (e.getSource() == nightVisionButton) {
-            pistolOrder("NIGHTVISION GOGGLES", 1250);
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            BuyMenuFrame.buyEquipmentAudio();
+            if (e.getSource() == kevlarVestButton) {
+                pistolOrder("KEVLAR VEST", 650);
+            } else if (e.getSource() == kevlarVestAndHelmetButton) {
+                pistolOrder("KEVLAR VEST AND HELMET", 1000);
+            } else if (e.getSource() == grenadeButton) {
+                pistolOrder("H.E. GRENADE", 300);
+            } else if (e.getSource() == smokeButton) {
+                pistolOrder("SMOKE GRENADE", 200);
+            } else if (e.getSource() == flashbangButon) {
+                pistolOrder("FLASHBANG", 200);
+            } else if (e.getSource() == nightVisionButton) {
+                pistolOrder("NIGHTVISION GOGGLES", 1250);
+            }
         }
 
     }

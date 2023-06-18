@@ -44,7 +44,7 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
         this.setIconImage(new ImageIcon("AmmoMenuPhotos/rifleAmmoPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
-        gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
+        gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
         gunButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
@@ -82,7 +82,7 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
         this.add(gunButtonsPanel);
 
         descPanel = new JPanel();
-        descPanel.setPreferredSize(new Dimension(500, 700));
+        descPanel.setPreferredSize(new Dimension(500, 775));
         descPanel.setBackground(new Color(129, 133, 137, 128));
         descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
@@ -116,21 +116,24 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == pistolAmmoButton) {
-            askAmmoAmount("PISOL", 1, "bullet"); // 1 dollar per bullet
-        } else if (e.getSource() == shotgunAmmoButton) {
-            askAmmoAmount("SHOTGUN", 3, "shell"); // 3 dollars per shell
-        } else if (e.getSource() == smgAmmoButton) {
-            askAmmoAmount("SMG", 2, "bullet"); // 2 dollars per bullet
-        } else if (e.getSource() == rifleAmmoButton) {
-            askAmmoAmount("RIFLE", 3, "bullet"); // 3 dollars per bullet
-        } else if (e.getSource() == lmgAmmoButton) {
-            askAmmoAmount("LMG", 4, "bullet");// 4 dollars per bullet
-        } else if (e.getSource() == sniperAmmoButton) {
-            askAmmoAmount("SNIPER", 5, "bullet"); // 5 dollars per bullet
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            if (e.getSource() == pistolAmmoButton) {
+                askAmmoAmount("PISOL", 1, "bullet"); // 1 dollar per bullet
+            } else if (e.getSource() == shotgunAmmoButton) {
+                askAmmoAmount("SHOTGUN", 3, "shell"); // 3 dollars per shell
+            } else if (e.getSource() == smgAmmoButton) {
+                askAmmoAmount("SMG", 2, "bullet"); // 2 dollars per bullet
+            } else if (e.getSource() == rifleAmmoButton) {
+                askAmmoAmount("RIFLE", 3, "bullet"); // 3 dollars per bullet
+            } else if (e.getSource() == lmgAmmoButton) {
+                askAmmoAmount("LMG", 4, "bullet");// 4 dollars per bullet
+            } else if (e.getSource() == sniperAmmoButton) {
+                askAmmoAmount("SNIPER", 5, "bullet"); // 5 dollars per bullet
+            }
         }
 
     }
@@ -167,6 +170,7 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
             BuyMenuFrame.addWeaponPrice(ammoPrice);
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
+            BuyMenuFrame.buyAmmoAudio();
             this.dispose();
             new BuyMenuFrame();
         }

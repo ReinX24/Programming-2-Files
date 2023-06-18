@@ -38,7 +38,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
         this.setIconImage(new ImageIcon("SniperMenuPhotos/awpPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
-        gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
+        gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
         gunButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
@@ -72,7 +72,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
         this.add(gunButtonsPanel);
 
         descPanel = new JPanel();
-        descPanel.setPreferredSize(new Dimension(500, 700));
+        descPanel.setPreferredSize(new Dimension(500, 775));
         descPanel.setBackground(new Color(129, 133, 137, 128));
         descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
@@ -106,17 +106,21 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == scoutButton) {
-            gunOrder("SCOUT", 2750);
-        } else if (e.getSource() == g3sg1Button) {
-            gunOrder("G3/SG-1", 5000);
-        } else if (e.getSource() == sg550Button) {
-            gunOrder("SG-550", 4200);
-        } else if (e.getSource() == awpButton) {
-            gunOrder("AWP", 4750);
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            BuyMenuFrame.buyGunAudio();
+            if (e.getSource() == scoutButton) {
+                gunOrder("SCOUT", 2750);
+            } else if (e.getSource() == g3sg1Button) {
+                gunOrder("G3/SG-1", 5000);
+            } else if (e.getSource() == sg550Button) {
+                gunOrder("SG-550", 4200);
+            } else if (e.getSource() == awpButton) {
+                gunOrder("AWP", 4750);
+            }
         }
 
     }

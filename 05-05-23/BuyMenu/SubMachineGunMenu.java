@@ -39,7 +39,7 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
         this.setIconImage(new ImageIcon("SubMachineGunPhotos/tmpPhoto.png").getImage());
 
         gunButtonsPanel = new JPanel();
-        gunButtonsPanel.setPreferredSize(new Dimension(500, 700));
+        gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
         gunButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
         gunButtonsPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
         gunButtonsPanel.setBackground(new Color(129, 133, 137, 128));
@@ -73,7 +73,7 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
         this.add(gunButtonsPanel);
 
         descPanel = new JPanel();
-        descPanel.setPreferredSize(new Dimension(500, 700));
+        descPanel.setPreferredSize(new Dimension(500, 775));
         descPanel.setBackground(new Color(129, 133, 137, 128));
         descPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
 
@@ -107,19 +107,23 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == mac10Button) {
-            gunOrder("MAC 10", 1400);
-        } else if (e.getSource() == tmpButton) {
-            gunOrder("TMP", 1250);
-        } else if (e.getSource() == mp5NavyButton) {
-            gunOrder("MP5 NAVY", 1500);
-        } else if (e.getSource() == umpButton) {
-            gunOrder("UMP", 1700);
-        } else if (e.getSource() == p90Button) {
-            gunOrder("P90", 2350);
-        } else if (e.getSource() == exitButton) {
+        if (e.getSource() == exitButton) {
+            BuyMenuFrame.buttonPressedAudio();
             this.dispose();
             new BuyMenuFrame();
+        } else {
+            BuyMenuFrame.buyGunAudio();
+            if (e.getSource() == mac10Button) {
+                gunOrder("MAC 10", 1400);
+            } else if (e.getSource() == tmpButton) {
+                gunOrder("TMP", 1250);
+            } else if (e.getSource() == mp5NavyButton) {
+                gunOrder("MP5 NAVY", 1500);
+            } else if (e.getSource() == umpButton) {
+                gunOrder("UMP", 1700);
+            } else if (e.getSource() == p90Button) {
+                gunOrder("P90", 2350);
+            }
         }
 
     }

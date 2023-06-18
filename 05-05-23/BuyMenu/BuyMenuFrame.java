@@ -76,7 +76,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	final static File BUTTON_PRESSED_SOUND = new File("AudioFiles/Computer Boop - Sound Effect.wav");
 	final static File NO_ITEMS_SOUND = new File("AudioFiles/Error \uFF5C Sound Effects (No Copyright).wav");
-	final static File BUY_GUN_SOUND = new File("AudioFiles/Item Pick up (Counter Strike Source) - Sound Effect for editing.wav");
+	final static File BUY_GUN_SOUND = new File(
+			"AudioFiles/Item Pick up (Counter Strike Source) - Sound Effect for editing.wav");
+	final static File BUY_BULLETS_SOUND = new File(
+			"AudioFiles/Bullet falling \uFF5C Top Bullets \uFF5C Bullet sounds \uFF5C Bullet \uFF5C Sound Effect HD.wav");
+	final static File BUY_EQUIPMENT_SOUND = new File(
+			"AudioFiles/Ammo Pick up (Counter Strike Source) - Sound Effect for editing.wav");
+	final static File MENU_BACKGROUND_AUDIO = new File(
+			"AudioFiles/Counter-strike 1.6 - Main Theme (12 minutes extended).wav");
 
 	// ArrayList that will contain the orders of users
 	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
@@ -94,7 +101,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 		// Creating our JPanel that will contain our Gun Menu Buttons
 		weaponPanel = new JPanel();
-		weaponPanel.setPreferredSize(new Dimension(500, 750));
+		weaponPanel.setPreferredSize(new Dimension(500, 775));
 		weaponPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
 		weaponPanel.setBorder(new EmptyBorder(25, 75, 25, 25));
 		weaponPanel.setBackground(BACKGROUND_COLOR); // r, g, b, alpha value
@@ -256,6 +263,58 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(-6.0f);
 
+			audioClip.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void buyAmmoAudio() {
+		try {
+			streamAudio = AudioSystem.getAudioInputStream(BUY_BULLETS_SOUND);
+			audioClip = AudioSystem.getClip();
+			audioClip.open(streamAudio);
+
+			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-6.0f);
+
+			audioClip.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void buyEquipmentAudio() {
+		try {
+			streamAudio = AudioSystem.getAudioInputStream(BUY_EQUIPMENT_SOUND);
+			audioClip = AudioSystem.getClip();
+			audioClip.open(streamAudio);
+
+			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-6.0f);
+
+			audioClip.start();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void menuBackgroundAudio() {
+		try {
+			streamAudio = AudioSystem.getAudioInputStream(MENU_BACKGROUND_AUDIO);
+			audioClip = AudioSystem.getClip();
+			audioClip.open(streamAudio);
+
+			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-6.0f);
+
+			audioClip.loop(Clip.LOOP_CONTINUOUSLY); // makes clip loop continuously
 			audioClip.start();
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
