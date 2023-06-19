@@ -83,7 +83,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	final static File BUY_EQUIPMENT_SOUND = new File(
 			"AudioFiles/Ammo Pick up (Counter Strike Source) - Sound Effect for editing.wav");
 	final static File MENU_BACKGROUND_AUDIO = new File(
-			"AudioFiles/Counter-strike 1.6 - Main Theme (12 minutes extended).wav");
+			"AudioFiles/Counter Strike\uFF1A Theme Song (1.6 Main Menu).wav");
 
 	// ArrayList that will contain the orders of users
 	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
@@ -312,7 +312,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 			audioClip.open(streamAudio);
 
 			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-6.0f);
+			gainControl.setValue(-32.0f);
 
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY); // makes clip loop continuously
 			audioClip.start();

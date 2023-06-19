@@ -14,7 +14,7 @@ public class BuyMenuMain {
 		 * run the raw files.
 		 */
 		new BuyMenuFrame();
-		BuyMenuFrame.menuBackgroundAudio(); // TODO: find a better way to implement this
+		BuyMenuFrame.menuBackgroundAudio();
 
 	}
 

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.event.*;
@@ -28,6 +29,8 @@ public class TempConverterFrame extends JFrame implements ActionListener {
 
     public TempConverterFrame() {
 
+        setProgramTheme();
+
         this.setTitle("[Temperature Converter]");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -41,6 +44,19 @@ public class TempConverterFrame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
+    }
+
+    public void setProgramTheme() {
+        try {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addFrameIcon() {
