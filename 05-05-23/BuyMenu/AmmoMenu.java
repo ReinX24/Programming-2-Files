@@ -35,7 +35,12 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     SpinnerModel ammoSpinnerValues;
     JSpinner ammoSpinner;
 
+    BuyMenuFrame mainBuyMenu;
+
     AmmoMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("AMMO MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
@@ -117,9 +122,9 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
             if (e.getSource() == pistolAmmoButton) {
                 askAmmoAmount("PISOL", 1, "bullet"); // 1 dollar per bullet
@@ -170,9 +175,9 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
             BuyMenuFrame.addWeaponPrice(ammoPrice);
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
-            BuyMenuFrame.buyAmmoAudio();
+            mainBuyMenu.buyAmmoAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }

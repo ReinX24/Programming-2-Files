@@ -13,8 +13,17 @@ public class BuyMenuMain {
 		 * eclipse to run the file and that more people should be able to
 		 * run the raw files.
 		 */
-		new BuyMenuFrame();
-		BuyMenuFrame.menuBackgroundAudio();
+
+		/*
+		 * DEVELOPER NOTE (6/19/23)
+		 * Apparently, I still need to use URL objects so that the jar file could
+		 * properly be exported with its resources.
+		 */
+
+		// TODO: create URL objects for all of our icons and photos in our menus
+		BuyMenuFrame mainProgram = new BuyMenuFrame();
+		mainProgram.createBuyMenuFrame();
+		mainProgram.menuBackgroundAudio();
 
 	}
 

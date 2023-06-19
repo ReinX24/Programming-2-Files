@@ -25,8 +25,13 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
     JLabel gunNamePriceLabel;
 
     DecimalFormat decimalFormat;
+    
+    BuyMenuFrame mainBuyMenu;
 
     LargeMachineGunMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("LMG MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
@@ -96,11 +101,11 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
-            BuyMenuFrame.buyGunAudio();
+            mainBuyMenu.buyGunAudio();
             if (e.getSource() == m249Button) {
                 pistolOrder("M249-SAW", 5750);
             }
@@ -125,7 +130,7 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }

@@ -9,8 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -74,16 +74,18 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	static Clip audioClip;
 	static FloatControl gainControl;
 
-	final static File BUTTON_PRESSED_SOUND = new File("AudioFiles/Computer Boop - Sound Effect.wav");
-	final static File NO_ITEMS_SOUND = new File("AudioFiles/Error \uFF5C Sound Effects (No Copyright).wav");
-	final static File BUY_GUN_SOUND = new File(
+	URL BUTTON_PRESSED_AUDIO_URL = getClass().getResource("AudioFiles/Computer Boop - Sound Effect.wav");
+	URL NO_ITEMS_AUDIO_URL = getClass().getResource("AudioFiles/Error \uFF5C Sound Effects (No Copyright).wav");
+	URL BUY_GUN_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Item Pick up (Counter Strike Source) - Sound Effect for editing.wav");
-	final static File BUY_BULLETS_SOUND = new File(
+	URL BUY_BULLETS_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Bullet falling \uFF5C Top Bullets \uFF5C Bullet sounds \uFF5C Bullet \uFF5C Sound Effect HD.wav");
-	final static File BUY_EQUIPMENT_SOUND = new File(
+	URL BUY_EQUIPMENT_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Ammo Pick up (Counter Strike Source) - Sound Effect for editing.wav");
-	final static File MENU_BACKGROUND_AUDIO = new File(
+	URL MENU_BACKGROUND_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Counter Strike\uFF1A Theme Song (1.6 Main Menu).wav");
+
+	URL MENU_ICON_URL = getClass().getResource("BuyMenuPhotos/buyMenuIcon.png");
 
 	// ArrayList that will contain the orders of users
 	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
@@ -91,13 +93,16 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 
 	public BuyMenuFrame() {
 
+	}
+
+	public void createBuyMenuFrame() {
 		// Setting up our JFrame
 		this.setTitle("BUY MENU : COUNTER STRIKE");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
 		this.addKeyListener(this);
-		this.setIconImage(new ImageIcon("BuyMenuPhotos/buyMenuIcon.png").getImage());
+		this.setIconImage(new ImageIcon(MENU_ICON_URL).getImage());
 
 		// Creating our JPanel that will contain our Gun Menu Buttons
 		weaponPanel = new JPanel();
@@ -217,12 +222,11 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-
 	}
 
-	public static void buttonPressedAudio() {
+	public void buttonPressedAudio() {
 		try {
-			streamAudio = AudioSystem.getAudioInputStream(BUTTON_PRESSED_SOUND);
+			streamAudio = AudioSystem.getAudioInputStream(BUTTON_PRESSED_AUDIO_URL);
 			audioClip = AudioSystem.getClip();
 			audioClip.open(streamAudio);
 
@@ -237,9 +241,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		}
 	}
 
-	public static void noItemsAudio() {
+	public void noItemsAudio() {
 		try {
-			streamAudio = AudioSystem.getAudioInputStream(NO_ITEMS_SOUND);
+			streamAudio = AudioSystem.getAudioInputStream(NO_ITEMS_AUDIO_URL);
 			audioClip = AudioSystem.getClip();
 			audioClip.open(streamAudio);
 
@@ -254,9 +258,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		}
 	}
 
-	public static void buyGunAudio() {
+	public void buyGunAudio() {
 		try {
-			streamAudio = AudioSystem.getAudioInputStream(BUY_GUN_SOUND);
+			streamAudio = AudioSystem.getAudioInputStream(BUY_GUN_AUDIO_URL);
 			audioClip = AudioSystem.getClip();
 			audioClip.open(streamAudio);
 
@@ -271,9 +275,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		}
 	}
 
-	public static void buyAmmoAudio() {
+	public void buyAmmoAudio() {
 		try {
-			streamAudio = AudioSystem.getAudioInputStream(BUY_BULLETS_SOUND);
+			streamAudio = AudioSystem.getAudioInputStream(BUY_BULLETS_AUDIO_URL);
 			audioClip = AudioSystem.getClip();
 			audioClip.open(streamAudio);
 
@@ -288,14 +292,14 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		}
 	}
 
-	public static void buyEquipmentAudio() {
+	public void buyEquipmentAudio() {
 		try {
-			streamAudio = AudioSystem.getAudioInputStream(BUY_EQUIPMENT_SOUND);
+			streamAudio = AudioSystem.getAudioInputStream(BUY_EQUIPMENT_AUDIO_URL);
 			audioClip = AudioSystem.getClip();
 			audioClip.open(streamAudio);
 
 			gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-6.0f);
+			gainControl.setValue(-32.0f);
 
 			audioClip.start();
 		} catch (UnsupportedAudioFileException | IOException e) {
@@ -305,9 +309,9 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		}
 	}
 
-	public static void menuBackgroundAudio() {
+	public void menuBackgroundAudio() {
 		try {
-			streamAudio = AudioSystem.getAudioInputStream(MENU_BACKGROUND_AUDIO);
+			streamAudio = AudioSystem.getAudioInputStream(MENU_BACKGROUND_AUDIO_URL);
 			audioClip = AudioSystem.getClip();
 			audioClip.open(streamAudio);
 

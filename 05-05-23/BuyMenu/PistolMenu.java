@@ -31,7 +31,12 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     DecimalFormat decimalFormat;
 
+    BuyMenuFrame mainBuyMenu;
+
     PistolMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("PISTOL MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
@@ -111,11 +116,11 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
-            BuyMenuFrame.buyGunAudio();
+            mainBuyMenu.buyGunAudio();
             if (e.getSource() == glockButton) {
                 pistolOrder("GLOCK", 400);
             } else if (e.getSource() == uspButton) {
@@ -151,7 +156,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }

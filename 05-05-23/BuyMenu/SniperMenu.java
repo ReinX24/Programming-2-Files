@@ -29,7 +29,12 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
 
     DecimalFormat decimalFormat;
 
+    BuyMenuFrame mainBuyMenu;
+
     SniperMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("SNIPER MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
@@ -107,11 +112,11 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
-            BuyMenuFrame.buyGunAudio();
+            mainBuyMenu.buyGunAudio();
             if (e.getSource() == scoutButton) {
                 gunOrder("SCOUT", 2750);
             } else if (e.getSource() == g3sg1Button) {
@@ -142,7 +147,7 @@ public class SniperMenu extends JFrame implements ActionListener, KeyListener, M
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }

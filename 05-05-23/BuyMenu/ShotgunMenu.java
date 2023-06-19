@@ -27,7 +27,12 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
 
     DecimalFormat decimalFormat;
 
+    BuyMenuFrame mainBuyMenu;
+
     ShotgunMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("SHOTGUN MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
@@ -99,11 +104,11 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
-            BuyMenuFrame.buyGunAudio();
+            mainBuyMenu.buyGunAudio();
             if (e.getSource() == super90Button) {
                 gunOrder("M3 Super 90", 2350);
             } else if (e.getSource() == xm1014Button) {
@@ -130,7 +135,7 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }

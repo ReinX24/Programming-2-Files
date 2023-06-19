@@ -32,13 +32,23 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
 
     DecimalFormat decimalFormat;
 
+    BuyMenuFrame mainBuyMenu;
+
+    java.net.URL EQUIPMENT_MENU_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestPhoto.png");
+    java.net.URL KEVLAR_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestPhoto.png");
+    java.net.URL KEVLAR_HELMET_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestAndHelmetPhoto.png");
+    // TODO: add URL objects for other icons
+
     EquipmentMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("EQUIPMENT MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("EquipmentMenuPhotos/kevlarVestPhoto.png").getImage());
+        this.setIconImage(new ImageIcon(EQUIPMENT_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -112,11 +122,11 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
-            BuyMenuFrame.buyEquipmentAudio();
+            mainBuyMenu.buyEquipmentAudio();
             if (e.getSource() == kevlarVestButton) {
                 pistolOrder("KEVLAR VEST", 650);
             } else if (e.getSource() == kevlarVestAndHelmetButton) {
@@ -151,7 +161,7 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }

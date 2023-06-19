@@ -30,7 +30,12 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
 
     DecimalFormat decimalFormat;
 
+    BuyMenuFrame mainBuyMenu;
+
     SubMachineGunMenu() {
+
+        mainBuyMenu = new BuyMenuFrame();
+
         this.setTitle("SMG MENU");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new GridLayout(1, 2));
@@ -108,11 +113,11 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == exitButton) {
-            BuyMenuFrame.buttonPressedAudio();
+            mainBuyMenu.buttonPressedAudio();
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         } else {
-            BuyMenuFrame.buyGunAudio();
+            mainBuyMenu.buyGunAudio();
             if (e.getSource() == mac10Button) {
                 gunOrder("MAC 10", 1400);
             } else if (e.getSource() == tmpButton) {
@@ -145,7 +150,7 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
             BuyMenuFrame.addWeaponOrder(gunOrderLabel);
 
             this.dispose();
-            new BuyMenuFrame();
+            mainBuyMenu.createBuyMenuFrame();
         }
 
     }
