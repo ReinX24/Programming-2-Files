@@ -20,7 +20,12 @@ public class BuyMenuMain {
 		 * properly be exported with its resources.
 		 */
 
-		// TODO: create URL objects for all of our icons and photos in our menus
+		/*
+		 * DEVELOPER NOTE (6/20/23)
+		 * The jar file is still not working in Windows even though I made the resources
+		 * be placed in URL objects. Instead of compiling it here, I will not try to
+		 * compile it in Eclipse.
+		 */
 		BuyMenuFrame mainProgram = new BuyMenuFrame();
 		mainProgram.createBuyMenuFrame();
 		mainProgram.menuBackgroundAudio();

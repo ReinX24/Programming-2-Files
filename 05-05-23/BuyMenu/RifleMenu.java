@@ -33,6 +33,14 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
 
     BuyMenuFrame mainBuyMenu;
 
+    final java.net.URL RIFLE_MENU_ICON_URL = getClass().getResource("RifleMenuPhotos/m4a1Photo.png");
+    final java.net.URL GALIL_ICON_URL = getClass().getResource("RifleMenuPhotos/galilPhoto.png");
+    final java.net.URL FAMAS_ICON_URL = getClass().getResource("RifleMenuPhotos/famasPhoto.png");
+    final java.net.URL AK_ICON_URL = getClass().getResource("RifleMenuPhotos/ak47Photo.png");
+    final java.net.URL M4_ICON_URL = getClass().getResource("RifleMenuPhotos/m4a1Photo.png");
+    final java.net.URL SG552_ICON_URL = getClass().getResource("RifleMenuPhotos/sg552Photo.png");
+    final java.net.URL AUG_ICON_URL = getClass().getResource("RifleMenuPhotos/augPhoto.png");
+
     RifleMenu() {
 
         mainBuyMenu = new BuyMenuFrame();
@@ -42,7 +50,7 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("RifleMenuPhotos/m4a1Photo.png").getImage());
+        this.setIconImage(new ImageIcon(RIFLE_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -227,37 +235,37 @@ public class RifleMenu extends JFrame implements ActionListener, KeyListener, Mo
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == galilButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/galilPhoto.png");
+            gunIcon = new ImageIcon(GALIL_ICON_URL);
             gunNamePriceLabel.setText("IMI GALIL : $2,000");
             changeIconLabel();
         }
 
         if (e.getComponent() == famasButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/famasPhoto.png");
+            gunIcon = new ImageIcon(FAMAS_ICON_URL);
             gunNamePriceLabel.setText("FAMAS : $2,250");
             changeIconLabel();
         }
 
         if (e.getComponent() == ak47Button) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/ak47Photo.png");
+            gunIcon = new ImageIcon(AK_ICON_URL);
             gunNamePriceLabel.setText("AK47 : $2,500");
             changeIconLabel();
         }
 
         if (e.getComponent() == m4a1Button) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/m4a1Photo.png");
+            gunIcon = new ImageIcon(M4_ICON_URL);
             gunNamePriceLabel.setText("M4A1 : $3,100");
             changeIconLabel();
         }
 
         if (e.getComponent() == sgButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/sg552Photo.png");
+            gunIcon = new ImageIcon(SG552_ICON_URL);
             gunNamePriceLabel.setText("SG-552 : $3,500");
             changeIconLabel();
         }
 
         if (e.getComponent() == augButton) {
-            gunIcon = new ImageIcon("RifleMenuPhotos/augPhoto.png");
+            gunIcon = new ImageIcon(AUG_ICON_URL);
             gunNamePriceLabel.setText("AUG : $3,500");
             changeIconLabel();
         }

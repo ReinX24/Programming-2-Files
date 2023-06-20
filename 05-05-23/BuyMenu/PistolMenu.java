@@ -33,6 +33,14 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
 
     BuyMenuFrame mainBuyMenu;
 
+    final java.net.URL PISTOL_MENU_ICON_URL = getClass().getResource("PistolMenuPhotos/glockPhoto.png");
+    final java.net.URL GLOCK_ICON_URL = getClass().getResource("PistolMenuPhotos/glockPhoto.png");
+    final java.net.URL USP_ICON_URL = getClass().getResource("PistolMenuPhotos/usp45Photo.png");
+    final java.net.URL P228_ICON_URL = getClass().getResource("PistolMenuPhotos/p228Photo.png");
+    final java.net.URL DESERT_EAGLE_ICON_URL = getClass().getResource("PistolMenuPhotos/deserteaglePhoto.png");
+    final java.net.URL FIVE_SEVEN_ICON_URL = getClass().getResource("PistolMenuPhotos/fivesevenPhoto.png");
+    final java.net.URL ELITE_BERETTAS_ICON_URL = getClass().getResource("PistolMenuPhotos/elitesPhoto.png");
+
     PistolMenu() {
 
         mainBuyMenu = new BuyMenuFrame();
@@ -42,7 +50,7 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("PistolMenuPhotos/glockPhoto.png").getImage());
+        this.setIconImage(new ImageIcon(PISTOL_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -226,37 +234,37 @@ public class PistolMenu extends JFrame implements ActionListener, KeyListener, M
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == glockButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/glockPhoto.png");
+            gunIcon = new ImageIcon(GLOCK_ICON_URL);
             gunNamePriceLabel.setText("GLOCK : $400");
             changeIconLabel();
         }
 
         if (e.getComponent() == uspButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/usp45Photo.png");
+            gunIcon = new ImageIcon(USP_ICON_URL);
             gunNamePriceLabel.setText("USP TACTICAL : $500");
             changeIconLabel();
         }
 
         if (e.getComponent() == p228Button) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/p228Photo.png");
+            gunIcon = new ImageIcon(P228_ICON_URL);
             gunNamePriceLabel.setText("P228 : $600");
             changeIconLabel();
         }
 
         if (e.getComponent() == deagleButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/deserteaglePhoto.png");
+            gunIcon = new ImageIcon(DESERT_EAGLE_ICON_URL);
             gunNamePriceLabel.setText("DESERT EAGLE : $650");
             changeIconLabel();
         }
 
         if (e.getComponent() == fiveSevenButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/fivesevenPhoto.png");
+            gunIcon = new ImageIcon(FIVE_SEVEN_ICON_URL);
             gunNamePriceLabel.setText("FN FIVE SEVEN : $750");
             changeIconLabel();
         }
 
         if (e.getComponent() == dualEliteButton) {
-            gunIcon = new ImageIcon("PistolMenuPhotos/elitesPhoto.png");
+            gunIcon = new ImageIcon(ELITE_BERETTAS_ICON_URL);
             gunNamePriceLabel.setText("DUAL 96G ELITE BERETTAS : $800");
             changeIconLabel();
         }

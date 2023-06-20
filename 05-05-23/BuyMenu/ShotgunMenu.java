@@ -29,6 +29,10 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
 
     BuyMenuFrame mainBuyMenu;
 
+    final java.net.URL SHOTGUN_MENU_ICON_URL = getClass().getResource("ShotgunMenuPhotos/m3Photo.png");
+    final java.net.URL M3_ICON_URL = getClass().getResource("ShotgunMenuPhotos/m3Photo.png");
+    final java.net.URL XM_ICON_URL = getClass().getResource("ShotgunMenuPhotos/xm1014Photo.png");
+
     ShotgunMenu() {
 
         mainBuyMenu = new BuyMenuFrame();
@@ -38,7 +42,7 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("ShotgunMenuPhotos/m3Photo.png").getImage());
+        this.setIconImage(new ImageIcon(SHOTGUN_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -189,13 +193,13 @@ public class ShotgunMenu extends JFrame implements ActionListener, KeyListener, 
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == super90Button) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/m3Photo.png");
+            gunIcon = new ImageIcon(M3_ICON_URL);
             gunNamePriceLabel.setText("M3 SUPER 90 : $2,350");
             changeIconLabel();
         }
 
         if (e.getComponent() == xm1014Button) {
-            gunIcon = new ImageIcon("ShotgunMenuPhotos/xm1014Photo.png");
+            gunIcon = new ImageIcon(XM_ICON_URL);
             gunNamePriceLabel.setText("XM 1014 : $3,000");
             changeIconLabel();
         }

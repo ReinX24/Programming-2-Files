@@ -32,6 +32,13 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
 
     BuyMenuFrame mainBuyMenu;
 
+    final java.net.URL SMG_MENU_ICON_URL = getClass().getResource("SubMachineGunPhotos/tmpPhoto.png");
+    final java.net.URL MAC10_ICON_URL = getClass().getResource("SubMachineGunPhotos/mac10Photo.png");
+    final java.net.URL TMP_ICON_URL = getClass().getResource("SubMachineGunPhotos/tmpPhoto.png");
+    final java.net.URL MP5_ICON_URL = getClass().getResource("SubMachineGunPhotos/mp5Photo.png");
+    final java.net.URL UMP_ICON_URL = getClass().getResource("SubMachineGunPhotos/ump45Photo.png");
+    final java.net.URL P90_ICON_URL = getClass().getResource("SubMachineGunPhotos/p90Photo.png");
+
     SubMachineGunMenu() {
 
         mainBuyMenu = new BuyMenuFrame();
@@ -41,7 +48,7 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("SubMachineGunPhotos/tmpPhoto.png").getImage());
+        this.setIconImage(new ImageIcon(SMG_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -216,31 +223,31 @@ public class SubMachineGunMenu extends JFrame implements ActionListener, KeyList
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == mac10Button) {
-            gunIcon = new ImageIcon("SubMachineGunPhotos/mac10Photo.png");
+            gunIcon = new ImageIcon(MAC10_ICON_URL);
             gunNamePriceLabel.setText("MAC10 : $1,400");
             changeIconLabel();
         }
 
         if (e.getComponent() == tmpButton) {
-            gunIcon = new ImageIcon("SubMachineGunPhotos/tmpPhoto.png");
+            gunIcon = new ImageIcon(TMP_ICON_URL);
             gunNamePriceLabel.setText("TMP : $1,250");
             changeIconLabel();
         }
 
         if (e.getComponent() == mp5NavyButton) {
-            gunIcon = new ImageIcon("SubMachineGunPhotos/mp5Photo.png");
+            gunIcon = new ImageIcon(MP5_ICON_URL);
             gunNamePriceLabel.setText("MP5 NAVY : $1,500");
             changeIconLabel();
         }
 
         if (e.getComponent() == umpButton) {
-            gunIcon = new ImageIcon("SubMachineGunPhotos/ump45Photo.png");
+            gunIcon = new ImageIcon(UMP_ICON_URL);
             gunNamePriceLabel.setText("UMP : $1,700");
             changeIconLabel();
         }
 
         if (e.getComponent() == p90Button) {
-            gunIcon = new ImageIcon("SubMachineGunPhotos/p90Photo.png");
+            gunIcon = new ImageIcon(P90_ICON_URL);
             gunNamePriceLabel.setText("P90 : $2,350");
             changeIconLabel();
         }
