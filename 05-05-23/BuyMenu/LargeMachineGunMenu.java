@@ -28,6 +28,9 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
     
     BuyMenuFrame mainBuyMenu;
 
+    final java.net.URL LMG_MENU_ICON_URL = getClass().getResource("LargeMachineGunPhotos/m249Photo.png");
+    final java.net.URL M249_ICON_URL = getClass().getResource("LargeMachineGunPhotos/m249Photo.png");
+
     LargeMachineGunMenu() {
 
         mainBuyMenu = new BuyMenuFrame();
@@ -37,7 +40,7 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("LargeMachineGunPhotos/m249Photo.png").getImage());
+        this.setIconImage(new ImageIcon(LMG_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -180,7 +183,7 @@ public class LargeMachineGunMenu extends JFrame implements ActionListener, KeyLi
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == m249Button) {
-            gunIcon = new ImageIcon("LargeMachineGunPhotos/m249Photo.png");
+            gunIcon = new ImageIcon(M249_ICON_URL);
             gunNamePriceLabel.setText("GLOCK : $400");
             changeIconLabel();
         }

@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -74,18 +73,18 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 	static Clip audioClip;
 	static FloatControl gainControl;
 
-	URL BUTTON_PRESSED_AUDIO_URL = getClass().getResource("AudioFiles/Computer Boop - Sound Effect.wav");
-	URL NO_ITEMS_AUDIO_URL = getClass().getResource("AudioFiles/Error \uFF5C Sound Effects (No Copyright).wav");
-	URL BUY_GUN_AUDIO_URL = getClass().getResource(
+	final java.net.URL BUTTON_PRESSED_AUDIO_URL = getClass().getResource("AudioFiles/Computer Boop - Sound Effect.wav");
+	final java.net.URL NO_ITEMS_AUDIO_URL = getClass().getResource("AudioFiles/Error \uFF5C Sound Effects (No Copyright).wav");
+	final java.net.URL BUY_GUN_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Item Pick up (Counter Strike Source) - Sound Effect for editing.wav");
-	URL BUY_BULLETS_AUDIO_URL = getClass().getResource(
+	final java.net.URL BUY_BULLETS_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Bullet falling \uFF5C Top Bullets \uFF5C Bullet sounds \uFF5C Bullet \uFF5C Sound Effect HD.wav");
-	URL BUY_EQUIPMENT_AUDIO_URL = getClass().getResource(
+	final java.net.URL BUY_EQUIPMENT_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Ammo Pick up (Counter Strike Source) - Sound Effect for editing.wav");
-	URL MENU_BACKGROUND_AUDIO_URL = getClass().getResource(
+	final java.net.URL MENU_BACKGROUND_AUDIO_URL = getClass().getResource(
 			"AudioFiles/Counter Strike\uFF1A Theme Song (1.6 Main Menu).wav");
 
-	URL MENU_ICON_URL = getClass().getResource("BuyMenuPhotos/buyMenuIcon.png");
+	final java.net.URL BUY_MENU_ICON_URL = getClass().getResource("BuyMenuPhotos/buyMenuIcon.png");
 
 	// ArrayList that will contain the orders of users
 	static ArrayList<JLabel> weaponOrderLabels = new ArrayList<JLabel>();
@@ -102,7 +101,7 @@ public class BuyMenuFrame extends JFrame implements ActionListener, KeyListener 
 		this.setLayout(new GridLayout(1, 2));
 		this.setResizable(false);
 		this.addKeyListener(this);
-		this.setIconImage(new ImageIcon(MENU_ICON_URL).getImage());
+		this.setIconImage(new ImageIcon(BUY_MENU_ICON_URL).getImage());
 
 		// Creating our JPanel that will contain our Gun Menu Buttons
 		weaponPanel = new JPanel();

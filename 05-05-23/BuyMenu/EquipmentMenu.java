@@ -34,10 +34,14 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
 
     BuyMenuFrame mainBuyMenu;
 
-    java.net.URL EQUIPMENT_MENU_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestPhoto.png");
-    java.net.URL KEVLAR_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestPhoto.png");
-    java.net.URL KEVLAR_HELMET_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestAndHelmetPhoto.png");
-    // TODO: add URL objects for other icons
+    final java.net.URL EQUIPMENT_MENU_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestPhoto.png");
+    final java.net.URL KEVLAR_ICON_URL = getClass().getResource("EquipmentMenuPhotos/kevlarVestPhoto.png");
+    final java.net.URL KEVLAR_HELMET_ICON_URL = getClass()
+            .getResource("EquipmentMenuPhotos/kevlarVestAndHelmetPhoto.png");
+    final java.net.URL HE_GRENADE_ICON_URL = getClass().getResource("EquipmentMenuPhotos/grenadePhoto.png");
+    final java.net.URL SMOKE_GRENADE_ICON_URL = getClass().getResource("EquipmentMenuPhotos/smokePhoto.png");
+    final java.net.URL FLASH_GRENADE_ICON_URL = getClass().getResource("EquipmentMenuPhotos/flashPhoto.png");
+    final java.net.URL NIGHT_VISION_URL = getClass().getResource("EquipmentMenuPhotos/nightVisionPhoto.png");
 
     EquipmentMenu() {
 
@@ -231,37 +235,37 @@ public class EquipmentMenu extends JFrame implements ActionListener, KeyListener
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == kevlarVestButton) {
-            gunIcon = new ImageIcon("EquipmentMenuPhotos/kevlarVestPhoto.png");
+            gunIcon = new ImageIcon(KEVLAR_ICON_URL);
             gunNamePriceLabel.setText("KEVLAR VEST : $650");
             changeIconLabel();
         }
 
         if (e.getComponent() == kevlarVestAndHelmetButton) {
-            gunIcon = new ImageIcon("EquipmentMenuPhotos/kevlarVestAndHelmetPhoto.png");
+            gunIcon = new ImageIcon(KEVLAR_HELMET_ICON_URL);
             gunNamePriceLabel.setText("KEVLAR VEST AND HELMET : $1,000");
             changeIconLabel();
         }
 
         if (e.getComponent() == grenadeButton) {
-            gunIcon = new ImageIcon("EquipmentMenuPhotos/grenadePhoto.png");
+            gunIcon = new ImageIcon(HE_GRENADE_ICON_URL);
             gunNamePriceLabel.setText("H.E. GRENADE : $300");
             changeIconLabel();
         }
 
         if (e.getComponent() == smokeButton) {
-            gunIcon = new ImageIcon("EquipmentMenuPhotos/smokePhoto.png");
+            gunIcon = new ImageIcon(SMOKE_GRENADE_ICON_URL);
             gunNamePriceLabel.setText("SMOKE GRENADE : $300");
             changeIconLabel();
         }
 
         if (e.getComponent() == flashbangButon) {
-            gunIcon = new ImageIcon("EquipmentMenuPhotos/flashPhoto.png");
+            gunIcon = new ImageIcon(FLASH_GRENADE_ICON_URL);
             gunNamePriceLabel.setText("FLASHBANG : $200");
             changeIconLabel();
         }
 
         if (e.getComponent() == nightVisionButton) {
-            gunIcon = new ImageIcon("EquipmentMenuPhotos/nightVisionPhoto.png");
+            gunIcon = new ImageIcon(NIGHT_VISION_URL);
             gunNamePriceLabel.setText("NIGHTVISION GOGGLES : $1,250");
             changeIconLabel();
         }

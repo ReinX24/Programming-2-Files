@@ -37,6 +37,14 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
 
     BuyMenuFrame mainBuyMenu;
 
+    final java.net.URL AMMO_MENU_ICON_URL = getClass().getResource("AmmoMenuPhotos/rifleAmmoPhoto.png");
+    final java.net.URL PISTOL_AMMO_URL = getClass().getResource("AmmoMenuPhotos/pistolAmmoPhoto.png");
+    final java.net.URL SHOTGUN_AMMO_URL = getClass().getResource("AmmoMenuPhotos/shotgunAmmoPhoto.png");
+    final java.net.URL SMG_AMMO_URL = getClass().getResource("AmmoMenuPhotos/smgAmmoPhoto.png");
+    final java.net.URL RIFLE_AMMO_URL = getClass().getResource("AmmoMenuPhotos/rifleAmmoPhoto.png");
+    final java.net.URL LMG_AMMO_URL = getClass().getResource("AmmoMenuPhotos/lmgAmmoPhoto.png");
+    final java.net.URL SNIPER_AMMO_URL = getClass().getResource("AmmoMenuPhotos/sniperAmmoPhoto.png");
+
     AmmoMenu() {
 
         mainBuyMenu = new BuyMenuFrame();
@@ -46,7 +54,7 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
         this.setLayout(new GridLayout(1, 2));
         this.setResizable(false);
         this.addKeyListener(this);
-        this.setIconImage(new ImageIcon("AmmoMenuPhotos/rifleAmmoPhoto.png").getImage());
+        this.setIconImage(new ImageIcon(AMMO_MENU_ICON_URL).getImage());
 
         gunButtonsPanel = new JPanel();
         gunButtonsPanel.setPreferredSize(new Dimension(500, 775));
@@ -59,7 +67,7 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
         smgAmmoButton = new JButton("3. SMG AMMO");
         rifleAmmoButton = new JButton("4. RIFLE AMMO");
         lmgAmmoButton = new JButton("5. LMG AMMO");
-        sniperAmmoButton = new JButton("6. SNIPER AMMO BUTTON");
+        sniperAmmoButton = new JButton("6. SNIPER AMMO");
 
         exitButton = new JButton("0. CANCEL");
 
@@ -252,37 +260,37 @@ public class AmmoMenu extends JFrame implements ActionListener, KeyListener, Mou
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getComponent() == pistolAmmoButton) {
-            gunIcon = new ImageIcon("AmmoMenuPhotos/pistolAmmoPhoto.png");
+            gunIcon = new ImageIcon(PISTOL_AMMO_URL);
             gunNamePriceLabel.setText("PISTOL AMMO : $1 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == shotgunAmmoButton) {
-            gunIcon = new ImageIcon("AmmoMenuPhotos/shotgunAmmoPhoto.png");
+            gunIcon = new ImageIcon(SHOTGUN_AMMO_URL);
             gunNamePriceLabel.setText("SHOTGUN AMMO: $3 per shell");
             changeIconLabel();
         }
 
         if (e.getComponent() == smgAmmoButton) {
-            gunIcon = new ImageIcon("AmmoMenuPhotos/smgAmmoPhoto.png");
+            gunIcon = new ImageIcon(SMG_AMMO_URL);
             gunNamePriceLabel.setText("SMG AMMO : $2 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == rifleAmmoButton) {
-            gunIcon = new ImageIcon("AmmoMenuPhotos/rifleAmmoPhoto.png");
+            gunIcon = new ImageIcon(RIFLE_AMMO_URL);
             gunNamePriceLabel.setText("RIFLE AMMO : $3 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == lmgAmmoButton) {
-            gunIcon = new ImageIcon("AmmoMenuPhotos/lmgAmmoPhoto.png");
+            gunIcon = new ImageIcon(LMG_AMMO_URL);
             gunNamePriceLabel.setText("LMG AMMO : $4 per bullet");
             changeIconLabel();
         }
 
         if (e.getComponent() == sniperAmmoButton) {
-            gunIcon = new ImageIcon("AmmoMenuPhotos/sniperAmmoPhoto.png");
+            gunIcon = new ImageIcon(SNIPER_AMMO_URL);
             gunNamePriceLabel.setText("SNIPER AMMO : $5 per bullet");
             changeIconLabel();
         }
